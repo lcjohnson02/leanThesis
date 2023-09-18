@@ -3,27 +3,18 @@ project:
   output-dir: docs
 
 book:
-  title: "How To Prove It With Lean"
+  title: "Untitled Lean Thesis"
   author:
-    - name: Daniel J. Velleman
-      orcid: 0000-0003-4632-1742
-      affiliations:
-        - name: Amherst College
-        - name: University of Vermont
-  page-footer: "© 2023 Daniel J. Velleman.<br>Short excerpts from Daniel J. Velleman, <a href='https://doi.org/10.1017/9781108539890'><i>How To Prove It: A Structured Approach, 3rd Edition</i></a><br>© Daniel J. Velleman 2019, published by Cambridge University Press, reprinted with permission."
+    - name: Logan Johnson
   downloads: pdf
   chapters:
     - index.qmd
     - Chap1.qmd
     - Chap2.qmd
-    - IntroLean.qmd
     - Chap3.qmd
     - Chap4.qmd
     - Chap5.qmd
     - Chap6.qmd
-    - Chap7.qmd
-    - Chap8.qmd
-    - Appendix.qmd
 
 format:
   html:

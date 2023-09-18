@@ -2,6 +2,150 @@
 \pagenumbering{arabic}
 \markdouble{Preface}
 
+I will not do my homework today.
+
+```{r}
+sum(4, 7, 3)
+```
+
+Hello World
+
+
+## Making Chapters
+
+I am using this section to figure out how to incorporate a table of contents and different sections/chapters of the paper. This should prove useful in the final thesis and allow readers to quickly jump to important or interesting sections. 
+
+
+## Incorporating Some Code
+
+
+I will also be able to use some LaTeX equations within the document which could halp to make the paper look quite nice. 
+
+If $a < b$ and $c \le d$, prove that $a + c \le b + d$.
+It just so happens that I was able to prove this using lean!
+
+```{}
+example (a b c d : ℝ) (h1: a < b) (h2 : c ≤ d) : a + c < b + d := by
+  by_cases h3 : c = d
+  rw [h3]
+  apply add_lt_add_right h1
+  push_neg at h3
+  have h4 : c < d := by
+    apply Ne.lt_of_le h3 h2
+  apply add_lt_add h1 h4
+  done
+```
+
+Now to display the benefits of the lean infoview!
+
+## Showing the Infoview with Picture Sequences
+
+Not going to do this now as I think the columns are far superior.
+
+## Showing Infoview with Columns
+
+:::: {.columns}
+
+::: {.column width="70%"}
+[Lean File]{.underline}
+
+```{}
+example (a b c d : ℝ) (h1: a < b) (h2 : c ≤ d) : a + c < b + d := by
+
+  done
+```
+:::
+
+::: {.column width="10%"}
+<!-- empty space -->
+:::
+
+::: {.column width="20%"}
+[Infoview]{.underline}
+
+```{}
+R: Type u_1
+inst✝: Ring R
+abcd: ℝ
+h1: a < b
+h2: c ≤ d
+⊢ a + c < b + d
+```
+:::
+
+::::
+
+As we can clearly see, this is the first step of the code and it can now be explained with great ease. Now onto the next step!
+
+:::: {.columns}
+
+::: {.column width="70%"}
+[Lean File]{.underline}
+```{r eval = FALSE}
+example (a b c d : ℝ) (h1: a < b) (h2 : c ≤ d) : a + c < b + d := by
+  by_cases h3 : c = d
+
+  done
+```
+:::
+
+::: {.column width="10%"}
+<!-- blank space-->
+:::
+
+::: {.column width="20%"}
+[Infoview]{.underline}
+```
+case pos
+R: Type u_1
+inst✝: Ring R
+abcd: ℝ
+h1: a < b
+h2: c ≤ d
+h3: c = d
+⊢ a + c < b + d
+case neg
+R: Type u_1
+inst✝: Ring R
+abcd: ℝ
+h1: a < b
+h2: c ≤ d
+h3: ¬c = d
+⊢ a + c < b + d
+```
+:::
+::::
+We can see here that lean is smart enough to split our goal into two different goals, where each one uses a different case by our assumption.
+
+
+I believe that displaying the code in unevaluated R chunks could prove useful as it looks nicer than just being a basic preformatted chunk and it takes less work than doing css work or something.
+
+
+
+
+::: {.inout}
+::: {.inpt}
+```lean
+theorem Example_3_2_4_v2 (P Q R : Prop)
+    (h : P → (Q → R)) : ¬R → (P → ¬Q) := by
+  assume h2 : ¬R
+  assume h3 : P
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+P Q R : Prop
+h : P → Q → R
+h2 : ¬R
+h3 : P
+⊢ ¬Q
+```
+:::
+:::
+
+
 ## About This Book
 
 This book is intended to accompany my book [*How To Prove It: A Structured Approach, 3rd edition*](https://doi.org/10.1017/9781108539890) (henceforth called *HTPI*), which is published by Cambridge University Press.  Although this book is self-contained, we will sometimes have occasion to refer to passages in *HTPI*, so this book will be easiest to understand if you have a copy of *HTPI* available to you.
