@@ -1,6 +1,5 @@
 # Real Analysis
 
-
 ::: {style="margin: 0% 20%"}
 | Symbol | Meaning |
 |:------:|:-------:|

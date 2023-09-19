@@ -34,7 +34,7 @@ format:
     include-before-body: thmdefs.tex
     monofont: JuliaMono
     keep-tex: true
-    date: \small Amherst College and University of Vermont
+    date: \small Georgetown College
 
 filters:
   - latex-environment

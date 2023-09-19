@@ -1,5 +1,5 @@
 # Functional Programming
-\markdouble{2 Quantificational Logic}
+
 
 ::: {.quote}
 $\forall x\,P(x)$ means "for all $x$, $P(x)$,"
