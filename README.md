@@ -1,2 +1,2 @@
-# How To Prove It With Lean
- These are the source files for a book about using Lean with How To Prove It.  You can read the book [here](https://djvelleman.github.io/HTPIwL/).
+# Untitled Lean Thesis
+ These are the files for my honors thesis on lean, which can be read [here](https://lcjohnson02.github.io/leanThesis/). This work had been formatted and styled from the book *How To Prove It With Lean*, written by Daniel J. Velleman. *How To Prove It With Lean* contains short excerpts from *How To Prove It: A Structured Approach, 3rd Edition*, by Daniel J. Velleman and published by Cambridge University Press.
