@@ -1,7 +1,226 @@
 # Lean as a Theorem Prover
 
 
-## 3.1 & 3.2. Proofs Involving Negations and Conditionals
+## Inequality Addition
+
+Step 1
+Putting the initial theorem we want to show in lean code and observing the final goal in the infoview.
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b c d : ℝ) (h1: a < b) 
+    (h2 : c ≤ d) : a + c < b + d := by
+  
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+abcd: ℝ
+h1: a < b
+h2: c ≤ d
+⊢ a + c < b + d
+```
+:::
+:::
+
+
+Step 2
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b c d : ℝ) (h1: a < b) 
+    (h2 : c ≤ d) : a + c < b + d := by
+  by_cases h3 : c = d
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+abcd: ℝ
+h1: a < b
+h2: c ≤ d
+h3: c = d
+⊢ a + c < b + d
+```
+:::
+:::
+
+Step 3
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b c d : ℝ) (h1: a < b) 
+    (h2 : c ≤ d) : a + c < b + d := by
+  by_cases h3 : c = d
+  rw [h3]
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+abcd: ℝ
+h1: a < b
+h2: c ≤ d
+h3: c = d
+⊢ a + d < b + d
+```
+:::
+:::
+
+Step 4
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b c d : ℝ) (h1: a < b) 
+    (h2 : c ≤ d) : a + c < b + d := by
+  by_cases h3 : c = d
+  rw [h3]
+  apply add_lt_add_right h1
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+abcd: ℝ
+h1: a < b
+h2: c ≤ d
+h3: ¬c = d
+⊢ a + c < b + d
+```
+:::
+:::
+
+Step 5
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b c d : ℝ) (h1: a < b) 
+    (h2 : c ≤ d) : a + c < b + d := by
+  by_cases h3 : c = d
+  rw [h3]
+  apply add_lt_add_right h1
+  push_neg at h3
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+abcd: ℝ
+h1: a < b
+h2: c ≤ d
+h3: c ≠ d
+⊢ a + c < b + d
+```
+:::
+:::
+
+Step 6a
+We can see here that the lean infoview is now displaying my new hypothesis as the current goal.
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b c d : ℝ) (h1: a < b) 
+    (h2 : c ≤ d) : a + c < b + d := by
+  by_cases h3 : c = d
+  rw [h3]
+  apply add_lt_add_right h1
+  push_neg at h3
+  have h4 : c < d := by
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+abcd: ℝ
+h1: a < b
+h2: c ≤ d
+h3: c ≠ d
+⊢ c < d
+```
+:::
+:::
+
+Step 6b
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b c d : ℝ) (h1: a < b) 
+    (h2 : c ≤ d) : a + c < b + d := by
+  by_cases h3 : c = d
+  rw [h3]
+  apply add_lt_add_right h1
+  push_neg at h3
+  have h4 : c < d := by
+    apply Ne.lt_of_le h3 h2
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+No goals
+```
+:::
+:::
+
+Step 7
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b c d : ℝ) (h1: a < b) 
+    (h2 : c ≤ d) : a + c < b + d := by
+  by_cases h3 : c = d
+  rw [h3]
+  apply add_lt_add_right h1
+  push_neg at h3
+  have h4 : c < d := by
+    apply Ne.lt_of_le h3 h2
+  apply add_lt_add h1 h4
+  done
+```
+:::
+
+::: {.outpt}
+```state
+No goals
+```
+:::
+:::
+
+
 
 
 

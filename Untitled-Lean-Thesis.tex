@@ -334,7 +334,7 @@ Short excerpts from Daniel J. Velleman,
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, sharp corners, boxrule=0pt, breakable, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, borderline west={3pt}{0pt}{shadecolor}, breakable, frame hidden, interior hidden, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -554,9 +554,272 @@ Contrapositive Law & \(P \to Q\) & is equivalent to &
 \hypertarget{lean-as-a-theorem-prover}{%
 \chapter{Lean as a Theorem Prover}\label{lean-as-a-theorem-prover}}
 
-\hypertarget{proofs-involving-negations-and-conditionals}{%
-\section{3.1 \& 3.2. Proofs Involving Negations and
-Conditionals}\label{proofs-involving-negations-and-conditionals}}
+\hypertarget{inequality-addition}{%
+\section{Inequality Addition}\label{inequality-addition}}
+
+Step 1 Putting the initial theorem we want to show in lean code and
+observing the final goal in the infoview.
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{abcd}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: a \textless{} b}
+\InformationTok{h2}\NormalTok{: c ≤ d}
+\NormalTok{⊢ a + c \textless{} b + d}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 2
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  \KeywordTok{by\_cases}\NormalTok{ h3 : c = d}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{abcd}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: a \textless{} b}
+\InformationTok{h2}\NormalTok{: c ≤ d}
+\InformationTok{h3}\NormalTok{: c = d}
+\NormalTok{⊢ a + c \textless{} b + d}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 3
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  \KeywordTok{by\_cases}\NormalTok{ h3 : c = d}
+  \KeywordTok{rw}\NormalTok{ [h3]}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{abcd}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: a \textless{} b}
+\InformationTok{h2}\NormalTok{: c ≤ d}
+\InformationTok{h3}\NormalTok{: c = d}
+\NormalTok{⊢ a + d \textless{} b + d}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 4
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  \KeywordTok{by\_cases}\NormalTok{ h3 : c = d}
+  \KeywordTok{rw}\NormalTok{ [h3]}
+  \KeywordTok{apply}\NormalTok{ add\_lt\_add\_right h1}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{abcd}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: a \textless{} b}
+\InformationTok{h2}\NormalTok{: c ≤ d}
+\InformationTok{h3}\NormalTok{: ¬c = d}
+\NormalTok{⊢ a + c \textless{} b + d}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 5
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  \KeywordTok{by\_cases}\NormalTok{ h3 : c = d}
+  \KeywordTok{rw}\NormalTok{ [h3]}
+  \KeywordTok{apply}\NormalTok{ add\_lt\_add\_right h1}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h3}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{abcd}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: a \textless{} b}
+\InformationTok{h2}\NormalTok{: c ≤ d}
+\InformationTok{h3}\NormalTok{: c ≠ d}
+\NormalTok{⊢ a + c \textless{} b + d}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 6a We can see here that the lean infoview is now displaying my new
+hypothesis as the current goal.
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  \KeywordTok{by\_cases}\NormalTok{ h3 : c = d}
+  \KeywordTok{rw}\NormalTok{ [h3]}
+  \KeywordTok{apply}\NormalTok{ add\_lt\_add\_right h1}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h3}
+  \KeywordTok{have}\NormalTok{ h4 : c \textless{} d := }\KeywordTok{by}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{abcd}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: a \textless{} b}
+\InformationTok{h2}\NormalTok{: c ≤ d}
+\InformationTok{h3}\NormalTok{: c ≠ d}
+\NormalTok{⊢ c \textless{} d}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 6b
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  \KeywordTok{by\_cases}\NormalTok{ h3 : c = d}
+  \KeywordTok{rw}\NormalTok{ [h3]}
+  \KeywordTok{apply}\NormalTok{ add\_lt\_add\_right h1}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h3}
+  \KeywordTok{have}\NormalTok{ h4 : c \textless{} d := }\KeywordTok{by}
+    \KeywordTok{apply}\NormalTok{ Ne.lt\_of\_le h3 h2}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\SpecialStringTok{No}\InformationTok{ }\SpecialStringTok{goals}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 7
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  \KeywordTok{by\_cases}\NormalTok{ h3 : c = d}
+  \KeywordTok{rw}\NormalTok{ [h3]}
+  \KeywordTok{apply}\NormalTok{ add\_lt\_add\_right h1}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h3}
+  \KeywordTok{have}\NormalTok{ h4 : c \textless{} d := }\KeywordTok{by}
+    \KeywordTok{apply}\NormalTok{ Ne.lt\_of\_le h3 h2}
+  \KeywordTok{apply}\NormalTok{ add\_lt\_add h1 h4}
+  \KeywordTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\SpecialStringTok{No}\InformationTok{ }\SpecialStringTok{goals}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
 
 \hypertarget{to-prove-a-goal-of-the-form-p-q}{%
 \subsubsection{\texorpdfstring{To prove a goal of the form
