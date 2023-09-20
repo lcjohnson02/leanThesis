@@ -6,6 +6,7 @@ book:
   title: "Untitled Lean Thesis"
   author:
     - name: Logan Johnson
+  page-footer: "Logan Johnson 2023"
   downloads: pdf
   chapters:
     - index.qmd
