@@ -1,0 +1,36 @@
+\newcommand{\fromtop}[1]{%
+  \dimexpr-1in-\topskip-\topmargin-\headheight-\headsep+#1\relax
+}
+\newcommand{\fromleft}[1]{%
+  \dimexpr-1in-\oddsidemargin+#1\relax
+}
+\begin{titlepage}
+\cleardoublepage
+\thispagestyle{empty}
+\begin{textblock*}{\paperwidth}(\fromleft{0cm},\fromtop{144pt})
+\centering
+UNTITLED LEAN THESIS
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{0cm},\fromtop{300pt})
+\centering
+A Thesis Submitted to the Faculty of\\
+\vspace{12pt}
+Georgetown College\\
+\vspace{12pt}
+In Partial Fulfillment of the Requirements for the\\
+\vspace{12pt}
+Honors Program
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{0cm},\fromtop{492pt})
+\centering
+By\\
+\vspace{12pt}
+Logan Johnson
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{0cm},\fromtop{600pt})
+\centering
+Georgetown, Kentucky\\
+\vspace{12pt}
+May 2024
+\end{textblock*}
+\end{titlepage}

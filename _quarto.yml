@@ -36,6 +36,8 @@ format:
     monofont: JuliaMono
     keep-tex: true
     date: \small Georgetown College
+    template-partials:
+      - before-body.tex
 
 filters:
   - latex-environment
