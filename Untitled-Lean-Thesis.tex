@@ -362,6 +362,29 @@ title page and has no page number. It goes on like this for about 150 words, so 
 this page. Note that the Abstract comes before the title page and has no page number. If your
 abstract is more than 250 words, consider shortening it.
 \end{textblock*}
+\pagebreak
+\thispagestyle{empty}
+\begin{textblock*}{\paperwidth}(\fromleft{2in},\fromtop{144pt})
+APPROVED BY THE DIRECTOR OF HONORS THESES:
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{3in},\fromtop{192pt})
+\underline{\hspace{4.5in}}
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{3in},\fromtop{216pt})
+Dr. Homer White, Department of Mathematics
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{2in},\fromtop{396pt})
+APPROVED BY THE HONORS PROGRAM:
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{2in},\fromtop{444pt})
+\underline{\hspace{4.5in}}
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{2in},\fromtop{468pt})
+Dr. Barbara Burch, Director
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{1.5in},\fromtop{612pt})
+DATE:\underline{\hspace{2in}}
+\end{textblock*}
 \end{titlepage}%Can't be in preamble because Quarto loads amsthm too late.
 \theoremstyle{plain}
 \newtheorem*{thm}{Theorem}
@@ -391,7 +414,7 @@ abstract is more than 250 words, consider shortening it.
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, borderline west={3pt}{0pt}{shadecolor}, interior hidden, boxrule=0pt, sharp corners, enhanced, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, boxrule=0pt, enhanced, borderline west={3pt}{0pt}{shadecolor}, breakable, sharp corners]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
