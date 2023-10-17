@@ -348,7 +348,7 @@ idk dr burch?? maybe dr white???
 \end{textblock*}
 \begin{textblock*}{\textwidth}(\fromleft{1.5in},\fromtop{300pt})
 \raggedright
-I'm fr out here putting words on a page . . . they'll really just let anyone write a thesis these days. Here is the text of your abstract. It goes on and on and on. It goes on like this for about
+Here is the text of your abstract. It goes on and on and on. It goes on like this for about
 150 words, so it should all fit on this page. Note that the Abstract comes before the title page and
 has no page number. The rest of this paragraph is a filler. It goes on like this for about 150
 words, so it should all fit on this page. Note that the Abstract comes before the title page and has
@@ -414,7 +414,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, boxrule=0pt, enhanced, borderline west={3pt}{0pt}{shadecolor}, breakable, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, boxrule=0pt, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, sharp corners]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -633,6 +633,29 @@ Contrapositive Law & \(P \to Q\) & is equivalent to &
 
 \hypertarget{lean-as-a-theorem-prover}{%
 \chapter{Lean as a Theorem Prover}\label{lean-as-a-theorem-prover}}
+
+\hypertarget{differences-from-paragraph-style-proofs}{%
+\section{Differences From Paragraph Style
+Proofs}\label{differences-from-paragraph-style-proofs}}
+
+Despite the incredible power that lean could provide in the verification
+of mathematical proofs, this does pose some difficulties, namely the
+ease with which the aforementioned proofs can be written up. Typically,
+proofs are simply written up in a paragraph style, where the steps being
+taken and the theorems being applied are laid out in plain terms so that
+it can be easily understood by fellow mathematicians. There are often
+times when mathematicians will take things for granted or skip over
+steps that they think the reader will either already know to be fact or
+can easily reason out for themselves when writing out typical proofs.
+This lax approach for conveying information simply does not work when
+trying to communicate with technology, and a much more specific and
+methodical approach must be adopted in order to take advantage of the
+logical verification benefits. Thankfully, lean has a community working
+to create libraries of previously proven theorems that can be applied to
+speed up the writing and verification of future proofs. This thankfully
+means that all proofs do not need to be taken all the way back to basic
+axioms: Users can save time by avoiding proving adjacent theorems and
+instead focus only on the immediately relevant steps of their proof.
 
 \hypertarget{inequality-addition}{%
 \section{Inequality Addition}\label{inequality-addition}}
@@ -900,6 +923,459 @@ Step 7
 \end{Shaded}
 
 \end{outpt}
+
+\hypertarget{absolute-convergence}{%
+\section{Absolute Convergence}\label{absolute-convergence}}
+
+I will now display how I used to lean to demonstrate that a sequence
+converges if and only if the absolute value of that sequence converges.
+
+Laying out the goal
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\NormalTok{⊢ ConvergesTo s1 0 ↔ ConvergesTo |s1| 0}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 1
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\NormalTok{⊢ (∀ (ε : ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n {-} 0| \textless{} ε) ↔}
+\InformationTok{  ∀ (ε }\NormalTok{: ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n {-} 0| \textless{} ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 2
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    
+    \KeywordTok{done}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\InformationTok{x}\NormalTok{: ℕ}
+\NormalTok{⊢ |s1 x| = |abs s1 x|}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 3
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    \KeywordTok{simp}\NormalTok{ [abs]}
+    \KeywordTok{done}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\InformationTok{h3}\NormalTok{: ∀ (x : ℕ), |s1 x| = |abs s1 x|}
+\NormalTok{⊢ (∀ (ε : ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n {-} 0| \textless{} ε) ↔}
+\InformationTok{  ∀ (ε }\NormalTok{: ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n {-} 0| \textless{} ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 4
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    \KeywordTok{simp}\NormalTok{ [abs]}
+    \KeywordTok{done}
+  \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{  · }\CommentTok{{-}{-}Forwards}
+
+\NormalTok{  · }\CommentTok{{-}{-}Reverse}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\InformationTok{h3}\NormalTok{: ∀ (x : ℕ), |s1 x| = |abs s1 x|}
+\NormalTok{⊢ (∀ (ε : ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n {-} 0| \textless{} ε) →}
+\InformationTok{  ∀ (ε }\NormalTok{: ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n {-} 0| \textless{} ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 5
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    \KeywordTok{simp}\NormalTok{ [abs]}
+    \KeywordTok{done}
+  \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{  · }\CommentTok{{-}{-}Forwards}
+\NormalTok{    intro h1}
+
+\NormalTok{  · }\CommentTok{{-}{-}Reverse}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\InformationTok{h3}\NormalTok{: ∀ (x : ℕ), |s1 x| = |abs s1 x|}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n {-} 0| \textless{} ε}
+\NormalTok{⊢ ∀ (ε : ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n {-} 0| \textless{} ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 6
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    \KeywordTok{simp}\NormalTok{ [abs]}
+    \KeywordTok{done}
+  \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{  · }\CommentTok{{-}{-}Forwards}
+\NormalTok{    intro h1}
+    \KeywordTok{simp}
+
+\NormalTok{  · }\CommentTok{{-}{-}Reverse}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\InformationTok{h3}\NormalTok{: ∀ (x : ℕ), |s1 x| = |abs s1 x|}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n {-} 0| \textless{} ε}
+\NormalTok{⊢ ∀ (ε : ℝ), 0 \textless{} ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| \textless{} ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 7
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    \KeywordTok{simp}\NormalTok{ [abs]}
+    \KeywordTok{done}
+  \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{  · }\CommentTok{{-}{-}Forwards}
+\NormalTok{    intro h1}
+    \KeywordTok{simp}
+    \KeywordTok{simp} \KeywordTok{at}\NormalTok{ h1}
+
+\NormalTok{  · }\CommentTok{{-}{-}Reverse}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\InformationTok{h3}\NormalTok{: ∀ (x : ℕ), |s1 x| = |abs s1 x|}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), 0 \textless{} ε → ∃ N, ∀ (n : ℕ), N ≤ n → |s1 n| \textless{} ε}
+\NormalTok{⊢ ∀ (ε : ℝ), 0 \textless{} ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| \textless{} ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 8
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    \KeywordTok{simp}\NormalTok{ [abs]}
+    \KeywordTok{done}
+  \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{  · }\CommentTok{{-}{-}Forwards}
+\NormalTok{    intro h1}
+    \KeywordTok{simp}
+    \KeywordTok{simp} \KeywordTok{at}\NormalTok{ h1}
+    \KeywordTok{simp}\NormalTok{ [← h3]}
+
+\NormalTok{  · }\CommentTok{{-}{-}Reverse}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\InformationTok{h3}\NormalTok{: ∀ (x : ℕ), |s1 x| = |abs s1 x|}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), 0 \textless{} ε → ∃ N, ∀ (n : ℕ), N ≤ n → |s1 n| \textless{} ε}
+\NormalTok{⊢ ∀ (ε : ℝ), 0 \textless{} ε → ∃ N, ∀ (n : ℕ), N ≤ n → |s1 n| \textless{} ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 9
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    \KeywordTok{simp}\NormalTok{ [abs]}
+    \KeywordTok{done}
+  \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{  · }\CommentTok{{-}{-}Forwards}
+\NormalTok{    intro h1}
+    \KeywordTok{simp}
+    \KeywordTok{simp} \KeywordTok{at}\NormalTok{ h1}
+    \KeywordTok{simp}\NormalTok{ [← h3]}
+    \KeywordTok{apply}\NormalTok{ h1}
+\NormalTok{  · }\CommentTok{{-}{-}Reverse}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\InformationTok{h3}\NormalTok{: ∀ (x : ℕ), |s1 x| = |abs s1 x|}
+\NormalTok{⊢ (∀ (ε : ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n {-} 0| \textless{} ε) →}
+\InformationTok{  ∀ (ε }\NormalTok{: ℝ), ε \textgreater{} 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n {-} 0| \textless{} ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 10
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    \KeywordTok{simp}\NormalTok{ [abs]}
+    \KeywordTok{done}
+  \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{  · }\CommentTok{{-}{-}Forwards}
+\NormalTok{    intro h1}
+    \KeywordTok{simp}
+    \KeywordTok{simp} \KeywordTok{at}\NormalTok{ h1}
+    \KeywordTok{simp}\NormalTok{ [← h3]}
+    \KeywordTok{apply}\NormalTok{ h1}
+\NormalTok{  · }\CommentTok{{-}{-}Reverse}
+\NormalTok{    intro h1}
+    \KeywordTok{simp}
+    \KeywordTok{simp} \KeywordTok{at}\NormalTok{ h1}
+\NormalTok{    simp\_rw [h3]}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{s1}\NormalTok{: ℕ → ℝ}
+\InformationTok{h3}\NormalTok{: ∀ (x : ℕ), |s1 x| = |abs s1 x|}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), 0 \textless{} ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| \textless{} ε}
+\NormalTok{⊢ ∀ (ε : ℝ), 0 \textless{} ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| \textless{} ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 11
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔}
+\NormalTok{    ConvergesTo (abs s1) (0 : ℝ) := }\KeywordTok{by}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{rw}\NormalTok{ [ConvergesTo]}
+  \KeywordTok{have}\NormalTok{ h3 (x : ℕ) : |s1 x| = |abs s1 x| := }\KeywordTok{by}
+    \KeywordTok{simp}\NormalTok{ [abs]}
+    \KeywordTok{done}
+  \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{  · }\CommentTok{{-}{-}Forwards}
+\NormalTok{    intro h1}
+    \KeywordTok{simp}
+    \KeywordTok{simp} \KeywordTok{at}\NormalTok{ h1}
+    \KeywordTok{simp}\NormalTok{ [← h3]}
+    \KeywordTok{apply}\NormalTok{ h1}
+\NormalTok{  · }\CommentTok{{-}{-}Reverse}
+\NormalTok{    intro h1}
+    \KeywordTok{simp}
+    \KeywordTok{simp} \KeywordTok{at}\NormalTok{ h1}
+\NormalTok{    simp\_rw [h3]}
+    \KeywordTok{apply}\NormalTok{ h1}
+  \KeywordTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\SpecialStringTok{No}\InformationTok{ }\SpecialStringTok{goals}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+\hypertarget{perhaps-a-third-great-example}{%
+\section{Perhaps a Third Great
+Example??}\label{perhaps-a-third-great-example}}
 
 \hypertarget{to-prove-a-goal-of-the-form-p-q}{%
 \subsubsection{\texorpdfstring{To prove a goal of the form

@@ -1,5 +1,9 @@
 # Lean as a Theorem Prover
 
+## Differences From Paragraph Style Proofs
+
+Despite the incredible power that lean could provide in the verification of mathematical proofs, this does pose some difficulties, namely the ease with which the aforementioned proofs can be written up. Typically, proofs are simply written up in a paragraph style, where the steps being taken and the theorems being applied are laid out in plain terms so that it can be easily understood by fellow mathematicians. There are often times when mathematicians will take things for granted or skip over steps that they think the reader will either already know to be fact or can easily reason out for themselves when writing out typical proofs. This lax approach for conveying information simply does not work when trying to communicate with technology, and a much more specific and methodical approach must be adopted in order to take advantage of the logical verification benefits. Thankfully, lean has a community working to create libraries of previously proven theorems that can be applied to speed up the writing and verification of future proofs. This thankfully means that all proofs do not need to be taken all the way back to basic axioms: Users can save time by avoiding proving adjacent theorems and instead focus only on the immediately relevant steps of their proof. 
+
 
 ## Inequality Addition
 
@@ -219,6 +223,388 @@ No goals
 ```
 :::
 :::
+
+
+## Absolute Convergence
+I will now display how I used to lean to demonstrate that a sequence converges if and only if the absolute value of that sequence converges.
+
+Laying out the goal
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+⊢ ConvergesTo s1 0 ↔ ConvergesTo |s1| 0
+```
+:::
+:::
+
+Step 1
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+⊢ (∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε) ↔
+  ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε
+```
+:::
+:::
+
+Step 2
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    
+    done
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+x: ℕ
+⊢ |s1 x| = |abs s1 x|
+```
+:::
+:::
+
+Step 3
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    simp [abs]
+    done
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
+⊢ (∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε) ↔
+  ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε
+```
+:::
+:::
+
+Step 4
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    simp [abs]
+    done
+  apply Iff.intro
+  · --Forwards
+
+  · --Reverse
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
+⊢ (∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε) →
+  ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε
+```
+:::
+:::
+
+Step 5
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    simp [abs]
+    done
+  apply Iff.intro
+  · --Forwards
+    intro h1
+
+  · --Reverse
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
+h1: ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε
+⊢ ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε
+```
+:::
+:::
+
+Step 6
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    simp [abs]
+    done
+  apply Iff.intro
+  · --Forwards
+    intro h1
+    simp
+
+  · --Reverse
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
+h1: ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε
+⊢ ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| < ε
+```
+:::
+:::
+
+Step 7
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    simp [abs]
+    done
+  apply Iff.intro
+  · --Forwards
+    intro h1
+    simp
+    simp at h1
+
+  · --Reverse
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
+h1: ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |s1 n| < ε
+⊢ ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| < ε
+```
+:::
+:::
+
+Step 8
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    simp [abs]
+    done
+  apply Iff.intro
+  · --Forwards
+    intro h1
+    simp
+    simp at h1
+    simp [← h3]
+
+  · --Reverse
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
+h1: ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |s1 n| < ε
+⊢ ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |s1 n| < ε
+```
+:::
+:::
+
+Step 9
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    simp [abs]
+    done
+  apply Iff.intro
+  · --Forwards
+    intro h1
+    simp
+    simp at h1
+    simp [← h3]
+    apply h1
+  · --Reverse
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
+⊢ (∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε) →
+  ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε
+```
+:::
+:::
+
+Step 10
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    simp [abs]
+    done
+  apply Iff.intro
+  · --Forwards
+    intro h1
+    simp
+    simp at h1
+    simp [← h3]
+    apply h1
+  · --Reverse
+    intro h1
+    simp
+    simp at h1
+    simp_rw [h3]
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+s1: ℕ → ℝ
+h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
+h1: ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| < ε
+⊢ ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| < ε
+```
+:::
+:::
+
+Step 11
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) := by
+  rw [ConvergesTo]
+  rw [ConvergesTo]
+  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+    simp [abs]
+    done
+  apply Iff.intro
+  · --Forwards
+    intro h1
+    simp
+    simp at h1
+    simp [← h3]
+    apply h1
+  · --Reverse
+    intro h1
+    simp
+    simp at h1
+    simp_rw [h3]
+    apply h1
+  done
+```
+:::
+
+::: {.outpt}
+```state
+No goals
+```
+:::
+:::
+
+
+
+
+
+## Perhaps a Third Great Example??
+
 
 
 
