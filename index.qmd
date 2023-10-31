@@ -2,18 +2,7 @@
 \pagenumbering{arabic}
 \markdouble{Preface}
 
-I will not do my homework today.
 
-```{r}
-sum(4, 7, 3)
-```
-
-Hello World
-
-
-## Making Chapters
-
-I am using this section to figure out how to incorporate a table of contents and different sections/chapters of the paper. This should prove useful in the final thesis and allow readers to quickly jump to important or interesting sections. 
 
 
 ## Incorporating Some Code

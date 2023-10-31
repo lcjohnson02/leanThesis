@@ -414,7 +414,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, breakable, boxrule=0pt, interior hidden, frame hidden, enhanced, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, sharp corners, boxrule=0pt, enhanced, breakable, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -920,6 +920,450 @@ Step 7
   \KeywordTok{have}\NormalTok{ h4 : c \textless{} d := }\KeywordTok{by}
     \KeywordTok{apply}\NormalTok{ Ne.lt\_of\_le h3 h2}
   \KeywordTok{apply}\NormalTok{ add\_lt\_add h1 h4}
+  \KeywordTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\SpecialStringTok{No}\InformationTok{ }\SpecialStringTok{goals}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+\hypertarget{a-is-less-than-or-equal-to-b}{%
+\section{a is Less Than or Equal to
+b}\label{a-is-less-than-or-equal-to-b}}
+
+Setting up the problem
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\NormalTok{⊢ a ≤ b}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 1
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\InformationTok{h2}\NormalTok{: ¬a ≤ b}
+\NormalTok{⊢ False}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 2
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
+  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\InformationTok{h2}\NormalTok{: b \textless{} a}
+\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
+\NormalTok{⊢ False}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 3
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
+  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
+  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
+
+    \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\InformationTok{h2}\NormalTok{: b \textless{} a}
+\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
+\NormalTok{⊢ ε \textgreater{} 0}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 4
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
+  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
+  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
+\NormalTok{    refine half\_pos ?h}
+
+      \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\InformationTok{h2}\NormalTok{: b \textless{} a}
+\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
+\NormalTok{⊢ 0 \textless{} a {-} b}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 5
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
+  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
+  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
+\NormalTok{    refine half\_pos ?h}
+    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+    \KeywordTok{done}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\InformationTok{h2}\NormalTok{: b \textless{} a}
+\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
+\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
+\NormalTok{⊢ False}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 6
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
+  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
+  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
+\NormalTok{    refine half\_pos ?h}
+    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+    \KeywordTok{done}
+  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
+
+    \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\InformationTok{h2}\NormalTok{: b \textless{} a}
+\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
+\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
+\NormalTok{⊢ a ≤ b + ε}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 7
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
+  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
+  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
+\NormalTok{    refine half\_pos ?h}
+    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+    \KeywordTok{done}
+  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
+    \KeywordTok{apply}\NormalTok{ h1}
+
+    \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\InformationTok{h2}\NormalTok{: b \textless{} a}
+\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
+\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
+\NormalTok{⊢ ε \textgreater{} 0}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 8
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
+  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
+  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
+\NormalTok{    refine half\_pos ?h}
+    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+    \KeywordTok{done}
+  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
+    \KeywordTok{apply}\NormalTok{ h1}
+    \KeywordTok{apply}\NormalTok{ h3}
+    \KeywordTok{done}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\InformationTok{h2}\NormalTok{: b \textless{} a}
+\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
+\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
+\InformationTok{h4}\NormalTok{: a ≤ b + ε}
+\NormalTok{⊢ False}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 9
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
+  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
+  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
+\NormalTok{    refine half\_pos ?h}
+    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+    \KeywordTok{done}
+  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
+    \KeywordTok{apply}\NormalTok{ h1}
+    \KeywordTok{apply}\NormalTok{ h3}
+    \KeywordTok{done}
+\NormalTok{  dsimp }\KeywordTok{at}\NormalTok{ h4}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\InformationTok{R}\NormalTok{: Type u\_1}
+\InformationTok{inst✝}\NormalTok{: Ring R}
+\InformationTok{ab}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
+\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
+\InformationTok{h2}\NormalTok{: b \textless{} a}
+\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
+\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
+\InformationTok{h4}\NormalTok{: a ≤ b + (a {-} b) / 2}
+\NormalTok{⊢ False}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+Step 10
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
+\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
+\NormalTok{    a ≤ b := }\KeywordTok{by}
+  \KeywordTok{by\_contra}\NormalTok{ h2}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
+  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
+  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
+\NormalTok{    refine half\_pos ?h}
+    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+    \KeywordTok{done}
+  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
+    \KeywordTok{apply}\NormalTok{ h1}
+    \KeywordTok{apply}\NormalTok{ h3}
+    \KeywordTok{done}
+\NormalTok{  dsimp }\KeywordTok{at}\NormalTok{ h4}
+  \KeywordTok{linarith}
   \KeywordTok{done}
 \end{Highlighting}
 \end{Shaded}
@@ -1477,449 +1921,120 @@ Step 11
 
 \end{outpt}
 
-\hypertarget{a-is-less-than-or-equal-to-b}{%
-\section{a is Less Than or Equal to
-b}\label{a-is-less-than-or-equal-to-b}}
+\hypertarget{convergence-of-a-specific-sequence}{%
+\section{Convergence of a Specific
+Sequence}\label{convergence-of-a-specific-sequence}}
 
-Setting up the problem
-
-\begin{inpt}
+example of lean bad.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\NormalTok{⊢ a ≤ b}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 1
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\InformationTok{h2}\NormalTok{: ¬a ≤ b}
-\NormalTok{⊢ False}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 2
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
-  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\InformationTok{h2}\NormalTok{: b \textless{} a}
-\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
-\NormalTok{⊢ False}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 3
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
-  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
-  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
-
-    \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\InformationTok{h2}\NormalTok{: b \textless{} a}
-\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
-\NormalTok{⊢ ε \textgreater{} 0}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 4
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
-  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
-  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
-\NormalTok{    refine half\_pos ?h}
-
-      \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\InformationTok{h2}\NormalTok{: b \textless{} a}
-\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
-\NormalTok{⊢ 0 \textless{} a {-} b}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 5
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
-  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
-  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
-\NormalTok{    refine half\_pos ?h}
-    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+\KeywordTok{example}\NormalTok{ : ConvergesTo (fun (n : ℕ) ↦ }
+\NormalTok{    ((2 * n) / (n + 1))) 2 := }\KeywordTok{by}
+\NormalTok{  intro ε}
+\NormalTok{  intro h1}
+  \KeywordTok{obtain}\NormalTok{ ⟨k, h13⟩ := }
+\NormalTok{    exists\_nat\_gt (2 / ε {-} 1) }\CommentTok{{-}{-}Archimedean Property}
+\NormalTok{  use k}
+\NormalTok{  intro n}
+\NormalTok{  intro h2}
+\NormalTok{  dsimp}
+  \KeywordTok{have}\NormalTok{ h3 : (2 : ℝ) = 2 * ((n + 1) / (n + 1)) := }\KeywordTok{by}
+    \KeywordTok{have}\NormalTok{ h4 : ((n + 1) / (n + 1)) = }
+\NormalTok{        (n + 1) * ((n + 1) : ℝ)⁻¹ := }\KeywordTok{by}
+      \KeywordTok{rfl}
+      \KeywordTok{done}
+    \KeywordTok{rw}\NormalTok{ [h4]}
+    \KeywordTok{have}\NormalTok{ h5 : (n + 1) * ((n + 1) : ℝ)⁻¹ = 1 := }\KeywordTok{by}
+      \KeywordTok{rw}\NormalTok{ [mul\_inv\_cancel]}
+      \KeywordTok{exact}\NormalTok{ Nat.cast\_add\_one\_ne\_zero n}
+      \KeywordTok{done}
+    \KeywordTok{rw}\NormalTok{ [h5]}
+    \KeywordTok{exact}\NormalTok{ Eq.symm (mul\_one 2)}
     \KeywordTok{done}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\InformationTok{h2}\NormalTok{: b \textless{} a}
-\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
-\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
-\NormalTok{⊢ False}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 6
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
-  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
-  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
-\NormalTok{    refine half\_pos ?h}
-    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+\NormalTok{  nth\_rewrite 2 [h3]}
+  \KeywordTok{have}\NormalTok{ h6 : 2 * ((↑n + 1) : ℝ) / (↑n + 1) = }
+\NormalTok{      ((2 * n) + 2) / (n + 1) := }\KeywordTok{by}
+    \KeywordTok{rw}\NormalTok{ [Distribute n]}
     \KeywordTok{done}
-  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
-
-    \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\InformationTok{h2}\NormalTok{: b \textless{} a}
-\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
-\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
-\NormalTok{⊢ a ≤ b + ε}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 7
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
-  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
-  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
-\NormalTok{    refine half\_pos ?h}
-    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+  \KeywordTok{have}\NormalTok{ h7 : 2 * (((↑n + 1) : ℝ) / (↑n + 1)) = }
+\NormalTok{      2 * (↑n + 1) / (↑n + 1) := }\KeywordTok{by}
+    \KeywordTok{rw}\NormalTok{ [← mul\_div\_assoc 2 ((n + 1) : ℝ) ((n + 1) : ℝ)]}
     \KeywordTok{done}
-  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
-    \KeywordTok{apply}\NormalTok{ h1}
-
-    \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\InformationTok{h2}\NormalTok{: b \textless{} a}
-\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
-\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
-\NormalTok{⊢ ε \textgreater{} 0}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 8
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
-  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
-  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
-\NormalTok{    refine half\_pos ?h}
-    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+  \KeywordTok{rw}\NormalTok{ [h7]}
+  \KeywordTok{rw}\NormalTok{ [h6]}
+  \KeywordTok{rw}\NormalTok{ [div\_sub\_div\_same (2 * n : ℝ) (2 * n + 2) (n + 1)]}
+  \KeywordTok{rw}\NormalTok{ [sub\_add\_cancel\textquotesingle{}]}
+  \KeywordTok{rw}\NormalTok{ [abs\_div]}
+  \KeywordTok{simp}
+  \KeywordTok{have}\NormalTok{ h8 : |(↑n + 1 : ℝ)| = ↑n + 1 := }\KeywordTok{by}
+    \KeywordTok{simp}
+    \KeywordTok{apply}\NormalTok{ LT.lt.le (Nat.cast\_add\_one\_pos ↑n)}
     \KeywordTok{done}
-  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
-    \KeywordTok{apply}\NormalTok{ h1}
-    \KeywordTok{apply}\NormalTok{ h3}
+  \KeywordTok{rw}\NormalTok{ [h8]}
+  \KeywordTok{have}\NormalTok{ h9 : (2 : ℝ) / (↑n + 1) ≤ 2 / (k + 1) := }\KeywordTok{by}
+    \KeywordTok{apply}\NormalTok{ div\_le\_div\_of\_le\_left}
+\NormalTok{    · }\CommentTok{{-}{-}case 1}
+      \KeywordTok{linarith}
+      \KeywordTok{done}
+\NormalTok{    · }\CommentTok{{-}{-}case 2}
+      \KeywordTok{exact}\NormalTok{ Nat.cast\_add\_one\_pos k}
+      \KeywordTok{done}
+\NormalTok{    · }\CommentTok{{-}{-}case 3}
+\NormalTok{      convert add\_le\_add\_right h2 1}
+      \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{      · }\CommentTok{{-}{-}subcase 1}
+        \KeywordTok{exact}\NormalTok{ fun a =\textgreater{} Nat.add\_le\_add\_right h2 1}
+        \KeywordTok{done}
+\NormalTok{      · }\CommentTok{{-}{-}subcase 2}
+\NormalTok{        intro h14}
+        \KeywordTok{apply}\NormalTok{ add\_le\_add\_right}
+        \KeywordTok{exact}\NormalTok{ Iff.mpr Nat.cast\_le h2}
+        \KeywordTok{done}
+      \KeywordTok{done}
     \KeywordTok{done}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\InformationTok{h2}\NormalTok{: b \textless{} a}
-\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
-\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
-\InformationTok{h4}\NormalTok{: a ≤ b + ε}
-\NormalTok{⊢ False}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 9
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
-  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
-  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
-\NormalTok{    refine half\_pos ?h}
-    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
+  \KeywordTok{have}\NormalTok{ h10 : 2 / (k + 1) \textless{} 2 / (2 / ε {-} 1 + 1) := }\KeywordTok{by}
+    \KeywordTok{apply}\NormalTok{ div\_lt\_div\_of\_lt\_left}
+\NormalTok{    · }\CommentTok{{-}{-}case 1}
+      \KeywordTok{linarith}
+      \KeywordTok{done}
+\NormalTok{    · }\CommentTok{{-}{-}case 2}
+      \KeywordTok{simp}
+      \KeywordTok{apply}\NormalTok{ div\_pos}
+      \KeywordTok{linarith}
+      \KeywordTok{apply}\NormalTok{ h1}
+      \KeywordTok{done}
+\NormalTok{    · }\CommentTok{{-}{-}case 3}
+\NormalTok{      convert add\_le\_add\_right h2 1}
+      \KeywordTok{apply}\NormalTok{ Iff.intro}
+\NormalTok{      · }\CommentTok{{-}{-}subcase 1}
+\NormalTok{        intro h11}
+        \KeywordTok{exact}\NormalTok{ Nat.add\_le\_add\_right h2 1}
+        \KeywordTok{done}
+\NormalTok{      · }\CommentTok{{-}{-}subcase 2}
+\NormalTok{        intro h11}
+        \KeywordTok{have}\NormalTok{ h12 : 2 / ε {-} 1 \textless{} (k : ℝ) := }\KeywordTok{by}
+          \KeywordTok{simp}\NormalTok{ only []}
+          \KeywordTok{apply}\NormalTok{ h13}
+          \KeywordTok{done}
+        \KeywordTok{exact}\NormalTok{ add\_lt\_add\_right h12 1}
+        \KeywordTok{done}
+      \KeywordTok{done}
     \KeywordTok{done}
-  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
-    \KeywordTok{apply}\NormalTok{ h1}
-    \KeywordTok{apply}\NormalTok{ h3}
-    \KeywordTok{done}
-\NormalTok{  dsimp }\KeywordTok{at}\NormalTok{ h4}
-
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{R}\NormalTok{: Type u\_1}
-\InformationTok{inst✝}\NormalTok{: Ring R}
-\InformationTok{ab}\NormalTok{: ℝ}
-\InformationTok{h1}\NormalTok{: ∀ (ε : ℝ), ε \textgreater{} 0 → }
-\SpecialCharTok{\textgreater{}\textgreater{}}\NormalTok{  a ≤ b + ε}
-\InformationTok{h2}\NormalTok{: b \textless{} a}
-\InformationTok{ε}\NormalTok{: ℝ := (a {-} b) / 2}
-\InformationTok{h3}\NormalTok{: ε \textgreater{} 0}
-\InformationTok{h4}\NormalTok{: a ≤ b + (a {-} b) / 2}
-\NormalTok{⊢ False}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Step 10
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (a b : ℝ) (h1 : ∀ ε : ℝ, }
-\NormalTok{    ε \textgreater{} 0 → a ≤ b + ε) : }
-\NormalTok{    a ≤ b := }\KeywordTok{by}
-  \KeywordTok{by\_contra}\NormalTok{ h2}
-  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h2}
-  \KeywordTok{let}\NormalTok{ ε := (a {-} b) / 2}
-  \KeywordTok{have}\NormalTok{ h3 : ε \textgreater{} 0 := }\KeywordTok{by}
-\NormalTok{    refine half\_pos ?h}
-    \KeywordTok{exact}\NormalTok{ Iff.mpr sub\_pos h2}
-    \KeywordTok{done}
-  \KeywordTok{have}\NormalTok{ h4 : a ≤ b + ε := }\KeywordTok{by}
-    \KeywordTok{apply}\NormalTok{ h1}
-    \KeywordTok{apply}\NormalTok{ h3}
-    \KeywordTok{done}
-\NormalTok{  dsimp }\KeywordTok{at}\NormalTok{ h4}
-  \KeywordTok{linarith}
+  \KeywordTok{calc}
+\NormalTok{    2 / (↑n + 1) ≤ (2 : ℝ) / (k + 1) := }\KeywordTok{by}
+      \KeywordTok{apply}\NormalTok{ h9}
+      \KeywordTok{done}
+\NormalTok{    \_ \textless{} (2 : ℝ) / (2 / ε {-} 1 + 1) := }\KeywordTok{by}
+      \KeywordTok{apply}\NormalTok{ h10}
+      \KeywordTok{done}
+\NormalTok{    \_ = ε := }\KeywordTok{by}
+\NormalTok{      ring\_nf}
+      \KeywordTok{apply}\NormalTok{ inv\_inv}
+      \KeywordTok{done}
   \KeywordTok{done}
 \end{Highlighting}
 \end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\SpecialStringTok{No}\InformationTok{ }\SpecialStringTok{goals}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
 
 \hypertarget{proofs-involving-quantifiers}{%
 \section{3.3. Proofs Involving
