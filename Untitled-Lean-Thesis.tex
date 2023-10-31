@@ -414,7 +414,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, sharp corners, boxrule=0pt, enhanced, breakable, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}, enhanced, frame hidden, boxrule=0pt, breakable]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -432,31 +432,6 @@ DATE:\underline{\hspace{2in}}
 
 \pagenumbering{arabic}
 \markdouble{Preface}
-
-I will not do my homework today.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{sum}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[1] 14
-\end{verbatim}
-
-Hello World
-
-\hypertarget{making-chapters}{%
-\section*{Making Chapters}\label{making-chapters}}
-\addcontentsline{toc}{section}{Making Chapters}
-
-\markright{Making Chapters}
-
-I am using this section to figure out how to incorporate a table of
-contents and different sections/chapters of the paper. This should prove
-useful in the final thesis and allow readers to quickly jump to
-important or interesting sections.
 
 \hypertarget{incorporating-some-code}{%
 \section*{Incorporating Some Code}\label{incorporating-some-code}}
@@ -659,21 +634,45 @@ instead focus only on the immediately relevant steps of their proof.
 
 For each of the following proofs, I will first provide a typical
 ``paragraph style'' version of the proof, so the differences between the
-two can easily be compared. \#\# Inequality Addition
+two can easily be compared.
+
+\hypertarget{inequality-addition}{%
+\section{Inequality Addition}\label{inequality-addition}}
 
 \begin{thm}
-Whatever the problem is
+If \(a < b\) and \(c \le d\), prove that \(a + c < b + d\)
 
 \end{thm}
 
+There are multiple ways to approach this in a paragraph style proof, so
+I will attempt to have this proof follow along the same lines as the
+lean proof.
+
 \begin{proof}
 
-whatever the solution to that problem is. \excl{~□}\qedhere
+There are two possible cases: either \(c = d\) or \(c < d\). We will
+first consider the case where \(c = d\). We know \(a < b\), so it would
+also be true that \(a + c < b + c\). Then because \(c = d\),
+\(a + c < b + d\). Now consider the case where \(c < d\). We know
+\(a < b\), so \(a + c < b + c\) and \(b + c < b + d\) because \(c < d\).
+Thus by transitivity of inequalities, we could say \(a + c < b + d\)
+\excl{~□}\qedhere
 
 \end{proof}
 
-Step 1 Putting the initial theorem we want to show in lean code and
-observing the final goal in the infoview.
+\hypertarget{seting-up-the-problem}{%
+\subsubsection{Seting up the problem}\label{seting-up-the-problem}}
+
+Here I put the theorem we want to prove into lean and we can see the
+resulting infoview panel. I name our two assumptions \texttt{h1} and
+\texttt{h2}, for hypotheses one and two. After a colon I then write out
+the thing I am trying to prove with those hypotheses and use \texttt{by}
+to put lean into tactic mode.
+
+It can now be seen that the infoview panel lists out both of our
+hypotheses as well as the goal we are working towards at the bottom.
+This panel will continue to change as more code is added to the lean
+file.
 
 \begin{inpt}
 
@@ -703,7 +702,12 @@ observing the final goal in the infoview.
 
 \end{outpt}
 
-Step 2
+\hypertarget{step-1}{%
+\subsubsection{Step 1}\label{step-1}}
+
+Here I lay out the two possible cases of our second hypothesis which
+allows me to strengthen the information that we know. We see this
+strengthened hypothesis reflected in \texttt{h3} in the infoview.
 
 \begin{inpt}
 
@@ -735,7 +739,11 @@ Step 2
 
 \end{outpt}
 
-Step 3
+\hypertarget{step-2}{%
+\subsubsection{Step 2}\label{step-2}}
+
+Here I used hypothesis 3 to rewrite he c in our final goal as a d.~This
+change is reflected in the infoview for this step.
 
 \begin{inpt}
 
@@ -768,7 +776,16 @@ Step 3
 
 \end{outpt}
 
-Step 4
+\hypertarget{step-3}{%
+\subsubsection{Step 3}\label{step-3}}
+
+In this step I applied a theorem already in the Mathlib library for
+lean. The \texttt{add\_lt\_add\_right} theorem simply states that if you
+have a \texttt{b\ \textless{}\ c}, then
+\texttt{b\ +\ a\ \textless{}\ c\ +\ a} which is exactly what we need to
+prove the goal for the first case. As the first case has been completed,
+the infoview then switches to the second case which is reflected in the
+new \texttt{h3} and reset goal.
 
 \begin{inpt}
 
@@ -802,7 +819,12 @@ Step 4
 
 \end{outpt}
 
-Step 5
+\hypertarget{step-4}{%
+\subsubsection{Step 4}\label{step-4}}
+
+In order to better work with our new hypothesis, I use a tactic which
+pushes the negation symbol further into the thing it is negating. This
+results in a hypothesis which can actually be applied later on.
 
 \begin{inpt}
 
@@ -837,8 +859,15 @@ Step 5
 
 \end{outpt}
 
-Step 6a We can see here that the lean infoview is now displaying my new
-hypothesis as the current goal.
+\hypertarget{step-5}{%
+\subsubsection{Step 5}\label{step-5}}
+
+Here I am laying out a new hypothesis which will be useful later in the
+proof. This hypothesis seems like an obvious conclusion based on
+hypotheses two and three, but we must still lay it out simply for lean
+if we want to actually use it. The infoview panel always displays the
+most current goal, which is why it is displaying the goal for
+\texttt{h4} rather than the main goal.
 
 \begin{inpt}
 
@@ -874,7 +903,18 @@ hypothesis as the current goal.
 
 \end{outpt}
 
-Step 6b
+\hypertarget{step-6}{%
+\subsubsection{Step 6}\label{step-6}}
+
+Here I apply another theorem already in lean which takes the information
+\texttt{h3} and \texttt{h2} gives us and shows our current goal. Writing
+out \texttt{h4} like this is technically optional, as lean allows you to
+evaluate tactics within arguments for other tactics. Despite this, I
+personally find it more convenient and clear to write out extra
+hypotheses like this rather than just giving the body of the argument
+when necessary. Now that our new hypothesis has been proven, the
+infoview displays that we have no goals until we get back into our main
+theorem.
 
 \begin{inpt}
 
@@ -905,7 +945,20 @@ Step 6b
 
 \end{outpt}
 
-Step 7
+\hypertarget{step-7}{%
+\subsubsection{Step 7}\label{step-7}}
+
+I now use the calc tactic to work through the rest of the theorem. This
+tactic is quite useful as it allows us to chain together multiple
+equalities or inequalities while still giving proofs for each step. This
+is essentially a shortcut of writing out individual hypotheses and then
+using the rewrite tactic to get our desired goal.
+
+In this case, I only need to do two steps of chaining inequalities,
+where I use transitivity to show that the starting value is less than
+the final value. It essentially follows the same path as the paragraph
+style proof, where the tactics \texttt{add\_lt\_add\_right} and
+\texttt{add\_lt\_add\_left} justify the steps taken.
 
 \begin{inpt}
 
@@ -919,7 +972,9 @@ Step 7
   \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h3}
   \KeywordTok{have}\NormalTok{ h4 : c \textless{} d := }\KeywordTok{by}
     \KeywordTok{apply}\NormalTok{ Ne.lt\_of\_le h3 h2}
-  \KeywordTok{apply}\NormalTok{ add\_lt\_add h1 h4}
+  \KeywordTok{exact} \KeywordTok{calc}
+\NormalTok{    a + c \textless{} b + c := add\_lt\_add\_right h1 c}
+\NormalTok{    \_ \textless{} b + d := add\_lt\_add\_left h4 b}
   \KeywordTok{done}
 \end{Highlighting}
 \end{Shaded}
@@ -940,7 +995,8 @@ Step 7
 \section{a is Less Than or Equal to
 b}\label{a-is-less-than-or-equal-to-b}}
 
-Setting up the problem
+\hypertarget{setting-up-the-problem}{%
+\subsubsection{Setting up the problem}\label{setting-up-the-problem}}
 
 \begin{inpt}
 
@@ -971,7 +1027,8 @@ Setting up the problem
 
 \end{outpt}
 
-Step 1
+\hypertarget{step-1-1}{%
+\subsubsection{Step 1}\label{step-1-1}}
 
 \begin{inpt}
 
@@ -1004,7 +1061,8 @@ Step 1
 
 \end{outpt}
 
-Step 2
+\hypertarget{step-2-1}{%
+\subsubsection{Step 2}\label{step-2-1}}
 
 \begin{inpt}
 
@@ -1040,7 +1098,8 @@ Step 2
 
 \end{outpt}
 
-Step 3
+\hypertarget{step-3-1}{%
+\subsubsection{Step 3}\label{step-3-1}}
 
 \begin{inpt}
 
@@ -1079,7 +1138,8 @@ Step 3
 
 \end{outpt}
 
-Step 4
+\hypertarget{step-4-1}{%
+\subsubsection{Step 4}\label{step-4-1}}
 
 \begin{inpt}
 
@@ -1119,7 +1179,8 @@ Step 4
 
 \end{outpt}
 
-Step 5
+\hypertarget{step-5-1}{%
+\subsubsection{Step 5}\label{step-5-1}}
 
 \begin{inpt}
 
@@ -1160,7 +1221,8 @@ Step 5
 
 \end{outpt}
 
-Step 6
+\hypertarget{step-6-1}{%
+\subsubsection{Step 6}\label{step-6-1}}
 
 \begin{inpt}
 
@@ -1204,7 +1266,8 @@ Step 6
 
 \end{outpt}
 
-Step 7
+\hypertarget{step-7-1}{%
+\subsubsection{Step 7}\label{step-7-1}}
 
 \begin{inpt}
 
@@ -1249,7 +1312,8 @@ Step 7
 
 \end{outpt}
 
-Step 8
+\hypertarget{step-8}{%
+\subsubsection{Step 8}\label{step-8}}
 
 \begin{inpt}
 
@@ -1295,7 +1359,8 @@ Step 8
 
 \end{outpt}
 
-Step 9
+\hypertarget{step-9}{%
+\subsubsection{Step 9}\label{step-9}}
 
 \begin{inpt}
 
@@ -1342,7 +1407,8 @@ Step 9
 
 \end{outpt}
 
-Step 10
+\hypertarget{step-10}{%
+\subsubsection{Step 10}\label{step-10}}
 
 \begin{inpt}
 
@@ -1386,7 +1452,8 @@ Step 10
 I will now display how I used to lean to demonstrate that a sequence
 converges if and only if the absolute value of that sequence converges.
 
-Laying out the goal
+\hypertarget{laying-out-the-goal}{%
+\subsubsection{Laying out the goal}\label{laying-out-the-goal}}
 
 \begin{inpt}
 
@@ -1415,7 +1482,8 @@ Laying out the goal
 
 \end{outpt}
 
-Step 1
+\hypertarget{step-1-2}{%
+\subsubsection{Step 1}\label{step-1-2}}
 
 \begin{inpt}
 
@@ -1452,7 +1520,8 @@ Step 1
 
 \end{outpt}
 
-Step 2
+\hypertarget{step-2-2}{%
+\subsubsection{Step 2}\label{step-2-2}}
 
 \begin{inpt}
 
@@ -1487,7 +1556,8 @@ Step 2
 
 \end{outpt}
 
-Step 3
+\hypertarget{step-3-2}{%
+\subsubsection{Step 3}\label{step-3-2}}
 
 \begin{inpt}
 
@@ -1530,7 +1600,8 @@ Step 3
 
 \end{outpt}
 
-Step 4
+\hypertarget{step-4-2}{%
+\subsubsection{Step 4}\label{step-4-2}}
 
 \begin{inpt}
 
@@ -1577,7 +1648,8 @@ Step 4
 
 \end{outpt}
 
-Step 5
+\hypertarget{step-5-2}{%
+\subsubsection{Step 5}\label{step-5-2}}
 
 \begin{inpt}
 
@@ -1624,7 +1696,8 @@ Step 5
 
 \end{outpt}
 
-Step 6
+\hypertarget{step-6-2}{%
+\subsubsection{Step 6}\label{step-6-2}}
 
 \begin{inpt}
 
@@ -1672,7 +1745,8 @@ Step 6
 
 \end{outpt}
 
-Step 7
+\hypertarget{step-7-2}{%
+\subsubsection{Step 7}\label{step-7-2}}
 
 \begin{inpt}
 
@@ -1721,7 +1795,8 @@ Step 7
 
 \end{outpt}
 
-Step 8
+\hypertarget{step-8-1}{%
+\subsubsection{Step 8}\label{step-8-1}}
 
 \begin{inpt}
 
@@ -1771,7 +1846,8 @@ Step 8
 
 \end{outpt}
 
-Step 9
+\hypertarget{step-9-1}{%
+\subsubsection{Step 9}\label{step-9-1}}
 
 \begin{inpt}
 
@@ -1822,7 +1898,8 @@ Step 9
 
 \end{outpt}
 
-Step 10
+\hypertarget{step-10-1}{%
+\subsubsection{Step 10}\label{step-10-1}}
 
 \begin{inpt}
 
@@ -1876,7 +1953,8 @@ Step 10
 
 \end{outpt}
 
-Step 11
+\hypertarget{step-11}{%
+\subsubsection{Step 11}\label{step-11}}
 
 \begin{inpt}
 
@@ -1925,7 +2003,22 @@ Step 11
 \section{Convergence of a Specific
 Sequence}\label{convergence-of-a-specific-sequence}}
 
-example of lean bad.
+The following is an example of one situation where lean is somewhat
+lacking in comparison to a paragraph style proof. In this attempt to
+prove the convergence of a specific sequence, there were many issues
+with simplifying involving arbitrary variables and the change from
+natural numbers to real numbers. These sorts of things can be easily
+explained in a paragraph style proof, but required significant work to
+prove in lean.
+
+Lean internally defines limits using filters and topology rather than
+the real analysis approach of epsilons, so the approach I was taking
+here is not the optimal approach for theorems involving limits in lean.
+While this high level definition of a limit is very useful for the
+people who know how to use it, it makes lean more difficult to use for
+those who have not yet studied topology. Definitions such as this start
+to portray that lean is not really something meant to be used for lower
+level mathematics, but rather complex and high level proofs.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2035,55 +2128,6 @@ example of lean bad.
   \KeywordTok{done}
 \end{Highlighting}
 \end{Shaded}
-
-\hypertarget{proofs-involving-quantifiers}{%
-\section{3.3. Proofs Involving
-Quantifiers}\label{proofs-involving-quantifiers}}
-
-\begin{thm}
-Suppose \(B\) is a set and \(\mathcal{F}\) is a family of sets. If
-\(\bigcup\mathcal{F} \subseteq B\) then
-\(\mathcal{F} \subseteq \mathscr{P}(B)\).
-
-\end{thm}
-
-\begin{proof}
-
-Suppose \(\bigcup \mathcal{F} \subseteq B\). Let \(x\) be an arbitrary
-element of \(\mathcal{F}\). Let \(y\) be an arbitrary element of \(x\).
-Since \(y \in x\) and \(x \in \mathcal{F}\), by the definition of
-\(\bigcup \mathcal{F}\), \(y \in \bigcup \mathcal{F}\). But then since
-\(\bigcup \mathcal{F} \subseteq B\), \(y \in B\). Since \(y\) was an
-arbitrary element of \(x\), we can conclude that \(x \subseteq B\), so
-\(x \in \mathscr{P}(B)\). But \(x\) was an arbitrary element of
-\(\mathcal{F}\), so this shows that
-\(\mathcal{F} \subseteq \mathscr{P}(B)\), as required. \excl{~□}\qedhere
-
-\end{proof}
-
-\begin{nthm}{Theorem 3.4.7}
-For every integer \(n\), \(6 \mid n\) iff \(2 \mid n\) and \(3 \mid n\).
-
-\end{nthm}
-
-\begin{proof}
-
-Let \(n\) be an arbitrary integer.
-
-(\(\to\)) Suppose \(6 \mid n\). Then we can choose an integer \(k\) such
-that \(6k=n\). Therefore \(n = 6k = 2(3k)\), so \(2 \mid n\), and
-similarly \(n = 6k = 3(2k)\), so \(3 \mid n\).
-
-(\(\leftarrow\)) Suppose \(2 \mid n\) and \(3 \mid n\). Then we can
-choose integers \(j\) and \(k\) such that \(n = 2j\) and \(n = 3k\).
-Therefore \(6(j-k) = 6j - 6k = 3(2j) - 2(3k) = 3n - 2n = n\), so
-\(6 \mid n\). \excl{~□}\qedhere
-
-\end{proof}
-
-\begin{mdsk}
-
-\end{mdsk}
 
 \bookmarksetup{startatroot}
 

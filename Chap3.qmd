@@ -5,17 +5,25 @@
 Despite the incredible power that lean could provide in the verification of mathematical proofs, this does pose some difficulties, namely the ease with which the aforementioned proofs can be written up. Typically, proofs are simply written up in a paragraph style, where the steps being taken and the theorems being applied are laid out in plain terms so that it can be easily understood by fellow mathematicians. There are often times when mathematicians will take things for granted or skip over steps that they think the reader will either already know to be fact or can easily reason out for themselves when writing out typical proofs. This lax approach for conveying information simply does not work when trying to communicate with technology, and a much more specific and methodical approach must be adopted in order to take advantage of the logical verification benefits. Thankfully, lean has a community working to create libraries of previously proven theorems that can be applied to speed up the writing and verification of future proofs. This thankfully means that all proofs do not need to be taken all the way back to basic axioms: Users can save time by avoiding proving adjacent theorems and instead focus only on the immediately relevant steps of their proof. 
 
 For each of the following proofs, I will first provide a typical "paragraph style" version of the proof, so the differences between the two can easily be compared.
+
 ## Inequality Addition
 
 ::: {.thm}
-Whatever the problem is
-:::
-::: {.proof}
-whatever the solution to that problem is. [&nbsp;□]{.excl}\qedhere
+If $a < b$ and $c \le d$, prove that 
+$a + c < b + d$
 :::
 
-Step 1
-Putting the initial theorem we want to show in lean code and observing the final goal in the infoview.
+There are multiple ways to approach this in a paragraph style proof, so I will attempt to have this proof follow along the same lines as the lean proof. 
+
+::: {.proof}
+There are two possible cases: either $c = d$ or $c < d$. We will first consider the case where $c = d$. We know $a < b$, so it would also be true that $a + c < b + c$. Then because $c = d$, $a + c < b + d$. Now consider the case where $c < d$. We know $a < b$, so $a + c < b + c$ and $b + c < b + d$ because $c < d$. Thus by transitivity of inequalities, we could say $a + c < b + d$
+[&nbsp;□]{.excl}\qedhere
+:::
+
+#### Seting up the problem
+Here I put the theorem we want to prove into lean and we can see the resulting infoview panel. I name our two assumptions `h1` and `h2`, for hypotheses one and two. After a colon I then write out the thing I am trying to prove with those hypotheses and use `by` to put lean into tactic mode.
+
+It can now be seen that the infoview panel lists out both of our hypotheses as well as the goal we are working towards at the bottom. This panel will continue to change as more code is added to the lean file.
 
 ::: {.inout}
 ::: {.inpt}
@@ -40,7 +48,9 @@ h2: c ≤ d
 :::
 
 
-Step 2
+#### Step 1
+
+Here I lay out the two possible cases of our second hypothesis which allows me to strengthen the information that we know. We see this strengthened hypothesis reflected in `h3` in the infoview.
 
 ::: {.inout}
 ::: {.inpt}
@@ -66,7 +76,9 @@ h3: c = d
 :::
 :::
 
-Step 3
+#### Step 2
+
+Here I used hypothesis 3 to rewrite he c in our final goal as a d. This change is reflected in the infoview for this step.
 
 ::: {.inout}
 ::: {.inpt}
@@ -93,7 +105,9 @@ h3: c = d
 :::
 :::
 
-Step 4
+#### Step 3
+
+In this step I applied a theorem already in the Mathlib library for lean. The `add_lt_add_right` theorem simply states that if you have a `b < c`, then `b + a < c + a` which is exactly what we need to prove the goal for the first case. As the first case has been completed, the infoview then switches to the second case which is reflected in the new `h3` and reset goal.
 
 ::: {.inout}
 ::: {.inpt}
@@ -121,7 +135,9 @@ h3: ¬c = d
 :::
 :::
 
-Step 5
+#### Step 4
+
+In order to better work with our new hypothesis, I use a tactic which pushes the negation symbol further into the thing it is negating. This results in a hypothesis which can actually be applied later on.
 
 ::: {.inout}
 ::: {.inpt}
@@ -150,8 +166,9 @@ h3: c ≠ d
 :::
 :::
 
-Step 6a
-We can see here that the lean infoview is now displaying my new hypothesis as the current goal.
+#### Step 5
+
+Here I am laying out a new hypothesis which will be useful later in the proof. This hypothesis seems like an obvious conclusion based on hypotheses two and three, but we must still lay it out simply for lean if we want to actually use it. The infoview panel always displays the most current goal, which is why it is displaying the goal for `h4` rather than the main goal.
 
 ::: {.inout}
 ::: {.inpt}
@@ -181,7 +198,9 @@ h3: c ≠ d
 :::
 :::
 
-Step 6b
+#### Step 6
+
+Here I apply another theorem already in lean which takes the information `h3` and `h2` gives us and shows our current goal. Writing out `h4` like this is technically optional, as lean allows you to evaluate tactics within arguments for other tactics. Despite this, I personally find it more convenient and clear to write out extra hypotheses like this rather than just giving the body of the argument when necessary. Now that our new hypothesis has been proven, the infoview displays that we have no goals until we get back into our main theorem.
 
 ::: {.inout}
 ::: {.inpt}
@@ -206,7 +225,11 @@ No goals
 :::
 :::
 
-Step 7
+#### Step 7
+
+I now use the calc tactic to work through the rest of the theorem. This tactic is quite useful as it allows us to chain together multiple equalities or inequalities while still giving proofs for each step. This is essentially a shortcut of writing out individual hypotheses and then using the rewrite tactic to get our desired goal.
+
+In this case, I only need to do two steps of chaining inequalities, where I use transitivity to show that the starting value is less than the final value. It essentially follows the same path as the paragraph style proof, where the tactics `add_lt_add_right` and `add_lt_add_left` justify the steps taken.
 
 ::: {.inout}
 ::: {.inpt}
@@ -219,7 +242,9 @@ example (a b c d : ℝ) (h1: a < b)
   push_neg at h3
   have h4 : c < d := by
     apply Ne.lt_of_le h3 h2
-  apply add_lt_add h1 h4
+  exact calc
+    a + c < b + c := add_lt_add_right h1 c
+    _ < b + d := add_lt_add_left h4 b
   done
 ```
 :::
@@ -236,7 +261,7 @@ No goals
 
 ## a is Less Than or Equal to b
 
-Setting up the problem
+#### Setting up the problem
 
 ::: {.inout}
 ::: {.inpt}
@@ -261,7 +286,7 @@ h1: ∀ (ε : ℝ), ε > 0 →
 :::
 :::
 
-Step 1
+#### Step 1
 
 ::: {.inout}
 ::: {.inpt}
@@ -288,7 +313,7 @@ h2: ¬a ≤ b
 :::
 :::
 
-Step 2
+#### Step 2
 
 ::: {.inout}
 ::: {.inpt}
@@ -319,7 +344,7 @@ h2: b < a
 :::
 
 
-Step 3
+#### Step 3
 
 ::: {.inout}
 ::: {.inpt}
@@ -353,7 +378,7 @@ h2: b < a
 :::
 
 
-Step 4
+#### Step 4
 
 ::: {.inout}
 ::: {.inpt}
@@ -388,7 +413,7 @@ h2: b < a
 :::
 
 
-Step 5
+#### Step 5
 
 ::: {.inout}
 ::: {.inpt}
@@ -424,7 +449,7 @@ h3: ε > 0
 :::
 
 
-Step 6
+#### Step 6
 
 ::: {.inout}
 ::: {.inpt}
@@ -463,7 +488,7 @@ h3: ε > 0
 :::
 
 
-Step 7
+#### Step 7
 
 ::: {.inout}
 ::: {.inpt}
@@ -503,7 +528,7 @@ h3: ε > 0
 :::
 
 
-Step 8
+#### Step 8
 
 ::: {.inout}
 ::: {.inpt}
@@ -544,7 +569,7 @@ h4: a ≤ b + ε
 :::
 
 
-Step 9
+#### Step 9
 
 ::: {.inout}
 ::: {.inpt}
@@ -586,7 +611,7 @@ h4: a ≤ b + (a - b) / 2
 :::
 
 
-Step 10
+#### Step 10
 
 ::: {.inout}
 ::: {.inpt}
@@ -624,7 +649,7 @@ No goals
 ## Absolute Convergence
 I will now display how I used to lean to demonstrate that a sequence converges if and only if the absolute value of that sequence converges.
 
-Laying out the goal
+#### Laying out the goal
 
 ::: {.inout}
 ::: {.inpt}
@@ -647,7 +672,7 @@ s1: ℕ → ℝ
 :::
 :::
 
-Step 1
+#### Step 1
 
 ::: {.inout}
 ::: {.inpt}
@@ -678,7 +703,7 @@ s1: ℕ → ℝ
 :::
 :::
 
-Step 2
+#### Step 2
 
 ::: {.inout}
 ::: {.inpt}
@@ -707,7 +732,7 @@ x: ℕ
 :::
 :::
 
-Step 3
+#### Step 3
 
 ::: {.inout}
 ::: {.inpt}
@@ -744,7 +769,7 @@ h3: ∀ (x : ℕ), |s1 x| =
 :::
 :::
 
-Step 4
+#### Step 4
 
 ::: {.inout}
 ::: {.inpt}
@@ -785,7 +810,7 @@ h3: ∀ (x : ℕ), |s1 x| =
 :::
 :::
 
-Step 5
+#### Step 5
 
 ::: {.inout}
 ::: {.inpt}
@@ -826,7 +851,7 @@ h1: ∀ (ε : ℝ), ε > 0 →
 :::
 :::
 
-Step 6
+#### Step 6
 
 ::: {.inout}
 ::: {.inpt}
@@ -868,7 +893,7 @@ h1: ∀ (ε : ℝ), ε > 0 →
 :::
 :::
 
-Step 7
+#### Step 7
 
 ::: {.inout}
 ::: {.inpt}
@@ -911,7 +936,7 @@ h1: ∀ (ε : ℝ), 0 < ε →
 :::
 :::
 
-Step 8
+#### Step 8
 
 ::: {.inout}
 ::: {.inpt}
@@ -955,7 +980,7 @@ h1: ∀ (ε : ℝ), 0 < ε →
 :::
 :::
 
-Step 9
+#### Step 9
 
 ::: {.inout}
 ::: {.inpt}
@@ -1000,7 +1025,7 @@ h3: ∀ (x : ℕ), |s1 x| =
 :::
 :::
 
-Step 10
+#### Step 10
 
 ::: {.inout}
 ::: {.inpt}
@@ -1048,7 +1073,7 @@ h1: ∀ (ε : ℝ), 0 < ε →
 :::
 :::
 
-Step 11
+#### Step 11
 
 ::: {.inout}
 ::: {.inpt}
@@ -1092,7 +1117,9 @@ No goals
 
 ## Convergence of a Specific Sequence
 
-example of lean bad.
+The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplifying involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.
+
+Lean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this high level definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs. 
 
 ```lean
 example : ConvergesTo (fun (n : ℕ) ↦ 
@@ -1200,33 +1227,4 @@ example : ConvergesTo (fun (n : ℕ) ↦
       done
   done
 ```
-
-
-
-## 3.3. Proofs Involving Quantifiers
-
-
-
-
-::: {.thm}
-Suppose $B$ is a set and $\mathcal{F}$ is a family of sets.  If $\bigcup\mathcal{F} \subseteq B$ then $\mathcal{F} \subseteq \mathscr{P}(B)$.
-:::
-::: {.proof}
-Suppose $\bigcup \mathcal{F} \subseteq B$.  Let $x$ be an arbitrary element of $\mathcal{F}$.  Let $y$ be an arbitrary element of $x$.  Since $y \in x$ and $x \in \mathcal{F}$, by the definition of $\bigcup \mathcal{F}$, $y \in \bigcup \mathcal{F}$.  But then since $\bigcup \mathcal{F} \subseteq B$, $y \in B$.  Since $y$ was an arbitrary element of $x$, we can conclude that $x \subseteq B$, so $x \in \mathscr{P}(B)$.  But $x$ was an arbitrary element of $\mathcal{F}$, so this shows that $\mathcal{F} \subseteq \mathscr{P}(B)$, as required. [&nbsp;□]{.excl}\qedhere
-:::
-::: {.nthm arguments="Theorem 3.4.7"}
-For every integer $n$, $6 \mid n$ iff $2 \mid n$ and $3 \mid n$.
-:::
-::: {.proof}
-Let $n$ be an arbitrary integer.
-
-($\to$) Suppose $6 \mid n$.  Then we can choose an integer $k$ such that $6k=n$.  Therefore $n = 6k = 2(3k)$, so $2 \mid n$, and similarly $n = 6k = 3(2k)$, so $3 \mid n$.
-
-($\leftarrow$) Suppose $2 \mid n$ and $3 \mid n$.  Then we can choose integers $j$ and $k$ such that $n = 2j$ and $n = 3k$.  Therefore $6(j-k) = 6j - 6k = 3(2j) - 2(3k) = 3n - 2n = n$, so $6 \mid n$. [&nbsp;□]{.excl}\qedhere
-:::
-
-
-::: {.mdsk}
-:::
-
 
