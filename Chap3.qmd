@@ -4,8 +4,15 @@
 
 Despite the incredible power that lean could provide in the verification of mathematical proofs, this does pose some difficulties, namely the ease with which the aforementioned proofs can be written up. Typically, proofs are simply written up in a paragraph style, where the steps being taken and the theorems being applied are laid out in plain terms so that it can be easily understood by fellow mathematicians. There are often times when mathematicians will take things for granted or skip over steps that they think the reader will either already know to be fact or can easily reason out for themselves when writing out typical proofs. This lax approach for conveying information simply does not work when trying to communicate with technology, and a much more specific and methodical approach must be adopted in order to take advantage of the logical verification benefits. Thankfully, lean has a community working to create libraries of previously proven theorems that can be applied to speed up the writing and verification of future proofs. This thankfully means that all proofs do not need to be taken all the way back to basic axioms: Users can save time by avoiding proving adjacent theorems and instead focus only on the immediately relevant steps of their proof. 
 
-
+For each of the following proofs, I will first provide a typical "paragraph style" version of the proof, so the differences between the two can easily be compared.
 ## Inequality Addition
+
+::: {.thm}
+Whatever the problem is
+:::
+::: {.proof}
+whatever the solution to that problem is. [&nbsp;□]{.excl}\qedhere
+:::
 
 Step 1
 Putting the initial theorem we want to show in lean code and observing the final goal in the infoview.
@@ -233,8 +240,10 @@ Laying out the goal
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
 
   **done::
 ```
@@ -243,7 +252,8 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-⊢ ConvergesTo s1 0 ↔ ConvergesTo |s1| 0
+⊢ ConvergesTo s1 0 
+>>  ↔ ConvergesTo |s1| 0
 ```
 :::
 :::
@@ -253,8 +263,10 @@ Step 1
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
 
@@ -265,8 +277,14 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-⊢ (∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε) ↔
-  ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε
+⊢ (∀ (ε : ℝ), ε > 0 → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    n ≥ N → 
+>>    |s1 n - 0| < ε) ↔
+>>    ∀ (ε : ℝ), ε > 0 → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    n ≥ N → 
+>>    |abs s1 n - 0| < ε
 ```
 :::
 :::
@@ -276,11 +294,14 @@ Step 2
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     
     done
 
@@ -302,11 +323,14 @@ Step 3
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     simp [abs]
     done
 
@@ -317,9 +341,16 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
-⊢ (∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε) ↔
-  ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε
+h3: ∀ (x : ℕ), |s1 x| = 
+>>  |abs s1 x|
+⊢ (∀ (ε : ℝ), ε > 0 → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    n ≥ N → 
+>>    |s1 n - 0| < ε) ↔
+>>    ∀ (ε : ℝ), ε > 0 → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    n ≥ N → 
+>>    |abs s1 n - 0| < ε
 ```
 :::
 :::
@@ -329,11 +360,14 @@ Step 4
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     simp [abs]
     done
   apply Iff.intro
@@ -348,9 +382,16 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
-⊢ (∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε) →
-  ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε
+h3: ∀ (x : ℕ), |s1 x| = 
+>>  |abs s1 x|
+⊢ (∀ (ε : ℝ), ε > 0 → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    n ≥ N → 
+>>    |s1 n - 0| < ε) →
+>>    ∀ (ε : ℝ), ε > 0 → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    n ≥ N → 
+>>    |abs s1 n - 0| < ε
 ```
 :::
 :::
@@ -360,11 +401,14 @@ Step 5
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     simp [abs]
     done
   apply Iff.intro
@@ -380,9 +424,15 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
-h1: ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε
-⊢ ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε
+h3: ∀ (x : ℕ), |s1 x| = 
+>>  |abs s1 x|
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  ∃ N, ∀ (n : ℕ), 
+>>  n ≥ N → |s1 n - 0| < ε
+⊢ ∀ (ε : ℝ), ε > 0 → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    n ≥ N → 
+>>    |abs s1 n - 0| < ε
 ```
 :::
 :::
@@ -392,11 +442,14 @@ Step 6
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     simp [abs]
     done
   apply Iff.intro
@@ -413,9 +466,15 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
-h1: ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε
-⊢ ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| < ε
+h3: ∀ (x : ℕ), |s1 x| = 
+>>  |abs s1 x|
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  ∃ N, ∀ (n : ℕ), 
+>>  n ≥ N → |s1 n - 0| < ε
+⊢ ∀ (ε : ℝ), 0 < ε → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    N ≤ n → 
+>>    |abs s1 n| < ε
 ```
 :::
 :::
@@ -425,11 +484,14 @@ Step 7
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     simp [abs]
     done
   apply Iff.intro
@@ -447,9 +509,15 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
-h1: ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |s1 n| < ε
-⊢ ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| < ε
+h3: ∀ (x : ℕ), |s1 x| = 
+>>  |abs s1 x|
+h1: ∀ (ε : ℝ), 0 < ε → 
+>>  ∃ N, ∀ (n : ℕ), 
+>>  N ≤ n → |s1 n| < ε
+⊢ ∀ (ε : ℝ), 0 < ε → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    N ≤ n → 
+>>    |abs s1 n| < ε
 ```
 :::
 :::
@@ -459,11 +527,14 @@ Step 8
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     simp [abs]
     done
   apply Iff.intro
@@ -482,9 +553,15 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
-h1: ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |s1 n| < ε
-⊢ ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |s1 n| < ε
+h3: ∀ (x : ℕ), |s1 x| = 
+>>  |abs s1 x|
+h1: ∀ (ε : ℝ), 0 < ε → 
+>>  ∃ N, ∀ (n : ℕ), 
+>>  N ≤ n → |s1 n| < ε
+⊢ ∀ (ε : ℝ), 0 < ε → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    N ≤ n → 
+>>    |s1 n| < ε
 ```
 :::
 :::
@@ -494,11 +571,14 @@ Step 9
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     simp [abs]
     done
   apply Iff.intro
@@ -517,9 +597,16 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
-⊢ (∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |abs s1 n - 0| < ε) →
-  ∀ (ε : ℝ), ε > 0 → ∃ N, ∀ (n : ℕ), n ≥ N → |s1 n - 0| < ε
+h3: ∀ (x : ℕ), |s1 x| = 
+>>  |abs s1 x|
+⊢ (∀ (ε : ℝ), ε > 0 → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    n ≥ N → 
+>>    |abs s1 n - 0| < ε) →
+>>    ∀ (ε : ℝ), ε > 0 → 
+>>    ∃ N, ∀ (n : ℕ), 
+>>    n ≥ N → 
+>>    |s1 n - 0| < ε
 ```
 :::
 :::
@@ -529,11 +616,14 @@ Step 10
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     simp [abs]
     done
   apply Iff.intro
@@ -556,9 +646,15 @@ example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
 ::: {.outpt}
 ```state
 s1: ℕ → ℝ
-h3: ∀ (x : ℕ), |s1 x| = |abs s1 x|
-h1: ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| < ε
-⊢ ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ (n : ℕ), N ≤ n → |abs s1 n| < ε
+h3: ∀ (x : ℕ), |s1 x| = 
+>>  |abs s1 x|
+h1: ∀ (ε : ℝ), 0 < ε → 
+>>  ∃ N, ∀ (n : ℕ), 
+>>  N ≤ n → |abs s1 n| < ε
+⊢ ∀ (ε : ℝ), 0 < ε → 
+>>    ∃ N, ∀ (n : ℕ),
+>>    N ≤ n → 
+>>    |abs s1 n| < ε
 ```
 :::
 :::
@@ -568,11 +664,14 @@ Step 11
 ::: {.inout}
 ::: {.inpt}
 ```lean
-example (s1 : ℕ → ℝ) : ConvergesTo s1 (0 : ℝ) ↔
-    ConvergesTo (abs s1) (0 : ℝ) := by
+example (s1 : ℕ → ℝ) : 
+    ConvergesTo s1 (0 : ℝ) ↔
+    ConvergesTo (abs s1) (0 : ℝ) 
+    := by
   rw [ConvergesTo]
   rw [ConvergesTo]
-  have h3 (x : ℕ) : |s1 x| = |abs s1 x| := by
+  have h3 (x : ℕ) : |s1 x| = 
+      |abs s1 x| := by
     simp [abs]
     done
   apply Iff.intro
@@ -603,124 +702,397 @@ No goals
 
 
 
-## Perhaps a Third Great Example??
+## a is Less Than or Equal to b
 
-
-
-
-
-
-#### To prove a goal of the form `P → Q`:
-
-1.  Assume `P` is true and prove `Q`.
-2.  Assume `Q` is false and prove that `P` is false.
-
-
-
-::: {.lftrt}
-::: {.bef}
-```state
->> ⋮
-⊢ P → Q
-```
-:::
-
-::: {.aft}
-```state
->> ⋮
-h : P
-⊢ Q
-```
-:::
-:::
-
-
-::: {style="margin: 0% 20%"}
-| `Q` | `¬Q` | `(Q` | `→` | `False)`|
-|:----------:|:----------:|-:|:-:|:-|
-| F | T | F | T | &nbsp;&nbsp;[&nbsp;]{.excl} F |
-| T | F | T | F | &nbsp;&nbsp;[&nbsp;]{.excl} F |
-:::
-
+Setting up the problem
 
 ::: {.inout}
 ::: {.inpt}
 ```lean
-theorem Example_3_2_4_v2 (P Q R : Prop)
-    (h : P → (Q → R)) : ¬R → (P → ¬Q) := by
-  assume h2 : ¬R
-  assume h3 : P
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+
   **done::
 ```
 :::
 
 ::: {.outpt}
 ```state
-P Q R : Prop
-h : P → Q → R
-h2 : ¬R
-h3 : P
-⊢ ¬Q
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+⊢ a ≤ b
 ```
 :::
 :::
 
+Step 1
 
-### Exercises
-
-Fill in proofs of the following theorems.  All of them are based on exercises in *HTPI*.
-
-::: {.numex arguments="1"}
+::: {.inout}
+::: {.inpt}
 ```lean
-theorem Exercise_3_2_1a (P Q R : Prop)
-    (h1 : P → Q) (h2 : Q → R) : P → R := by
-  
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+
   **done::
 ```
 :::
 
-::: {.numex arguments="2"}
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+h2: ¬a ≤ b
+⊢ False
+```
+:::
+:::
+
+Step 2
+
+::: {.inout}
+::: {.inpt}
 ```lean
-theorem Exercise_3_2_1b (P Q R : Prop)
-    (h1 : ¬R → (P → ¬Q)) : P → (Q → R) := by
-  
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+  push_neg at h2
+  let ε := (a - b) / 2
+
   **done::
 ```
 :::
 
-::: {.numex arguments="3"}
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+h2: b < a
+ε: ℝ := (a - b) / 2
+⊢ False
+```
+:::
+:::
+
+
+Step 3
+
+::: {.inout}
+::: {.inpt}
 ```lean
-theorem Exercise_3_2_2a (P Q R : Prop)
-    (h1 : P → Q) (h2 : R → ¬Q) : P → ¬R := by
-  
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+  push_neg at h2
+  let ε := (a - b) / 2
+  have h3 : ε > 0 := by
+
+    **done::
+
   **done::
 ```
 :::
 
-::: {.numex arguments="4"}
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+h2: b < a
+ε: ℝ := (a - b) / 2
+⊢ ε > 0
+```
+:::
+:::
+
+
+Step 4
+
+::: {.inout}
+::: {.inpt}
 ```lean
-theorem Exercise_3_2_2b (P Q : Prop)
-    (h1 : P) : Q → ¬(Q → ¬P) := by
-  
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+  push_neg at h2
+  let ε := (a - b) / 2
+  have h3 : ε > 0 := by
+    refine half_pos ?h
+
+      **done::
+
   **done::
 ```
 :::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+h2: b < a
+ε: ℝ := (a - b) / 2
+⊢ 0 < a - b
+```
+:::
+:::
+
+
+Step 5
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+  push_neg at h2
+  let ε := (a - b) / 2
+  have h3 : ε > 0 := by
+    refine half_pos ?h
+    exact Iff.mpr sub_pos h2
+    done
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+h2: b < a
+ε: ℝ := (a - b) / 2
+h3: ε > 0
+⊢ False
+```
+:::
+:::
+
+
+Step 6
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+  push_neg at h2
+  let ε := (a - b) / 2
+  have h3 : ε > 0 := by
+    refine half_pos ?h
+    exact Iff.mpr sub_pos h2
+    done
+  have h4 : a ≤ b + ε := by
+
+    **done::
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+h2: b < a
+ε: ℝ := (a - b) / 2
+h3: ε > 0
+⊢ a ≤ b + ε
+```
+:::
+:::
+
+
+Step 7
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+  push_neg at h2
+  let ε := (a - b) / 2
+  have h3 : ε > 0 := by
+    refine half_pos ?h
+    exact Iff.mpr sub_pos h2
+    done
+  have h4 : a ≤ b + ε := by
+    apply h1
+
+    **done::
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+h2: b < a
+ε: ℝ := (a - b) / 2
+h3: ε > 0
+⊢ ε > 0
+```
+:::
+:::
+
+
+Step 8
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+  push_neg at h2
+  let ε := (a - b) / 2
+  have h3 : ε > 0 := by
+    refine half_pos ?h
+    exact Iff.mpr sub_pos h2
+    done
+  have h4 : a ≤ b + ε := by
+    apply h1
+    apply h3
+    done
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+h2: b < a
+ε: ℝ := (a - b) / 2
+h3: ε > 0
+h4: a ≤ b + ε
+⊢ False
+```
+:::
+:::
+
+
+Step 9
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+  push_neg at h2
+  let ε := (a - b) / 2
+  have h3 : ε > 0 := by
+    refine half_pos ?h
+    exact Iff.mpr sub_pos h2
+    done
+  have h4 : a ≤ b + ε := by
+    apply h1
+    apply h3
+    done
+  dsimp at h4
+
+  **done::
+```
+:::
+
+::: {.outpt}
+```state
+R: Type u_1
+inst✝: Ring R
+ab: ℝ
+h1: ∀ (ε : ℝ), ε > 0 → 
+>>  a ≤ b + ε
+h2: b < a
+ε: ℝ := (a - b) / 2
+h3: ε > 0
+h4: a ≤ b + (a - b) / 2
+⊢ False
+```
+:::
+:::
+
+
+Step 10
+
+::: {.inout}
+::: {.inpt}
+```lean
+example (a b : ℝ) (h1 : ∀ ε : ℝ, 
+    ε > 0 → a ≤ b + ε) : 
+    a ≤ b := by
+  by_contra h2
+  push_neg at h2
+  let ε := (a - b) / 2
+  have h3 : ε > 0 := by
+    refine half_pos ?h
+    exact Iff.mpr sub_pos h2
+    done
+  have h4 : a ≤ b + ε := by
+    apply h1
+    apply h3
+    done
+  dsimp at h4
+  linarith
+  done
+```
+:::
+
+::: {.outpt}
+```state
+No goals
+```
+:::
+:::
+
+
+
 
 ## 3.3. Proofs Involving Quantifiers
 
 
-::: {.ind}
-Let `x` stand for an arbitrary object of type `U` and prove `P x`.  If the letter `x` is already being used in the proof to stand for something, then you must choose an unused variable, say `y`, to stand for the arbitrary object, and prove `P y`.
-:::
 
-::: {style="margin: 0% 10%"}
-| | `quant_neg` Tactic | |
-|:--:|:--:|:--:|
-| `¬∀ (x : U), P x` | is changed to | `∃ (x : U), ¬P x` |
-| `¬∃ (x : U), P x` | is changed to | `∀ (x : U), ¬P x` |
-| `∀ (x : U), P x` | is changed to | `¬∃ (x : U), ¬P x` |
-| `∃ (x : U), P x` | is changed to | `¬∀ (x : U), ¬P x` |
-:::
 
 ::: {.thm}
 Suppose $B$ is a set and $\mathcal{F}$ is a family of sets.  If $\bigcup\mathcal{F} \subseteq B$ then $\mathcal{F} \subseteq \mathscr{P}(B)$.
@@ -743,5 +1115,4 @@ Let $n$ be an arbitrary integer.
 ::: {.mdsk}
 :::
 
-For the next exercise you will need the following definitions:
 
