@@ -414,7 +414,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, sharp corners, frame hidden, enhanced, interior hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, frame hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -433,91 +433,7 @@ DATE:\underline{\hspace{2in}}
 \pagenumbering{arabic}
 \markdouble{Preface}
 
-\hypertarget{incorporating-some-code}{%
-\section*{Incorporating Some Code}\label{incorporating-some-code}}
-\addcontentsline{toc}{section}{Incorporating Some Code}
-
-\markright{Incorporating Some Code}
-
-I will also be able to use some LaTeX equations within the document
-which could halp to make the paper look quite nice.
-
-If \(a < b\) and \(c \le d\), prove that \(a + c \le b + d\). It just so
-happens that I was able to prove this using lean!
-
-\begin{verbatim}
-example (a b c d : ℝ) (h1: a < b) (h2 : c ≤ d) : a + c < b + d := by
-  by_cases h3 : c = d
-  rw [h3]
-  apply add_lt_add_right h1
-  push_neg at h3
-  have h4 : c < d := by
-    apply Ne.lt_of_le h3 h2
-  apply add_lt_add h1 h4
-  done
-\end{verbatim}
-
-Now to display the benefits of the lean infoview!
-
-\hypertarget{showing-the-infoview-with-picture-sequences}{%
-\section*{Showing the Infoview with Picture
-Sequences}\label{showing-the-infoview-with-picture-sequences}}
-\addcontentsline{toc}{section}{Showing the Infoview with Picture
-Sequences}
-
-\markright{Showing the Infoview with Picture Sequences}
-
-Not going to do this now as I think the columns are far superior.
-
-\hypertarget{showing-infoview-with-columns}{%
-\section*{Showing Infoview with
-Columns}\label{showing-infoview-with-columns}}
-\addcontentsline{toc}{section}{Showing Infoview with Columns}
-
-\markright{Showing Infoview with Columns}
-
-As we can clearly see, this is the first step of the code and it can now
-be explained with great ease. Now onto the next step!
-
-\begin{inpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{theorem}\NormalTok{ Example\_3\_2\_4\_v2 (P Q R : }\KeywordTok{Prop}\NormalTok{)}
-\NormalTok{    (h : P → (Q → R)) : ¬R → (P → ¬Q) := }\KeywordTok{by}
-  \KeywordTok{assume}\NormalTok{ h2 : ¬R}
-  \KeywordTok{assume}\NormalTok{ h3 : P}
-  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
-\end{Highlighting}
-\end{Shaded}
-
-\end{inpt}
-
-\begin{outpt}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\InformationTok{P Q R }\NormalTok{: Prop}
-\InformationTok{h }\NormalTok{: P → Q → R}
-\InformationTok{h2 }\NormalTok{: ¬R}
-\InformationTok{h3 }\NormalTok{: P}
-\NormalTok{⊢ ¬Q}
-\end{Highlighting}
-\end{Shaded}
-
-\end{outpt}
-
-Click on the \emph{Extensions} icon on the left side of the window,
-which is circled in red in the image above. That will bring up a list of
-available extensions:
-
 \includegraphics{Images/FindExtension.png}
-
-\hypertarget{acknowledgments}{%
-\section*{Acknowledgments}\label{acknowledgments}}
-\addcontentsline{toc}{section}{Acknowledgments}
-
-\markright{Acknowledgments}
 
 \bookmarksetup{startatroot}
 
@@ -1014,7 +930,7 @@ we have \(a \le b + \varepsilon\). Show that \(a \le b\).
 
 Assume for the sake of contradiction that \(a\) is not less than or
 equal to \(b\). Then it would be true that \(a > b\). Now consider the
-case where \(\varepsilon = \frac{a - b}{2}\). Then since \(a > b\),
+case where \(\varepsilon = \frac{a - b}{2}.\) Then since \(a > b\),
 epsilon is positive and by our assumption then
 \(a \le b + \varepsilon\). Then \begin{align*}
 a & \le b + \varepsilon \\
@@ -1036,6 +952,9 @@ contradiction! \excl{~□}\qedhere
 
 \hypertarget{setting-up-the-problem}{%
 \subsubsection{Setting up the problem}\label{setting-up-the-problem}}
+
+I again set up the proof with our one hypothesis and the goal we want to
+prove. These are then seen listed in the infoview on the right.
 
 \begin{inpt}
 
@@ -1068,6 +987,12 @@ contradiction! \excl{~□}\qedhere
 
 \hypertarget{step-1-1}{%
 \subsubsection{Step 1}\label{step-1-1}}
+
+The \texttt{by\_contra} tactic allows me to complete this problem using
+proof by contradiction. This tactic automatically creates a hypothesis
+containing the negation of the final goal, I named it \texttt{h2}, and
+changes the final goal to \texttt{False} meaning that it needs a
+contradiction.
 
 \begin{inpt}
 
@@ -1102,6 +1027,12 @@ contradiction! \excl{~□}\qedhere
 
 \hypertarget{step-2-1}{%
 \subsubsection{Step 2}\label{step-2-1}}
+
+Here I use the \texttt{push\_neg} tactic similarly to the previous
+example to het a usable version of \texttt{h2} as well as pick a
+specific epsilon for which we will find a contradiction. This new
+epsilon will now show up in the infoview in the side and can be used in
+our problem.
 
 \begin{inpt}
 
@@ -1139,6 +1070,12 @@ contradiction! \excl{~□}\qedhere
 
 \hypertarget{step-3-1}{%
 \subsubsection{Step 3}\label{step-3-1}}
+
+Here I lay out a hypothesis that we will later be able to apply to
+\texttt{h1}. Saying that epsilon was positive in the paragraph style
+proof fairly simpler, where we only really need to justify that
+\(a - b\) is positive. In lean however, it requires a bit more effort
+and as such I put in its own hypothesis.
 
 \begin{inpt}
 
@@ -1179,6 +1116,19 @@ contradiction! \excl{~□}\qedhere
 
 \hypertarget{step-4-1}{%
 \subsubsection{Step 4}\label{step-4-1}}
+
+Anyone reading a paragraph style proof such as ours would know that
+dividing a number by two does not impact whether the resulting number if
+positive or negative, but it still needs to be justified to lean. As
+such, I use the \texttt{half\_pos} theorem with the \texttt{refine}
+tactic to change the goal to what is currently shown in the infoview.
+The \texttt{refine} tactic is useful because it tries to apply the
+arguments it is given to the final goal and change the goal to whatever
+is needed to meet the hypotheses in the arguments. In this case,
+\texttt{half\_pos} claims that if you have some \(a > 0.\) then
+\(\frac{a}{2} > 0.\) The \texttt{refine} tactic then applies the result
+of that theorem and leaves us to show that \(a > 0,\) and lean is smart
+enough to figure out that we actually need to show \(a - b > 0.\)
 
 \begin{inpt}
 
@@ -2206,13 +2156,9 @@ Finally, words \excl{~□}\qedhere
 \hypertarget{conclusions}{%
 \chapter{Conclusions}\label{conclusions}}
 
-\[
-[x]_R = \{y \in A \mid yRx\}.
-\] The set whose elements are all of these equivalence classes is called
-\(A\) \emph{mod} \(R\). It is written \(A/R\), so \[
-A/R = \{[x]_R \mid x \in A\}.
-\] Note that \(A/R\) is a set whose elements are sets: for each
-\(x \in A\), \([x]_R\) is a subset of \(A\), and \([x]_R \in A/R\).
+Ultimately lean is an incredibly powerful tool which does provide the
+valuable proof verification benefits which make learning the language
+worthwhile.
 
 \bookmarksetup{startatroot}
 

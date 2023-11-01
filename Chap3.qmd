@@ -294,6 +294,8 @@ But now we have that $a \le b$ and $a > b$, a contradiction!
 
 #### Setting up the problem
 
+I again set up the proof with our one hypothesis and the goal we want to prove. These are then seen listed in the infoview on the right.
+
 ::: {.inout}
 ::: {.inpt}
 ```lean
@@ -318,6 +320,8 @@ h1: ∀ (ε : ℝ), ε > 0 →
 :::
 
 #### Step 1
+
+The `by_contra` tactic allows me to complete this problem using proof by contradiction. This tactic automatically creates a hypothesis containing the negation of the final goal, I named it `h2`, and changes the final goal to `False` meaning that it needs a contradiction.
 
 ::: {.inout}
 ::: {.inpt}
@@ -345,6 +349,8 @@ h2: ¬a ≤ b
 :::
 
 #### Step 2
+
+Here I use the `push_neg` tactic similarly to the previous example to het a usable version of `h2` as well as pick a specific epsilon for which we will find a contradiction. This new epsilon will now show up in the infoview in the side and can be used in our problem.
 
 ::: {.inout}
 ::: {.inpt}
@@ -376,6 +382,8 @@ h2: b < a
 
 
 #### Step 3
+
+Here I lay out a hypothesis that we will later be able to apply to `h1`. Saying that epsilon was positive in the paragraph style proof fairly simpler, where we only really need to justify that $a - b$ is positive. In lean however, it requires a bit more effort and as such I put in its own hypothesis.
 
 ::: {.inout}
 ::: {.inpt}
@@ -411,6 +419,8 @@ h2: b < a
 
 #### Step 4
 
+Anyone reading a paragraph style proof such as ours would know that dividing a number by two does not impact whether the resulting number if positive or negative, but it still needs to be justified to lean. As such, I use the `half_pos` theorem with the `refine` tactic to change the goal to what is currently shown in the infoview. The `refine` tactic is useful because it tries to apply the arguments it is given to the final goal and change the goal to whatever is needed to meet the hypotheses in the arguments. In this case, `half_pos` claims that if you have some $a > 0.$ then $\frac{a}{2} > 0.$ The `refine` tactic then applies the result of that theorem and leaves us to show that $a > 0,$ and lean is smart enough to figure out that we actually need to show $a - b > 0.$
+
 ::: {.inout}
 ::: {.inpt}
 ```lean
@@ -445,6 +455,8 @@ h2: b < a
 
 
 #### Step 5
+
+
 
 ::: {.inout}
 ::: {.inpt}

@@ -1,12 +1,3 @@
 # Conclusions
 
-
-$$
-[x]_R = \{y \in A \mid yRx\}.
-$$
-The set whose elements are all of these equivalence classes is called $A$ *mod* $R$.  It is written $A/R$, so
-$$
-A/R = \{[x]_R \mid x \in A\}.
-$$
-Note that $A/R$ is a set whose elements are sets: for each $x \in A$, $[x]_R$ is a subset of $A$, and $[x]_R \in A/R$.
-
+Ultimately lean is an incredibly powerful tool which does provide the valuable proof verification benefits which make learning the language worthwhile. 

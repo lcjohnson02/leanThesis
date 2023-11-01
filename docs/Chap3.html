@@ -457,6 +457,7 @@ a &amp; \le b.
 <h3 class="anchored" data-anchor-id="lean-proof-1">Lean Proof</h3>
 <section id="setting-up-the-problem" class="level4">
 <h4 class="anchored" data-anchor-id="setting-up-the-problem">Setting up the problem</h4>
+<p>I again set up the proof with our one hypothesis and the goal we want to prove. These are then seen listed in the infoview on the right.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb17"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -477,6 +478,7 @@ a &amp; \le b.
 </section>
 <section id="step-1-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-1-1">Step 1</h4>
+<p>The <code>by_contra</code> tactic allows me to complete this problem using proof by contradiction. This tactic automatically creates a hypothesis containing the negation of the final goal, I named it <code>h2</code>, and changes the final goal to <code>False</code> meaning that it needs a contradiction.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb19"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -499,6 +501,7 @@ a &amp; \le b.
 </section>
 <section id="step-2-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-2-1">Step 2</h4>
+<p>Here I use the <code>push_neg</code> tactic similarly to the previous example to het a usable version of <code>h2</code> as well as pick a specific epsilon for which we will find a contradiction. This new epsilon will now show up in the infoview in the side and can be used in our problem.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb21"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -524,6 +527,7 @@ a &amp; \le b.
 </section>
 <section id="step-3-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-3-1">Step 3</h4>
+<p>Here I lay out a hypothesis that we will later be able to apply to <code>h1</code>. Saying that epsilon was positive in the paragraph style proof fairly simpler, where we only really need to justify that <span class="math inline">\(a - b\)</span> is positive. In lean however, it requires a bit more effort and as such I put in its own hypothesis.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb23"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -552,6 +556,7 @@ a &amp; \le b.
 </section>
 <section id="step-4-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-4-1">Step 4</h4>
+<p>Anyone reading a paragraph style proof such as ours would know that dividing a number by two does not impact whether the resulting number if positive or negative, but it still needs to be justified to lean. As such, I use the <code>half_pos</code> theorem with the <code>refine</code> tactic to change the goal to what is currently shown in the infoview. The <code>refine</code> tactic is useful because it tries to apply the arguments it is given to the final goal and change the goal to whatever is needed to meet the hypotheses in the arguments. In this case, <code>half_pos</code> claims that if you have some <span class="math inline">\(a &gt; 0.\)</span> then <span class="math inline">\(\frac{a}{2} &gt; 0.\)</span> The <code>refine</code> tactic then applies the result of that theorem and leaves us to show that <span class="math inline">\(a &gt; 0,\)</span> and lean is smart enough to figure out that we actually need to show <span class="math inline">\(a - b &gt; 0.\)</span></p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb25"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
