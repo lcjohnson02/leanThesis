@@ -1,24 +1,24 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Untitled Lean Thesis",
+    "objectID": "Chap5.html",
+    "href": "Chap5.html",
+    "title": "5  Works Cited",
     "section": "",
-    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\nPreface"
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\nThis work had been formatted and styled from the book How To Prove It With Lean, written by Daniel J. Velleman. How To Prove It With Lean contains short excerpts from How To Prove It: A Structured Approach, 3rd Edition, by Daniel J. Velleman and published by Cambridge University Press."
   },
   {
     "objectID": "Chap1.html",
     "href": "Chap1.html",
     "title": "1  Real Analysis",
     "section": "",
-    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(\\neg\\)\nnot\n\n\n\\(\\wedge\\)\nand\n\n\n\\(\\vee\\)\nor\n\n\n\\(\\to\\)\nif … then\n\n\n\\(\\leftrightarrow\\)\niff (that is, if and only if)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\n\nEquivalence\n\n\n\n\n\nDe Morgan’s Laws\n\\(\\neg (P \\wedge Q)\\)\nis equivalent to\n\\(\\neg P \\vee \\neg Q\\)\n\n\n\n\\(\\neg (P \\vee Q)\\)\nis equivalent to\n\\(\\neg P \\wedge \\neg Q\\)\n\n\nDouble Negation Law\n\\(\\neg\\neg P\\)\nis equivalent to\n\\(P\\)\n\n\nConditional Laws\n\\(P \\to Q\\)\nis equivalent to\n\\(\\neg P \\vee Q\\)\n\n\n\n\\(P \\to Q\\)\nis equivalent to\n\\(\\neg(P \\wedge \\neg Q)\\)\n\n\nContrapositive Law\n\\(P \\to Q\\)\nis equivalent to\n\\(\\neg Q \\to \\neg P\\)\n\n\n\n\n\n\\(A \\cap B = \\{x \\mid x \\in A \\wedge x \\in B\\} = {}\\) the intersection of \\(A\\) and \\(B\\),\n\\(A \\cup B = \\{x \\mid x \\in A \\vee x \\in B\\} = {}\\) the union of \\(A\\) and \\(B\\),\n\\(A \\setmin B = \\{x \\mid x \\in A \\wedge x \\notin B\\} = {}\\) the difference of \\(A\\) and \\(B\\),\n\\(A \\symmdiff B = (A \\setmin B) \\cup (B \\setmin A) = {}\\) the symmetric difference of \\(A\\) and \\(B\\)."
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$"
   },
   {
     "objectID": "Chap2.html",
     "href": "Chap2.html",
     "title": "2  Functional Programming",
     "section": "",
-    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\n\\(\\forall x\\,P(x)\\) means “for all \\(x\\), \\(P(x)\\),”\n\n\n\n\n\n\nQuantifier Negation Laws\n\n\n\n\n\n\\(\\neg \\exists x\\,P(x)\\)\nis equivalent to\n\\(\\forall x\\,\\neg P(x)\\)\n\n\n\\(\\neg \\forall x\\,P(x)\\)\nis equivalent to\n\\(\\exists x\\,\\neg P(x)\\)"
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$"
   },
   {
     "objectID": "Chap3.html#differences-from-paragraph-style-proofs",
@@ -63,17 +63,17 @@
     "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\nUltimately lean is an incredibly powerful tool which does provide the valuable proof verification benefits which make learning the language worthwhile."
   },
   {
-    "objectID": "Chap5.html",
-    "href": "Chap5.html",
-    "title": "5  Works Cited",
-    "section": "",
-    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\nThis work had been formatted and styled from the book How To Prove It With Lean, written by Daniel J. Velleman. How To Prove It With Lean contains short excerpts from How To Prove It: A Structured Approach, 3rd Edition, by Daniel J. Velleman and published by Cambridge University Press.\nexample : square1 = square2 := by rfl\n\n++#eval:: square1 7     --Answer: 49"
-  },
-  {
     "objectID": "Chap6.html",
     "href": "Chap6.html",
     "title": "6  Additional space",
     "section": "",
     "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\nExtra chapter to write more things if needed!!"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Untitled Lean Thesis",
+    "section": "",
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\nPreface"
   }
 ]

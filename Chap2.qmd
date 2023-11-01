@@ -1,13 +1,3 @@
 # Functional Programming
 
 
-::: {.quote}
-$\forall x\,P(x)$ means "for all $x$, $P(x)$,"
-:::
-
-::: {style="margin: 0% 10%"}
-| | Quantifier Negation Laws | |
-|:--:|:--:|:--:|
-| $\neg \exists x\,P(x)$ | is equivalent to | $\forall x\,\neg P(x)$ |
-| $\neg \forall x\,P(x)$ | is equivalent to | $\exists x\,\neg P(x)$ |
-:::

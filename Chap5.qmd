@@ -7,9 +7,3 @@ This work had been formatted and styled from the book *How To Prove It With Lean
 
 
 
-```lean
-example : square1 = square2 := by rfl
-
-++#eval:: square1 7     --Answer: 49
-```
-
