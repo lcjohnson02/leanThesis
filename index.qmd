@@ -1,9 +1,4 @@
 # Preface {.unnumbered}
 \pagenumbering{arabic}
-\markdouble{Preface}
 
 
-
-
-
-![](Images/FindExtension.png)

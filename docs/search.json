@@ -1,5 +1,26 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Untitled Lean Thesis",
+    "section": "",
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\nPreface"
+  },
+  {
+    "objectID": "Chap1.html",
+    "href": "Chap1.html",
+    "title": "1  Real Analysis",
+    "section": "",
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(\\neg\\)\nnot\n\n\n\\(\\wedge\\)\nand\n\n\n\\(\\vee\\)\nor\n\n\n\\(\\to\\)\nif … then\n\n\n\\(\\leftrightarrow\\)\niff (that is, if and only if)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\n\nEquivalence\n\n\n\n\n\nDe Morgan’s Laws\n\\(\\neg (P \\wedge Q)\\)\nis equivalent to\n\\(\\neg P \\vee \\neg Q\\)\n\n\n\n\\(\\neg (P \\vee Q)\\)\nis equivalent to\n\\(\\neg P \\wedge \\neg Q\\)\n\n\nDouble Negation Law\n\\(\\neg\\neg P\\)\nis equivalent to\n\\(P\\)\n\n\nConditional Laws\n\\(P \\to Q\\)\nis equivalent to\n\\(\\neg P \\vee Q\\)\n\n\n\n\\(P \\to Q\\)\nis equivalent to\n\\(\\neg(P \\wedge \\neg Q)\\)\n\n\nContrapositive Law\n\\(P \\to Q\\)\nis equivalent to\n\\(\\neg Q \\to \\neg P\\)\n\n\n\n\n\n\\(A \\cap B = \\{x \\mid x \\in A \\wedge x \\in B\\} = {}\\) the intersection of \\(A\\) and \\(B\\),\n\\(A \\cup B = \\{x \\mid x \\in A \\vee x \\in B\\} = {}\\) the union of \\(A\\) and \\(B\\),\n\\(A \\setmin B = \\{x \\mid x \\in A \\wedge x \\notin B\\} = {}\\) the difference of \\(A\\) and \\(B\\),\n\\(A \\symmdiff B = (A \\setmin B) \\cup (B \\setmin A) = {}\\) the symmetric difference of \\(A\\) and \\(B\\)."
+  },
+  {
+    "objectID": "Chap2.html",
+    "href": "Chap2.html",
+    "title": "2  Functional Programming",
+    "section": "",
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\n\\(\\forall x\\,P(x)\\) means “for all \\(x\\), \\(P(x)\\),”\n\n\n\n\n\n\nQuantifier Negation Laws\n\n\n\n\n\n\\(\\neg \\exists x\\,P(x)\\)\nis equivalent to\n\\(\\forall x\\,\\neg P(x)\\)\n\n\n\\(\\neg \\forall x\\,P(x)\\)\nis equivalent to\n\\(\\exists x\\,\\neg P(x)\\)"
+  },
+  {
     "objectID": "Chap3.html#differences-from-paragraph-style-proofs",
     "href": "Chap3.html#differences-from-paragraph-style-proofs",
     "title": "3  Lean as a Theorem Prover",
@@ -33,20 +54,6 @@
     "title": "3  Lean as a Theorem Prover",
     "section": "Convergence of a Specific Sequence",
     "text": "Convergence of a Specific Sequence\nThe following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplifying involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.\nLean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this high level definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs.\n\nParagraph Style Proof\n\nEven more words\n\n\nProof. Finally, words  □\n\n\n\nLean Proof\nexample : ConvergesTo (fun (n : ℕ) ↦ \n    ((2 * n) / (n + 1))) 2 := by\n  intro ε\n  intro h1\n  obtain ⟨k, h13⟩ := \n    exists_nat_gt (2 / ε - 1) --Archimedean Property\n  use k\n  intro n\n  intro h2\n  dsimp\n  have h3 : (2 : ℝ) = 2 * ((n + 1) / (n + 1)) := by\n    have h4 : ((n + 1) / (n + 1)) = \n        (n + 1) * ((n + 1) : ℝ)⁻¹ := by\n      rfl\n      done\n    rw [h4]\n    have h5 : (n + 1) * ((n + 1) : ℝ)⁻¹ = 1 := by\n      rw [mul_inv_cancel]\n      exact Nat.cast_add_one_ne_zero n\n      done\n    rw [h5]\n    exact Eq.symm (mul_one 2)\n    done\n  nth_rewrite 2 [h3]\n  have h6 : 2 * ((↑n + 1) : ℝ) / (↑n + 1) = \n      ((2 * n) + 2) / (n + 1) := by\n    rw [Distribute n]\n    done\n  have h7 : 2 * (((↑n + 1) : ℝ) / (↑n + 1)) = \n      2 * (↑n + 1) / (↑n + 1) := by\n    rw [← mul_div_assoc 2 ((n + 1) : ℝ) ((n + 1) : ℝ)]\n    done\n  rw [h7]\n  rw [h6]\n  rw [div_sub_div_same (2 * n : ℝ) (2 * n + 2) (n + 1)]\n  rw [sub_add_cancel']\n  rw [abs_div]\n  simp\n  have h8 : |(↑n + 1 : ℝ)| = ↑n + 1 := by\n    simp\n    apply LT.lt.le (Nat.cast_add_one_pos ↑n)\n    done\n  rw [h8]\n  have h9 : (2 : ℝ) / (↑n + 1) ≤ 2 / (k + 1) := by\n    apply div_le_div_of_le_left\n    · --case 1\n      linarith\n      done\n    · --case 2\n      exact Nat.cast_add_one_pos k\n      done\n    · --case 3\n      convert add_le_add_right h2 1\n      apply Iff.intro\n      · --subcase 1\n        exact fun a =&gt; Nat.add_le_add_right h2 1\n        done\n      · --subcase 2\n        intro h14\n        apply add_le_add_right\n        exact Iff.mpr Nat.cast_le h2\n        done\n      done\n    done\n  have h10 : 2 / (k + 1) &lt; 2 / (2 / ε - 1 + 1) := by\n    apply div_lt_div_of_lt_left\n    · --case 1\n      linarith\n      done\n    · --case 2\n      simp\n      apply div_pos\n      linarith\n      apply h1\n      done\n    · --case 3\n      convert add_le_add_right h2 1\n      apply Iff.intro\n      · --subcase 1\n        intro h11\n        exact Nat.add_le_add_right h2 1\n        done\n      · --subcase 2\n        intro h11\n        have h12 : 2 / ε - 1 &lt; (k : ℝ) := by\n          simp only []\n          apply h13\n          done\n        exact add_lt_add_right h12 1\n        done\n      done\n    done\n  calc\n    2 / (↑n + 1) ≤ (2 : ℝ) / (k + 1) := by\n      apply h9\n      done\n    _ &lt; (2 : ℝ) / (2 / ε - 1 + 1) := by\n      apply h10\n      done\n    _ = ε := by\n      ring_nf\n      apply inv_inv\n      done\n  done"
-  },
-  {
-    "objectID": "Chap1.html",
-    "href": "Chap1.html",
-    "title": "1  Real Analysis",
-    "section": "",
-    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(\\neg\\)\nnot\n\n\n\\(\\wedge\\)\nand\n\n\n\\(\\vee\\)\nor\n\n\n\\(\\to\\)\nif … then\n\n\n\\(\\leftrightarrow\\)\niff (that is, if and only if)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\n\nEquivalence\n\n\n\n\n\nDe Morgan’s Laws\n\\(\\neg (P \\wedge Q)\\)\nis equivalent to\n\\(\\neg P \\vee \\neg Q\\)\n\n\n\n\\(\\neg (P \\vee Q)\\)\nis equivalent to\n\\(\\neg P \\wedge \\neg Q\\)\n\n\nDouble Negation Law\n\\(\\neg\\neg P\\)\nis equivalent to\n\\(P\\)\n\n\nConditional Laws\n\\(P \\to Q\\)\nis equivalent to\n\\(\\neg P \\vee Q\\)\n\n\n\n\\(P \\to Q\\)\nis equivalent to\n\\(\\neg(P \\wedge \\neg Q)\\)\n\n\nContrapositive Law\n\\(P \\to Q\\)\nis equivalent to\n\\(\\neg Q \\to \\neg P\\)\n\n\n\n\n\n\\(A \\cap B = \\{x \\mid x \\in A \\wedge x \\in B\\} = {}\\) the intersection of \\(A\\) and \\(B\\),\n\\(A \\cup B = \\{x \\mid x \\in A \\vee x \\in B\\} = {}\\) the union of \\(A\\) and \\(B\\),\n\\(A \\setmin B = \\{x \\mid x \\in A \\wedge x \\notin B\\} = {}\\) the difference of \\(A\\) and \\(B\\),\n\\(A \\symmdiff B = (A \\setmin B) \\cup (B \\setmin A) = {}\\) the symmetric difference of \\(A\\) and \\(B\\)."
-  },
-  {
-    "objectID": "Chap2.html",
-    "href": "Chap2.html",
-    "title": "2  Functional Programming",
-    "section": "",
-    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\n\\(\\forall x\\,P(x)\\) means “for all \\(x\\), \\(P(x)\\),”\n\n\n\n\n\n\nQuantifier Negation Laws\n\n\n\n\n\n\\(\\neg \\exists x\\,P(x)\\)\nis equivalent to\n\\(\\forall x\\,\\neg P(x)\\)\n\n\n\\(\\neg \\forall x\\,P(x)\\)\nis equivalent to\n\\(\\exists x\\,\\neg P(x)\\)"
   },
   {
     "objectID": "Chap4.html",
