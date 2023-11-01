@@ -68,5 +68,19 @@
     "title": "6  Additional space",
     "section": "",
     "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\nExtra chapter to write more things if needed!!"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Untitled Lean Thesis",
+    "section": "",
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\n\nPreface"
+  },
+  {
+    "objectID": "index.html#acknowledgments",
+    "href": "index.html#acknowledgments",
+    "title": "Untitled Lean Thesis",
+    "section": "Acknowledgments",
+    "text": "Acknowledgments"
   }
 ]
