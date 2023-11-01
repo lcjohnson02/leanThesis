@@ -456,7 +456,7 @@ h2: b < a
 
 #### Step 5
 
-
+The theorem I uses our second hypothesis to show that $a - b > 0,$ which finishes the proof for our third hypothesis and the goal switches back to finding a contradiction.
 
 ::: {.inout}
 ::: {.inpt}
@@ -493,6 +493,8 @@ h3: ε > 0
 
 
 #### Step 6
+
+I now try to lay out the fourth and final hypothesis which will be used to find a contradiction with `h2`. This is another example of something being quickly explained in the paragraph style proof, but being more cumbersome to justify within lean.
 
 ::: {.inout}
 ::: {.inpt}
@@ -533,6 +535,8 @@ h3: ε > 0
 
 #### Step 7
 
+I first apply `h1` which works has a similar effect as using the refine tactic earler: it applies to result of an if then statement and changes our goal to the if. 
+
 ::: {.inout}
 ::: {.inpt}
 ```lean
@@ -572,6 +576,8 @@ h3: ε > 0
 
 
 #### Step 8
+
+Now that our goal has been properly modified, `h3` is the only other thing necessary to justify this hypothesis.
 
 ::: {.inout}
 ::: {.inpt}
@@ -614,6 +620,8 @@ h4: a ≤ b + ε
 
 #### Step 9
 
+This `dsimp` tactic will do its best to automatically simplify anything it is given, in this case it substitutes our specific epsilon value in for the arbitrary epsilon. This will now allow us to use `h4` to find our contradiction.
+
 ::: {.inout}
 ::: {.inpt}
 ```lean
@@ -655,6 +663,8 @@ h4: a ≤ b + (a - b) / 2
 
 
 #### Step 10
+
+The `linarith` tactic is quite powerful as it will attempt to simplify the goal as well as hypotheses and then look for a contradiction amongst the known hypotheses. This is one example where lean actually requires quite a bit less explanation than a typical proof. The majority of my paragraph style proof above was spent simplifying and manipulating `h4` and `h2`, whereas in lean I need to specify none of that! It is quite impressive that lean is already able to do so much simplification and even find contradictions with no user input. This ability will likely only increase in power in the future, and some developments have even occured during the planning and writing of this thesis that make other simplification tactics substantially more powerful.
 
 ::: {.inout}
 ::: {.inpt}

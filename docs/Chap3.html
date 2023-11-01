@@ -586,6 +586,7 @@ a &amp; \le b.
 </section>
 <section id="step-5-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-5-1">Step 5</h4>
+<p>The theorem I uses our second hypothesis to show that <span class="math inline">\(a - b &gt; 0,\)</span> which finishes the proof for our third hypothesis and the goal switches back to finding a contradiction.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb27"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -616,6 +617,7 @@ a &amp; \le b.
 </section>
 <section id="step-6-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-6-1">Step 6</h4>
+<p>I now try to lay out the fourth and final hypothesis which will be used to find a contradiction with <code>h2</code>. This is another example of something being quickly explained in the paragraph style proof, but being more cumbersome to justify within lean.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb29"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -649,6 +651,7 @@ a &amp; \le b.
 </section>
 <section id="step-7-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-7-1">Step 7</h4>
+<p>I first apply <code>h1</code> which works has a similar effect as using the refine tactic earler: it applies to result of an if then statement and changes our goal to the if.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb31"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -683,6 +686,7 @@ a &amp; \le b.
 </section>
 <section id="step-8" class="level4">
 <h4 class="anchored" data-anchor-id="step-8">Step 8</h4>
+<p>Now that our goal has been properly modified, <code>h3</code> is the only other thing necessary to justify this hypothesis.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb33"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -718,6 +722,7 @@ a &amp; \le b.
 </section>
 <section id="step-9" class="level4">
 <h4 class="anchored" data-anchor-id="step-9">Step 9</h4>
+<p>This <code>dsimp</code> tactic will do its best to automatically simplify anything it is given, in this case it substitutes our specific epsilon value in for the arbitrary epsilon. This will now allow us to use <code>h4</code> to find our contradiction.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb35"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -754,6 +759,7 @@ a &amp; \le b.
 </section>
 <section id="step-10" class="level4">
 <h4 class="anchored" data-anchor-id="step-10">Step 10</h4>
+<p>The <code>linarith</code> tactic is quite powerful as it will attempt to simplify the goal as well as hypotheses and then look for a contradiction amongst the known hypotheses. This is one example where lean actually requires quite a bit less explanation than a typical proof. The majority of my paragraph style proof above was spent simplifying and manipulating <code>h4</code> and <code>h2</code>, whereas in lean I need to specify none of that! It is quite impressive that lean is already able to do so much simplification and even find contradictions with no user input. This ability will likely only increase in power in the future, and some developments have even occured during the planning and writing of this thesis that make other simplification tactics substantially more powerful.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb37"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>

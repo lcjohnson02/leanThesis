@@ -414,7 +414,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, frame hidden, interior hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, sharp corners, breakable]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -1093,6 +1093,10 @@ enough to figure out that we actually need to show \(a - b > 0.\)
 \hypertarget{step-5-1}{%
 \subsubsection{Step 5}\label{step-5-1}}
 
+The theorem I uses our second hypothesis to show that \(a - b > 0,\)
+which finishes the proof for our third hypothesis and the goal switches
+back to finding a contradiction.
+
 \begin{inpt}
 
 \begin{Shaded}
@@ -1134,6 +1138,11 @@ enough to figure out that we actually need to show \(a - b > 0.\)
 
 \hypertarget{step-6-1}{%
 \subsubsection{Step 6}\label{step-6-1}}
+
+I now try to lay out the fourth and final hypothesis which will be used
+to find a contradiction with \texttt{h2}. This is another example of
+something being quickly explained in the paragraph style proof, but
+being more cumbersome to justify within lean.
 
 \begin{inpt}
 
@@ -1180,6 +1189,10 @@ enough to figure out that we actually need to show \(a - b > 0.\)
 \hypertarget{step-7-1}{%
 \subsubsection{Step 7}\label{step-7-1}}
 
+I first apply \texttt{h1} which works has a similar effect as using the
+refine tactic earler: it applies to result of an if then statement and
+changes our goal to the if.
+
 \begin{inpt}
 
 \begin{Shaded}
@@ -1225,6 +1238,9 @@ enough to figure out that we actually need to show \(a - b > 0.\)
 
 \hypertarget{step-8}{%
 \subsubsection{Step 8}\label{step-8}}
+
+Now that our goal has been properly modified, \texttt{h3} is the only
+other thing necessary to justify this hypothesis.
 
 \begin{inpt}
 
@@ -1273,6 +1289,11 @@ enough to figure out that we actually need to show \(a - b > 0.\)
 \hypertarget{step-9}{%
 \subsubsection{Step 9}\label{step-9}}
 
+This \texttt{dsimp} tactic will do its best to automatically simplify
+anything it is given, in this case it substitutes our specific epsilon
+value in for the arbitrary epsilon. This will now allow us to use
+\texttt{h4} to find our contradiction.
+
 \begin{inpt}
 
 \begin{Shaded}
@@ -1320,6 +1341,19 @@ enough to figure out that we actually need to show \(a - b > 0.\)
 
 \hypertarget{step-10}{%
 \subsubsection{Step 10}\label{step-10}}
+
+The \texttt{linarith} tactic is quite powerful as it will attempt to
+simplify the goal as well as hypotheses and then look for a
+contradiction amongst the known hypotheses. This is one example where
+lean actually requires quite a bit less explanation than a typical
+proof. The majority of my paragraph style proof above was spent
+simplifying and manipulating \texttt{h4} and \texttt{h2}, whereas in
+lean I need to specify none of that! It is quite impressive that lean is
+already able to do so much simplification and even find contradictions
+with no user input. This ability will likely only increase in power in
+the future, and some developments have even occured during the planning
+and writing of this thesis that make other simplification tactics
+substantially more powerful.
 
 \begin{inpt}
 
