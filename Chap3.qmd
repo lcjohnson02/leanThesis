@@ -8,6 +8,8 @@ For each of the following proofs, I will first provide a typical "paragraph styl
 
 ## Inequality Addition
 
+### Paragraph Style Proof
+
 ::: {.thm}
 If $a < b$ and $c \le d$, prove that 
 $a + c < b + d$
@@ -19,6 +21,8 @@ There are multiple ways to approach this in a paragraph style proof, so I will a
 There are two possible cases: either $c = d$ or $c < d$. We will first consider the case where $c = d$. We know $a < b$, so it would also be true that $a + c < b + c$. Then because $c = d$, $a + c < b + d$. Now consider the case where $c < d$. We know $a < b$, so $a + c < b + c$ and $b + c < b + d$ because $c < d$. Thus by transitivity of inequalities, we could say $a + c < b + d$
 [&nbsp;□]{.excl}\qedhere
 :::
+
+### Lean Proof
 
 #### Seting up the problem
 Here I put the theorem we want to prove into lean and we can see the resulting infoview panel. I name our two assumptions `h1` and `h2`, for hypotheses one and two. After a colon I then write out the thing I am trying to prove with those hypotheses and use `by` to put lean into tactic mode.
@@ -260,6 +264,33 @@ No goals
 
 
 ## a is Less Than or Equal to b
+
+### Paragraph Style Proof
+
+::: {.thm}
+Suppose that $a, b \in \mathbb{R}$ and for every $\varepsilon > 0$, we have $a \le b + \varepsilon$. Show that $a \le b$.
+:::
+
+::: {.proof}
+Assume for the sake of contradiction that $a$ is not less than or equal to $b$. Then it would be true that $a > b$. Now consider the case where $\varepsilon = \frac{a - b}{2}.$ Then since $a > b$, epsilon is positive and by our assumption then $a \le b + \varepsilon$. Then 
+\begin{align*}
+a & \le b + \varepsilon \\
+& = b + \frac{a - b}{2} \\
+& = b + \frac{a}{2} - \frac{b}{2} \\
+& = \frac{a}{2} + \frac{b}{2}. 
+\end{align*}
+So now,
+\begin{align*}
+a & \le \frac{a}{2} + \frac{b}{2} \\
+a - \frac{a}{2} & \le \frac{b}{2} \\
+\frac{a}{2} & \le \frac{b}{2} \\
+a & \le b.
+\end{align*}
+But now we have that $a \le b$ and $a > b$, a contradiction! 
+[&nbsp;□]{.excl}\qedhere
+:::
+
+### Lean Proof
 
 #### Setting up the problem
 
@@ -647,9 +678,21 @@ No goals
 
 
 ## Absolute Convergence
-I will now display how I used to lean to demonstrate that a sequence converges if and only if the absolute value of that sequence converges.
 
-#### Laying out the goal
+### Paragraph Style Proof
+
+::: {.thm}
+Some words
+:::
+
+::: {.proof}
+Some more words
+[&nbsp;□]{.excl}\qedhere
+:::
+
+### Lean Proof
+
+#### Setting up the problem
 
 ::: {.inout}
 ::: {.inpt}
@@ -1117,9 +1160,22 @@ No goals
 
 ## Convergence of a Specific Sequence
 
-The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplifying involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.
+The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplifying involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.
 
 Lean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this high level definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs. 
+
+### Paragraph Style Proof
+
+::: {.thm}
+Even more words
+:::
+
+::: {.proof}
+Finally, words
+[&nbsp;□]{.excl}\qedhere
+:::
+
+### Lean Proof
 
 ```lean
 example : ConvergesTo (fun (n : ℕ) ↦ 

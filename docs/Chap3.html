@@ -232,6 +232,8 @@ $$
 </section>
 <section id="inequality-addition" class="level2">
 <h2 class="anchored" data-anchor-id="inequality-addition">Inequality Addition</h2>
+<section id="paragraph-style-proof" class="level3">
+<h3 class="anchored" data-anchor-id="paragraph-style-proof">Paragraph Style Proof</h3>
 <div class="thm">
 <p>If <span class="math inline">\(a &lt; b\)</span> and <span class="math inline">\(c \le d\)</span>, prove that <span class="math inline">\(a + c &lt; b + d\)</span></p>
 </div>
@@ -239,6 +241,9 @@ $$
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>There are two possible cases: either <span class="math inline">\(c = d\)</span> or <span class="math inline">\(c &lt; d\)</span>. We will first consider the case where <span class="math inline">\(c = d\)</span>. We know <span class="math inline">\(a &lt; b\)</span>, so it would also be true that <span class="math inline">\(a + c &lt; b + c\)</span>. Then because <span class="math inline">\(c = d\)</span>, <span class="math inline">\(a + c &lt; b + d\)</span>. Now consider the case where <span class="math inline">\(c &lt; d\)</span>. We know <span class="math inline">\(a &lt; b\)</span>, so <span class="math inline">\(a + c &lt; b + c\)</span> and <span class="math inline">\(b + c &lt; b + d\)</span> because <span class="math inline">\(c &lt; d\)</span>. Thus by transitivity of inequalities, we could say <span class="math inline">\(a + c &lt; b + d\)</span> <span class="excl">&nbsp;□</span></p>
 </div>
+</section>
+<section id="lean-proof" class="level3">
+<h3 class="anchored" data-anchor-id="lean-proof">Lean Proof</h3>
 <section id="seting-up-the-problem" class="level4">
 <h4 class="anchored" data-anchor-id="seting-up-the-problem">Seting up the problem</h4>
 <p>Here I put the theorem we want to prove into lean and we can see the resulting infoview panel. I name our two assumptions <code>h1</code> and <code>h2</code>, for hypotheses one and two. After a colon I then write out the thing I am trying to prove with those hypotheses and use <code>by</code> to put lean into tactic mode.</p>
@@ -426,8 +431,30 @@ $$
 </div>
 </section>
 </section>
+</section>
 <section id="a-is-less-than-or-equal-to-b" class="level2">
 <h2 class="anchored" data-anchor-id="a-is-less-than-or-equal-to-b">a is Less Than or Equal to b</h2>
+<section id="paragraph-style-proof-1" class="level3">
+<h3 class="anchored" data-anchor-id="paragraph-style-proof-1">Paragraph Style Proof</h3>
+<div class="thm">
+<p>Suppose that <span class="math inline">\(a, b \in \mathbb{R}\)</span> and for every <span class="math inline">\(\varepsilon &gt; 0\)</span>, we have <span class="math inline">\(a \le b + \varepsilon\)</span>. Show that <span class="math inline">\(a \le b\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Assume for the sake of contradiction that <span class="math inline">\(a\)</span> is not less than or equal to <span class="math inline">\(b\)</span>. Then it would be true that <span class="math inline">\(a &gt; b\)</span>. Now consider the case where <span class="math inline">\(\varepsilon = \frac{a - b}{2}.\)</span> Then since <span class="math inline">\(a &gt; b\)</span>, epsilon is positive and by our assumption then <span class="math inline">\(a \le b + \varepsilon\)</span>. Then <span class="math display">\[\begin{align*}
+a &amp; \le b + \varepsilon \\
+&amp; = b + \frac{a - b}{2} \\
+&amp; = b + \frac{a}{2} - \frac{b}{2} \\
+&amp; = \frac{a}{2} + \frac{b}{2}.
+\end{align*}\]</span> So now, <span class="math display">\[\begin{align*}
+a &amp; \le \frac{a}{2} + \frac{b}{2} \\
+a - \frac{a}{2} &amp; \le \frac{b}{2} \\
+\frac{a}{2} &amp; \le \frac{b}{2} \\
+a &amp; \le b.
+\end{align*}\]</span> But now we have that <span class="math inline">\(a \le b\)</span> and <span class="math inline">\(a &gt; b\)</span>, a contradiction! <span class="excl">&nbsp;□</span></p>
+</div>
+</section>
+<section id="lean-proof-1" class="level3">
+<h3 class="anchored" data-anchor-id="lean-proof-1">Lean Proof</h3>
 <section id="setting-up-the-problem" class="level4">
 <h4 class="anchored" data-anchor-id="setting-up-the-problem">Setting up the problem</h4>
 <div class="inout">
@@ -748,11 +775,22 @@ $$
 </div>
 </section>
 </section>
+</section>
 <section id="absolute-convergence" class="level2">
 <h2 class="anchored" data-anchor-id="absolute-convergence">Absolute Convergence</h2>
-<p>I will now display how I used to lean to demonstrate that a sequence converges if and only if the absolute value of that sequence converges.</p>
-<section id="laying-out-the-goal" class="level4">
-<h4 class="anchored" data-anchor-id="laying-out-the-goal">Laying out the goal</h4>
+<section id="paragraph-style-proof-2" class="level3">
+<h3 class="anchored" data-anchor-id="paragraph-style-proof-2">Paragraph Style Proof</h3>
+<div class="thm">
+<p>Some words</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Some more words <span class="excl">&nbsp;□</span></p>
+</div>
+</section>
+<section id="lean-proof-2" class="level3">
+<h3 class="anchored" data-anchor-id="lean-proof-2">Lean Proof</h3>
+<section id="setting-up-the-problem-1" class="level4">
+<h4 class="anchored" data-anchor-id="setting-up-the-problem-1">Setting up the problem</h4>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb39"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
@@ -1155,10 +1193,22 @@ $$
 </div>
 </section>
 </section>
+</section>
 <section id="convergence-of-a-specific-sequence" class="level2">
 <h2 class="anchored" data-anchor-id="convergence-of-a-specific-sequence">Convergence of a Specific Sequence</h2>
-<p>The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplifying involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.</p>
+<p>The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplifying involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.</p>
 <p>Lean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this high level definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs.</p>
+<section id="paragraph-style-proof-3" class="level3">
+<h3 class="anchored" data-anchor-id="paragraph-style-proof-3">Paragraph Style Proof</h3>
+<div class="thm">
+<p>Even more words</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Finally, words <span class="excl">&nbsp;□</span></p>
+</div>
+</section>
+<section id="lean-proof-3" class="level3">
+<h3 class="anchored" data-anchor-id="lean-proof-3">Lean Proof</h3>
 <div class="sourceCode" id="cb63"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> : ConvergesTo (fun (n : ℕ) ↦ </span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    ((2 * n) / (n + 1))) 2 := <span class="kw">by</span></span>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  intro ε</span>
@@ -1265,6 +1315,7 @@ $$
 <span id="cb63-104"><a href="#cb63-104" aria-hidden="true" tabindex="-1"></a>  <span class="kw">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

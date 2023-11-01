@@ -414,7 +414,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}, enhanced, frame hidden, boxrule=0pt, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, sharp corners, frame hidden, enhanced, interior hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -639,6 +639,9 @@ two can easily be compared.
 \hypertarget{inequality-addition}{%
 \section{Inequality Addition}\label{inequality-addition}}
 
+\hypertarget{paragraph-style-proof}{%
+\subsection{Paragraph Style Proof}\label{paragraph-style-proof}}
+
 \begin{thm}
 If \(a < b\) and \(c \le d\), prove that \(a + c < b + d\)
 
@@ -659,6 +662,9 @@ Thus by transitivity of inequalities, we could say \(a + c < b + d\)
 \excl{~□}\qedhere
 
 \end{proof}
+
+\hypertarget{lean-proof}{%
+\subsection{Lean Proof}\label{lean-proof}}
 
 \hypertarget{seting-up-the-problem}{%
 \subsubsection{Seting up the problem}\label{seting-up-the-problem}}
@@ -994,6 +1000,39 @@ style proof, where the tactics \texttt{add\_lt\_add\_right} and
 \hypertarget{a-is-less-than-or-equal-to-b}{%
 \section{a is Less Than or Equal to
 b}\label{a-is-less-than-or-equal-to-b}}
+
+\hypertarget{paragraph-style-proof-1}{%
+\subsection{Paragraph Style Proof}\label{paragraph-style-proof-1}}
+
+\begin{thm}
+Suppose that \(a, b \in \mathbb{R}\) and for every \(\varepsilon > 0\),
+we have \(a \le b + \varepsilon\). Show that \(a \le b\).
+
+\end{thm}
+
+\begin{proof}
+
+Assume for the sake of contradiction that \(a\) is not less than or
+equal to \(b\). Then it would be true that \(a > b\). Now consider the
+case where \(\varepsilon = \frac{a - b}{2}\). Then since \(a > b\),
+epsilon is positive and by our assumption then
+\(a \le b + \varepsilon\). Then \begin{align*}
+a & \le b + \varepsilon \\
+& = b + \frac{a - b}{2} \\
+& = b + \frac{a}{2} - \frac{b}{2} \\
+& = \frac{a}{2} + \frac{b}{2}. 
+\end{align*} So now, \begin{align*}
+a & \le \frac{a}{2} + \frac{b}{2} \\
+a - \frac{a}{2} & \le \frac{b}{2} \\
+\frac{a}{2} & \le \frac{b}{2} \\
+a & \le b.
+\end{align*} But now we have that \(a \le b\) and \(a > b\), a
+contradiction! \excl{~□}\qedhere
+
+\end{proof}
+
+\hypertarget{lean-proof-1}{%
+\subsection{Lean Proof}\label{lean-proof-1}}
 
 \hypertarget{setting-up-the-problem}{%
 \subsubsection{Setting up the problem}\label{setting-up-the-problem}}
@@ -1449,11 +1488,25 @@ b}\label{a-is-less-than-or-equal-to-b}}
 \hypertarget{absolute-convergence}{%
 \section{Absolute Convergence}\label{absolute-convergence}}
 
-I will now display how I used to lean to demonstrate that a sequence
-converges if and only if the absolute value of that sequence converges.
+\hypertarget{paragraph-style-proof-2}{%
+\subsection{Paragraph Style Proof}\label{paragraph-style-proof-2}}
 
-\hypertarget{laying-out-the-goal}{%
-\subsubsection{Laying out the goal}\label{laying-out-the-goal}}
+\begin{thm}
+Some words
+
+\end{thm}
+
+\begin{proof}
+
+Some more words \excl{~□}\qedhere
+
+\end{proof}
+
+\hypertarget{lean-proof-2}{%
+\subsection{Lean Proof}\label{lean-proof-2}}
+
+\hypertarget{setting-up-the-problem-1}{%
+\subsubsection{Setting up the problem}\label{setting-up-the-problem-1}}
 
 \begin{inpt}
 
@@ -2004,12 +2057,14 @@ converges if and only if the absolute value of that sequence converges.
 Sequence}\label{convergence-of-a-specific-sequence}}
 
 The following is an example of one situation where lean is somewhat
-lacking in comparison to a paragraph style proof. In this attempt to
-prove the convergence of a specific sequence, there were many issues
-with simplifying involving arbitrary variables and the change from
-natural numbers to real numbers. These sorts of things can be easily
-explained in a paragraph style proof, but required significant work to
-prove in lean.
+lacking in comparison to a paragraph style proof. The paragraph style
+proof is able to quickly and easily prove the desired end goal, but lean
+has to work around a lot of the simple rewriting we would do in a normal
+proof. In this attempt to prove the convergence of a specific sequence,
+there were many issues with simplifying involving arbitrary variables
+and the change from natural numbers to real numbers. These sorts of
+things can be easily explained in a paragraph style proof, but required
+significant work to prove in lean.
 
 Lean internally defines limits using filters and topology rather than
 the real analysis approach of epsilons, so the approach I was taking
@@ -2019,6 +2074,23 @@ people who know how to use it, it makes lean more difficult to use for
 those who have not yet studied topology. Definitions such as this start
 to portray that lean is not really something meant to be used for lower
 level mathematics, but rather complex and high level proofs.
+
+\hypertarget{paragraph-style-proof-3}{%
+\subsection{Paragraph Style Proof}\label{paragraph-style-proof-3}}
+
+\begin{thm}
+Even more words
+
+\end{thm}
+
+\begin{proof}
+
+Finally, words \excl{~□}\qedhere
+
+\end{proof}
+
+\hypertarget{lean-proof-3}{%
+\subsection{Lean Proof}\label{lean-proof-3}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
