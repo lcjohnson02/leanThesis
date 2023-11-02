@@ -620,7 +620,7 @@ h4: a ≤ b + ε
 
 #### Step 9
 
-This `dsimp` tactic will do its best to automatically simplify anything it is given, in this case it substitutes our specific epsilon value in for the arbitrary epsilon. This will now allow us to use `h4` to find our contradiction.
+The `dsimp` tactic will do its best to automatically simplify anything it is given, in this case it substitutes our specific epsilon value in for the arbitrary epsilon. This will now allow us to use `h4` to find our contradiction.
 
 ::: {.inout}
 ::: {.inpt}
@@ -704,17 +704,28 @@ No goals
 ### Paragraph Style Proof
 
 ::: {.thm}
-Some words
+Prove that $\lim(x_{n}) = 0$ if and only if $\lim(\left|x_{n}\right|) = 0.$
 :::
 
 ::: {.proof}
-Some more words
+$(\Longrightarrow)$ First assume that $\lim(x_{n}) = 0.$ Then for all $\varepsilon > 0$ we know there exists a $k_{n} \in \mathbb{N}$ such that for all nautral numbers $n > k_{n},$ $\left|x_{n} - 0\right| < \varepsilon.$ Thus $\left|x_{n}\right| < \varepsilon$ and also $\left|\left|x_{n}\right| - 0 \right| < \varepsilon,$ so $\lim(\left|x_{n}\right|) = 0.$
+
+$(\Longleftarrow)$ Now assume that $\lim(\left|x_{n}\right|) = 0.$ Then for all $\varepsilon > 0$ we know there exists a $k_{n} \in \mathbb{N}$ such that for all nautral numbers $n > k_{n},$ $\left|\left|x_{n}\right| - 0\right| < \varepsilon.$ But $\left|\left|x_{n}\right| - 0\right| = \left|\left|x_{n}\right|\right| = \left|x_{n}\right| = \left|x_{n} - 0\right|.$ So $\left|x_{n} - 0\right| < \varepsilon$ and $\lim(x_{n}) = 0.$
 [&nbsp;□]{.excl}\qedhere
 :::
 
 ### Lean Proof
 
 #### Setting up the problem
+
+Lean does not include a built in epsilon definition of a limit for sequences, so it is first necessary to define a limit in lean. I use the following definition:
+
+```lean
+def ConvergesTo (s : ℕ → ℝ) (a : ℝ) :=
+  ∀ ε > 0, ∃ N, ∀ n ≥ N, |s n - a| < ε
+```
+
+From this point we can set up our problem as normal.
 
 ::: {.inout}
 ::: {.inpt}
@@ -738,6 +749,8 @@ s1: ℕ → ℝ
 :::
 
 #### Step 1
+
+The first thing I ask lean to do is rewrite the definition of convergence that I defined earler when it is used in our goal. This will allow us to actually use and work towards the information in both instances of `ConvergesTo` in the problem. The fully expanded definition is shown in the infoview panel.
 
 ::: {.inout}
 ::: {.inpt}
@@ -770,6 +783,8 @@ s1: ℕ → ℝ
 
 #### Step 2
 
+Here I set up a hypothesis which will later be used to modify both sides of the if and only if statement into something that is equal to the other.
+
 ::: {.inout}
 ::: {.inpt}
 ```lean
@@ -798,6 +813,8 @@ x: ℕ
 :::
 
 #### Step 3
+
+In this instance lean essentially already knows that our goal is true, and only need to be told to simplify using the definition of absolute value in order to verify this. While it is impressive that lean requires little guidance, seeing some of the other things lean is capable of leaves me a bit underwhelmed that lean requires any input here. Because lean is still being developed there may come a time where simple statements like this are automatically verified without any user input.
 
 ::: {.inout}
 ::: {.inpt}
@@ -835,6 +852,8 @@ h3: ∀ (x : ℕ), |s1 x| =
 :::
 
 #### Step 4
+
+Here the `Iff.intro` tactic splits up the if and only if statement in the goal and allows us to prove each direction individually, as is often done in a paragraph style proof.
 
 ::: {.inout}
 ::: {.inpt}
@@ -877,6 +896,8 @@ h3: ∀ (x : ℕ), |s1 x| =
 
 #### Step 5
 
+The `intro` tactic applied here allows me to assume the if part of an if then statement and automatically names it with the hypothesis name I give it.
+
 ::: {.inout}
 ::: {.inpt}
 ```lean
@@ -917,6 +938,8 @@ h1: ∀ (ε : ℝ), ε > 0 →
 :::
 
 #### Step 6
+
+With the `simp` tactic, lean attempts to simplify the current goal. In this case, the $\left|\left|s1_{n}\right| - 0\right|$ is simplified to $\left|\left|s1_{n}\right|\right|.$ This is now where our `h3` hypothesis can be applied, but I will first attempt to simplify `h1`.
 
 ::: {.inout}
 ::: {.inpt}
@@ -960,6 +983,8 @@ h1: ∀ (ε : ℝ), ε > 0 →
 
 #### Step 7
 
+The `simp` tactic has the same effect as in the previous step, but this time it is working on `h1` rather than the end goal. By default `simp` will attempt to work on the goal but if asked to it will attempt to simplify hypotheses as well.
+
 ::: {.inout}
 ::: {.inpt}
 ```lean
@@ -1002,6 +1027,8 @@ h1: ∀ (ε : ℝ), 0 < ε →
 :::
 
 #### Step 8
+
+We can now use the reverse direction of `h3` to simplify our goal further. Notice that the leftwards facing arrow is necessary, as lean typically tries to apply equalities from left to right. This means if the left side of the equality does not match what lean is attempting to replace, lean will not be able to rewrite in other terms.
 
 ::: {.inout}
 ::: {.inpt}
@@ -1047,6 +1074,8 @@ h1: ∀ (ε : ℝ), 0 < ε →
 
 #### Step 9
 
+The simplification done over the last few steps has modified both `h1` and our goal to be the same thing. Since we are assuming `h1` to be true, this allows us to apply that hypothesis and complete the first direction of out goal. Upon completion of the first goal, lean automatically begins displaying the second goal, which can be solved quite similarly to the first.
+
 ::: {.inout}
 ::: {.inpt}
 ```lean
@@ -1091,6 +1120,8 @@ h3: ∀ (x : ℕ), |s1 x| =
 :::
 
 #### Step 10
+
+With this direction I try to simplify in the same ways as before, but instead of using the leftwards direction of the euality in `h3`, I use the rightwards direction. This means that arrow does not need to be included and once again he have `h1` equal to our current goal.
 
 ::: {.inout}
 ::: {.inpt}
@@ -1140,6 +1171,8 @@ h1: ∀ (ε : ℝ), 0 < ε →
 
 #### Step 11
 
+With a hypothesis equal to our goal, we are able to apply the hypothesis and prove the other direction of the if and only if statement, completing the proof.
+
 ::: {.inout}
 ::: {.inpt}
 ```lean
@@ -1182,18 +1215,28 @@ No goals
 
 ## Convergence of a Specific Sequence
 
-The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplifying involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.
+The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplification involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.
+
+I mentioned earlier that lean's ability to simplify and make connections without user input was advancing quickly, and I encountered this when working on this problem. I originally had great difficulty getting lean to accept that $2 = \frac{2(n + 1)}{n + 1},$ which is something which can easily be explained in a typical proof, but lean has recently strengthened a tactic that renders much of my work here unnecessary. The `field_simp` tactic tries to simplify the current goal using what is known about all fields, and since we are working with the real numbers we are able to take advantage of this. I was not able to use this tactic since it was changed while I was working on the project, but seeing how quickly lean is progressing is very promising.
 
 Lean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this high level definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs. 
 
 ### Paragraph Style Proof
 
 ::: {.thm}
-Even more words
+Prove that $\lim(\frac{2n}{n + 1}) = 2.$
 :::
 
 ::: {.proof}
-Finally, words
+Let $\varepsilon > 0$ and choose $k > \frac{1}{\varepsilon} - 1$ where $k \in \mathbb{N}$ by the Archimedean Property. Then for $n > k:$
+\begin{align*}
+\left|\frac{2n}{n + 1} - 2\right| & = \left|\frac{2n}{n + 1} - \frac{2(n + 1)}{n + 1}\right|\\
+& = \left|\frac{-1}{n + 1}\right|\\
+& = \frac{1}{n + 1}\\
+& < \frac{1}{k + 1}\\
+& < \frac{1}{\frac{1}{\varepsilon} - 1 + 1} = \varepsilon.
+\end{align*}
+Thus we have that $\lim(\frac{2n}{n + 1}) = 2.$
 [&nbsp;□]{.excl}\qedhere
 :::
 

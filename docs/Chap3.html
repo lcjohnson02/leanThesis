@@ -722,7 +722,7 @@ a &amp; \le b.
 </section>
 <section id="step-9" class="level4">
 <h4 class="anchored" data-anchor-id="step-9">Step 9</h4>
-<p>This <code>dsimp</code> tactic will do its best to automatically simplify anything it is given, in this case it substitutes our specific epsilon value in for the arbitrary epsilon. This will now allow us to use <code>h4</code> to find our contradiction.</p>
+<p>The <code>dsimp</code> tactic will do its best to automatically simplify anything it is given, in this case it substitutes our specific epsilon value in for the arbitrary epsilon. This will now allow us to use <code>h4</code> to find our contradiction.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb35"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -792,414 +792,430 @@ a &amp; \le b.
 <section id="paragraph-style-proof-2" class="level3">
 <h3 class="anchored" data-anchor-id="paragraph-style-proof-2">Paragraph Style Proof</h3>
 <div class="thm">
-<p>Some words</p>
+<p>Prove that <span class="math inline">\(\lim(x_{n}) = 0\)</span> if and only if <span class="math inline">\(\lim(\left|x_{n}\right|) = 0.\)</span></p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Some more words <span class="excl">&nbsp;□</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\((\Longrightarrow)\)</span> First assume that <span class="math inline">\(\lim(x_{n}) = 0.\)</span> Then for all <span class="math inline">\(\varepsilon &gt; 0\)</span> we know there exists a <span class="math inline">\(k_{n} \in \mathbb{N}\)</span> such that for all nautral numbers <span class="math inline">\(n &gt; k_{n},\)</span> <span class="math inline">\(\left|x_{n} - 0\right| &lt; \varepsilon.\)</span> Thus <span class="math inline">\(\left|x_{n}\right| &lt; \varepsilon\)</span> and also <span class="math inline">\(\left|\left|x_{n}\right| - 0 \right| &lt; \varepsilon,\)</span> so <span class="math inline">\(\lim(\left|x_{n}\right|) = 0.\)</span></p>
+<p><span class="math inline">\((\Longleftarrow)\)</span> Now assume that <span class="math inline">\(\lim(\left|x_{n}\right|) = 0.\)</span> Then for all <span class="math inline">\(\varepsilon &gt; 0\)</span> we know there exists a <span class="math inline">\(k_{n} \in \mathbb{N}\)</span> such that for all nautral numbers <span class="math inline">\(n &gt; k_{n},\)</span> <span class="math inline">\(\left|\left|x_{n}\right| - 0\right| &lt; \varepsilon.\)</span> But <span class="math inline">\(\left|\left|x_{n}\right| - 0\right| = \left|\left|x_{n}\right|\right| = \left|x_{n}\right| = \left|x_{n} - 0\right|.\)</span> So <span class="math inline">\(\left|x_{n} - 0\right| &lt; \varepsilon\)</span> and <span class="math inline">\(\lim(x_{n}) = 0.\)</span> <span class="excl">&nbsp;□</span></p>
 </div>
 </section>
 <section id="lean-proof-2" class="level3">
 <h3 class="anchored" data-anchor-id="lean-proof-2">Lean Proof</h3>
 <section id="setting-up-the-problem-1" class="level4">
 <h4 class="anchored" data-anchor-id="setting-up-the-problem-1">Setting up the problem</h4>
+<p>Lean does not include a built in epsilon definition of a limit for sequences, so it is first necessary to define a limit in lean. I use the following definition:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ConvergesTo (s : ℕ → ℝ) (a : ℝ) :=</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  ∀ ε &gt; 0, ∃ N, ∀ n ≥ N, |s n - a| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>From this point we can set up our problem as normal.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb39"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb40"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>⊢ ConvergesTo s1 0 </span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ↔ ConvergesTo |s1| 0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>⊢ ConvergesTo s1 0 </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ↔ ConvergesTo |s1| 0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-1-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-1-2">Step 1</h4>
+<p>The first thing I ask lean to do is rewrite the definition of convergence that I defined earler when it is used in our goal. This will allow us to actually use and work towards the information in both instances of <code>ConvergesTo</code> in the problem. The fully expanded definition is shown in the infoview panel.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb41"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb42"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>⊢ (∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n - 0| &lt; ε) ↔</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>⊢ (∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n - 0| &lt; ε) ↔</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-2-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-2-2">Step 2</h4>
+<p>Here I set up a hypothesis which will later be used to modify both sides of the if and only if statement into something that is equal to the other.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb43"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb44"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="in">x</span>: ℕ</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>⊢ |s1 x| = |abs s1 x|</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="in">x</span>: ℕ</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>⊢ |s1 x| = |abs s1 x|</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-3-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-3-2">Step 3</h4>
+<p>In this instance lean essentially already knows that our goal is true, and only need to be told to simplify using the definition of absolute value in order to verify this. While it is impressive that lean requires little guidance, seeing some of the other things lean is capable of leaves me a bit underwhelmed that lean requires any input here. Because lean is still being developed there may come a time where simple statements like this are automatically verified without any user input.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb45"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb46"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>⊢ (∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n - 0| &lt; ε) ↔</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>⊢ (∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n - 0| &lt; ε) ↔</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-4-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-4-2">Step 4</h4>
+<p>Here the <code>Iff.intro</code> tactic splits up the if and only if statement in the goal and allows us to prove each direction individually, as is often done in a paragraph style proof.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb47"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb48"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>⊢ (∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n - 0| &lt; ε) →</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>⊢ (∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n - 0| &lt; ε) →</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-5-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-5-2">Step 5</h4>
+<p>The <code>intro</code> tactic applied here allows me to assume the if part of an if then statement and automatically names it with the hypothesis name I give it.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb49"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb50"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  n ≥ N → |s1 n - 0| &lt; ε</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  n ≥ N → |s1 n - 0| &lt; ε</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-6-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-6-2">Step 6</h4>
+<p>With the <code>simp</code> tactic, lean attempts to simplify the current goal. In this case, the <span class="math inline">\(\left|\left|s1_{n}\right| - 0\right|\)</span> is simplified to <span class="math inline">\(\left|\left|s1_{n}\right|\right|.\)</span> This is now where our <code>h3</code> hypothesis can be applied, but I will first attempt to simplify <code>h1</code>.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb51"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
-<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb52"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  n ≥ N → |s1 n - 0| &lt; ε</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), 0 &lt; ε → </span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    N ≤ n → </span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  n ≥ N → |s1 n - 0| &lt; ε</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), 0 &lt; ε → </span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    N ≤ n → </span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-7-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-7-2">Step 7</h4>
+<p>The <code>simp</code> tactic has the same effect as in the previous step, but this time it is working on <code>h1</code> rather than the end goal. By default <code>simp</code> will attempt to work on the goal but if asked to it will attempt to simplify hypotheses as well.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb53"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb54"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), 0 &lt; ε → </span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  N ≤ n → |s1 n| &lt; ε</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), 0 &lt; ε → </span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    N ≤ n → </span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), 0 &lt; ε → </span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  N ≤ n → |s1 n| &lt; ε</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), 0 &lt; ε → </span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    N ≤ n → </span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-8-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-8-1">Step 8</h4>
+<p>We can now use the reverse direction of <code>h3</code> to simplify our goal further. Notice that the leftwards facing arrow is necessary, as lean typically tries to apply equalities from left to right. This means if the left side of the equality does not match what lean is attempting to replace, lean will not be able to rewrite in other terms.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb55"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
-<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
-<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [← h3]</span>
-<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
-<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [← h3]</span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb56"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), 0 &lt; ε → </span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  N ≤ n → |s1 n| &lt; ε</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), 0 &lt; ε → </span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    N ≤ n → </span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), 0 &lt; ε → </span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  N ≤ n → |s1 n| &lt; ε</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), 0 &lt; ε → </span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    N ≤ n → </span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-9-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-9-1">Step 9</h4>
+<p>The simplification done over the last few steps has modified both <code>h1</code> and our goal to be the same thing. Since we are assuming <code>h1</code> to be true, this allows us to apply that hypothesis and complete the first direction of out goal. Upon completion of the first goal, lean automatically begins displaying the second goal, which can be solved quite similarly to the first.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb57"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
-<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
-<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
-<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
-<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [← h3]</span>
-<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> h1</span>
-<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
-<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [← h3]</span>
+<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> h1</span>
+<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
+<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb58"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>⊢ (∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε) →</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∀ (ε : ℝ), ε &gt; 0 → </span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>⊢ (∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n - 0| &lt; ε) →</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∀ (ε : ℝ), ε &gt; 0 → </span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ), </span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    n ≥ N → </span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |s1 n - 0| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-10-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-10-1">Step 10</h4>
+<p>With this direction I try to simplify in the same ways as before, but instead of using the leftwards direction of the euality in <code>h3</code>, I use the rightwards direction. This means that arrow does not need to be included and once again he have <code>h1</code> equal to our current goal.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb59"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
-<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
-<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [← h3]</span>
-<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> h1</span>
-<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
-<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
-<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
-<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
-<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a>    simp_rw [h3]</span>
-<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [← h3]</span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> h1</span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>    simp_rw [h3]</span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>  <span class="sc">**</span><span class="wa">done</span><span class="sc">::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb60"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), 0 &lt; ε → </span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  N ≤ n → |abs s1 n| &lt; ε</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), 0 &lt; ε → </span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ),</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    N ≤ n → </span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="in">s1</span>: ℕ → ℝ</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="in">h3</span>: ∀ (x : ℕ), |s1 x| = </span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  |abs s1 x|</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="in">h1</span>: ∀ (ε : ℝ), 0 &lt; ε → </span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  ∃ N, ∀ (n : ℕ), </span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>  N ≤ n → |abs s1 n| &lt; ε</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>⊢ ∀ (ε : ℝ), 0 &lt; ε → </span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    ∃ N, ∀ (n : ℕ),</span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    N ≤ n → </span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;&gt;</span>    |abs s1 n| &lt; ε</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="step-11" class="level4">
 <h4 class="anchored" data-anchor-id="step-11">Step 11</h4>
+<p>With a hypothesis equal to our goal, we are able to apply the hypothesis and prove the other direction of the if and only if statement, completing the proof.</p>
 <div class="inout">
 <div class="inpt">
-<div class="sourceCode" id="cb61"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
-<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
-<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
-<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
-<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
-<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [← h3]</span>
-<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> h1</span>
-<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
-<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
-<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
-<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
-<span id="cb61-22"><a href="#cb61-22" aria-hidden="true" tabindex="-1"></a>    simp_rw [h3]</span>
-<span id="cb61-23"><a href="#cb61-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> h1</span>
-<span id="cb61-24"><a href="#cb61-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    ConvergesTo s1 (0 : ℝ) ↔</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    ConvergesTo (abs s1) (0 : ℝ) </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    := <span class="kw">by</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [ConvergesTo]</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 (x : ℕ) : |s1 x| = </span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>      |abs s1 x| := <span class="kw">by</span></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [abs]</span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">apply</span> Iff.intro</span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Forwards</span></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> [← h3]</span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> h1</span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a>  · <span class="co">--Reverse</span></span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a>    intro h1</span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span> <span class="kw">at</span> h1</span>
+<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a>    simp_rw [h3]</span>
+<span id="cb62-23"><a href="#cb62-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> h1</span>
+<span id="cb62-24"><a href="#cb62-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="outpt">
-<div class="sourceCode" id="cb62"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="ss">No</span><span class="in"> </span><span class="ss">goals</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode state code-with-copy"><code class="sourceCode state"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="ss">No</span><span class="in"> </span><span class="ss">goals</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -1207,123 +1223,130 @@ a &amp; \le b.
 </section>
 <section id="convergence-of-a-specific-sequence" class="level2">
 <h2 class="anchored" data-anchor-id="convergence-of-a-specific-sequence">Convergence of a Specific Sequence</h2>
-<p>The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplifying involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.</p>
+<p>The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplification involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.</p>
+<p>I mentioned earlier that lean’s ability to simplify and make connections without user input was advancing quickly, and I encountered this when working on this problem. I originally had great difficulty getting lean to accept that <span class="math inline">\(2 = \frac{2(n + 1)}{n + 1},\)</span> which is something which can easily be explained in a typical proof, but lean has recently strengthened a tactic that renders much of my work here unnecessary. The <code>field_simp</code> tactic tries to simplify the current goal using what is known about all fields, and since we are working with the real numbers we are able to take advantage of this. I was not able to use this tactic since it was changed while I was working on the project, but seeing how quickly lean is progressing is very promising.</p>
 <p>Lean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this high level definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs.</p>
 <section id="paragraph-style-proof-3" class="level3">
 <h3 class="anchored" data-anchor-id="paragraph-style-proof-3">Paragraph Style Proof</h3>
 <div class="thm">
-<p>Even more words</p>
+<p>Prove that <span class="math inline">\(\lim(\frac{2n}{n + 1}) = 2.\)</span></p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Finally, words <span class="excl">&nbsp;□</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(\varepsilon &gt; 0\)</span> and choose <span class="math inline">\(k &gt; \frac{1}{\varepsilon} - 1\)</span> where <span class="math inline">\(k \in \mathbb{N}\)</span> by the Archimedean Property. Then for <span class="math inline">\(n &gt; k:\)</span> <span class="math display">\[\begin{align*}
+\left|\frac{2n}{n + 1} - 2\right| &amp; = \left|\frac{2n}{n + 1} - \frac{2(n + 1)}{n + 1}\right|\\
+&amp; = \left|\frac{-1}{n + 1}\right|\\
+&amp; = \frac{1}{n + 1}\\
+&amp; &lt; \frac{1}{k + 1}\\
+&amp; &lt; \frac{1}{\frac{1}{\varepsilon} - 1 + 1} = \varepsilon.
+\end{align*}\]</span> Thus we have that <span class="math inline">\(\lim(\frac{2n}{n + 1}) = 2.\)</span> <span class="excl">&nbsp;□</span></p>
 </div>
 </section>
 <section id="lean-proof-3" class="level3">
 <h3 class="anchored" data-anchor-id="lean-proof-3">Lean Proof</h3>
-<div class="sourceCode" id="cb63"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> : ConvergesTo (fun (n : ℕ) ↦ </span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    ((2 * n) / (n + 1))) 2 := <span class="kw">by</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  intro ε</span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  intro h1</span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">obtain</span> ⟨k, h13⟩ := </span>
-<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    exists_nat_gt (2 / ε - 1) <span class="co">--Archimedean Property</span></span>
-<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  use k</span>
-<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  intro n</span>
-<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>  intro h2</span>
-<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>  dsimp</span>
-<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 : (2 : ℝ) = 2 * ((n + 1) / (n + 1)) := <span class="kw">by</span></span>
-<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">have</span> h4 : ((n + 1) / (n + 1)) = </span>
-<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>        (n + 1) * ((n + 1) : ℝ)⁻¹ := <span class="kw">by</span></span>
-<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>      <span class="kw">rfl</span></span>
-<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">rw</span> [h4]</span>
-<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">have</span> h5 : (n + 1) * ((n + 1) : ℝ)⁻¹ = 1 := <span class="kw">by</span></span>
-<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>      <span class="kw">rw</span> [mul_inv_cancel]</span>
-<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>      <span class="kw">exact</span> Nat.cast_add_one_ne_zero n</span>
-<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">rw</span> [h5]</span>
-<span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">exact</span> Eq.symm (mul_one 2)</span>
-<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a>  nth_rewrite 2 [h3]</span>
-<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h6 : 2 * ((↑n + 1) : ℝ) / (↑n + 1) = </span>
-<span id="cb63-26"><a href="#cb63-26" aria-hidden="true" tabindex="-1"></a>      ((2 * n) + 2) / (n + 1) := <span class="kw">by</span></span>
-<span id="cb63-27"><a href="#cb63-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">rw</span> [Distribute n]</span>
-<span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h7 : 2 * (((↑n + 1) : ℝ) / (↑n + 1)) = </span>
-<span id="cb63-30"><a href="#cb63-30" aria-hidden="true" tabindex="-1"></a>      2 * (↑n + 1) / (↑n + 1) := <span class="kw">by</span></span>
-<span id="cb63-31"><a href="#cb63-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">rw</span> [← mul_div_assoc 2 ((n + 1) : ℝ) ((n + 1) : ℝ)]</span>
-<span id="cb63-32"><a href="#cb63-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb63-33"><a href="#cb63-33" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [h7]</span>
-<span id="cb63-34"><a href="#cb63-34" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [h6]</span>
-<span id="cb63-35"><a href="#cb63-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [div_sub_div_same (2 * n : ℝ) (2 * n + 2) (n + 1)]</span>
-<span id="cb63-36"><a href="#cb63-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [sub_add_cancel']</span>
-<span id="cb63-37"><a href="#cb63-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [abs_div]</span>
-<span id="cb63-38"><a href="#cb63-38" aria-hidden="true" tabindex="-1"></a>  <span class="kw">simp</span></span>
-<span id="cb63-39"><a href="#cb63-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h8 : |(↑n + 1 : ℝ)| = ↑n + 1 := <span class="kw">by</span></span>
-<span id="cb63-40"><a href="#cb63-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
-<span id="cb63-41"><a href="#cb63-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> LT.lt.le (Nat.cast_add_one_pos ↑n)</span>
-<span id="cb63-42"><a href="#cb63-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb63-43"><a href="#cb63-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [h8]</span>
-<span id="cb63-44"><a href="#cb63-44" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h9 : (2 : ℝ) / (↑n + 1) ≤ 2 / (k + 1) := <span class="kw">by</span></span>
-<span id="cb63-45"><a href="#cb63-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> div_le_div_of_le_left</span>
-<span id="cb63-46"><a href="#cb63-46" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 1</span></span>
-<span id="cb63-47"><a href="#cb63-47" aria-hidden="true" tabindex="-1"></a>      <span class="kw">linarith</span></span>
-<span id="cb63-48"><a href="#cb63-48" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-49"><a href="#cb63-49" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 2</span></span>
-<span id="cb63-50"><a href="#cb63-50" aria-hidden="true" tabindex="-1"></a>      <span class="kw">exact</span> Nat.cast_add_one_pos k</span>
-<span id="cb63-51"><a href="#cb63-51" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-52"><a href="#cb63-52" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 3</span></span>
-<span id="cb63-53"><a href="#cb63-53" aria-hidden="true" tabindex="-1"></a>      convert add_le_add_right h2 1</span>
-<span id="cb63-54"><a href="#cb63-54" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> Iff.intro</span>
-<span id="cb63-55"><a href="#cb63-55" aria-hidden="true" tabindex="-1"></a>      · <span class="co">--subcase 1</span></span>
-<span id="cb63-56"><a href="#cb63-56" aria-hidden="true" tabindex="-1"></a>        <span class="kw">exact</span> fun a =&gt; Nat.add_le_add_right h2 1</span>
-<span id="cb63-57"><a href="#cb63-57" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
-<span id="cb63-58"><a href="#cb63-58" aria-hidden="true" tabindex="-1"></a>      · <span class="co">--subcase 2</span></span>
-<span id="cb63-59"><a href="#cb63-59" aria-hidden="true" tabindex="-1"></a>        intro h14</span>
-<span id="cb63-60"><a href="#cb63-60" aria-hidden="true" tabindex="-1"></a>        <span class="kw">apply</span> add_le_add_right</span>
-<span id="cb63-61"><a href="#cb63-61" aria-hidden="true" tabindex="-1"></a>        <span class="kw">exact</span> Iff.mpr Nat.cast_le h2</span>
-<span id="cb63-62"><a href="#cb63-62" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
-<span id="cb63-63"><a href="#cb63-63" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-64"><a href="#cb63-64" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb63-65"><a href="#cb63-65" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h10 : 2 / (k + 1) &lt; 2 / (2 / ε - 1 + 1) := <span class="kw">by</span></span>
-<span id="cb63-66"><a href="#cb63-66" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> div_lt_div_of_lt_left</span>
-<span id="cb63-67"><a href="#cb63-67" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 1</span></span>
-<span id="cb63-68"><a href="#cb63-68" aria-hidden="true" tabindex="-1"></a>      <span class="kw">linarith</span></span>
-<span id="cb63-69"><a href="#cb63-69" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-70"><a href="#cb63-70" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 2</span></span>
-<span id="cb63-71"><a href="#cb63-71" aria-hidden="true" tabindex="-1"></a>      <span class="kw">simp</span></span>
-<span id="cb63-72"><a href="#cb63-72" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> div_pos</span>
-<span id="cb63-73"><a href="#cb63-73" aria-hidden="true" tabindex="-1"></a>      <span class="kw">linarith</span></span>
-<span id="cb63-74"><a href="#cb63-74" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> h1</span>
-<span id="cb63-75"><a href="#cb63-75" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-76"><a href="#cb63-76" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 3</span></span>
-<span id="cb63-77"><a href="#cb63-77" aria-hidden="true" tabindex="-1"></a>      convert add_le_add_right h2 1</span>
-<span id="cb63-78"><a href="#cb63-78" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> Iff.intro</span>
-<span id="cb63-79"><a href="#cb63-79" aria-hidden="true" tabindex="-1"></a>      · <span class="co">--subcase 1</span></span>
-<span id="cb63-80"><a href="#cb63-80" aria-hidden="true" tabindex="-1"></a>        intro h11</span>
-<span id="cb63-81"><a href="#cb63-81" aria-hidden="true" tabindex="-1"></a>        <span class="kw">exact</span> Nat.add_le_add_right h2 1</span>
-<span id="cb63-82"><a href="#cb63-82" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
-<span id="cb63-83"><a href="#cb63-83" aria-hidden="true" tabindex="-1"></a>      · <span class="co">--subcase 2</span></span>
-<span id="cb63-84"><a href="#cb63-84" aria-hidden="true" tabindex="-1"></a>        intro h11</span>
-<span id="cb63-85"><a href="#cb63-85" aria-hidden="true" tabindex="-1"></a>        <span class="kw">have</span> h12 : 2 / ε - 1 &lt; (k : ℝ) := <span class="kw">by</span></span>
-<span id="cb63-86"><a href="#cb63-86" aria-hidden="true" tabindex="-1"></a>          <span class="kw">simp</span> only []</span>
-<span id="cb63-87"><a href="#cb63-87" aria-hidden="true" tabindex="-1"></a>          <span class="kw">apply</span> h13</span>
-<span id="cb63-88"><a href="#cb63-88" aria-hidden="true" tabindex="-1"></a>          <span class="kw">done</span></span>
-<span id="cb63-89"><a href="#cb63-89" aria-hidden="true" tabindex="-1"></a>        <span class="kw">exact</span> add_lt_add_right h12 1</span>
-<span id="cb63-90"><a href="#cb63-90" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
-<span id="cb63-91"><a href="#cb63-91" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-92"><a href="#cb63-92" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
-<span id="cb63-93"><a href="#cb63-93" aria-hidden="true" tabindex="-1"></a>  <span class="kw">calc</span></span>
-<span id="cb63-94"><a href="#cb63-94" aria-hidden="true" tabindex="-1"></a>    2 / (↑n + 1) ≤ (2 : ℝ) / (k + 1) := <span class="kw">by</span></span>
-<span id="cb63-95"><a href="#cb63-95" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> h9</span>
-<span id="cb63-96"><a href="#cb63-96" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-97"><a href="#cb63-97" aria-hidden="true" tabindex="-1"></a>    _ &lt; (2 : ℝ) / (2 / ε - 1 + 1) := <span class="kw">by</span></span>
-<span id="cb63-98"><a href="#cb63-98" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> h10</span>
-<span id="cb63-99"><a href="#cb63-99" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-100"><a href="#cb63-100" aria-hidden="true" tabindex="-1"></a>    _ = ε := <span class="kw">by</span></span>
-<span id="cb63-101"><a href="#cb63-101" aria-hidden="true" tabindex="-1"></a>      ring_nf</span>
-<span id="cb63-102"><a href="#cb63-102" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> inv_inv</span>
-<span id="cb63-103"><a href="#cb63-103" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
-<span id="cb63-104"><a href="#cb63-104" aria-hidden="true" tabindex="-1"></a>  <span class="kw">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> : ConvergesTo (fun (n : ℕ) ↦ </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    ((2 * n) / (n + 1))) 2 := <span class="kw">by</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  intro ε</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  intro h1</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">obtain</span> ⟨k, h13⟩ := </span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    exists_nat_gt (2 / ε - 1) <span class="co">--Archimedean Property</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  use k</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  intro n</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  intro h2</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  dsimp</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h3 : (2 : ℝ) = 2 * ((n + 1) / (n + 1)) := <span class="kw">by</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">have</span> h4 : ((n + 1) / (n + 1)) = </span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>        (n + 1) * ((n + 1) : ℝ)⁻¹ := <span class="kw">by</span></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>      <span class="kw">rfl</span></span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">rw</span> [h4]</span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">have</span> h5 : (n + 1) * ((n + 1) : ℝ)⁻¹ = 1 := <span class="kw">by</span></span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a>      <span class="kw">rw</span> [mul_inv_cancel]</span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a>      <span class="kw">exact</span> Nat.cast_add_one_ne_zero n</span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">rw</span> [h5]</span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">exact</span> Eq.symm (mul_one 2)</span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>  nth_rewrite 2 [h3]</span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h6 : 2 * ((↑n + 1) : ℝ) / (↑n + 1) = </span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a>      ((2 * n) + 2) / (n + 1) := <span class="kw">by</span></span>
+<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">rw</span> [Distribute n]</span>
+<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h7 : 2 * (((↑n + 1) : ℝ) / (↑n + 1)) = </span>
+<span id="cb64-30"><a href="#cb64-30" aria-hidden="true" tabindex="-1"></a>      2 * (↑n + 1) / (↑n + 1) := <span class="kw">by</span></span>
+<span id="cb64-31"><a href="#cb64-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">rw</span> [← mul_div_assoc 2 ((n + 1) : ℝ) ((n + 1) : ℝ)]</span>
+<span id="cb64-32"><a href="#cb64-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb64-33"><a href="#cb64-33" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [h7]</span>
+<span id="cb64-34"><a href="#cb64-34" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [h6]</span>
+<span id="cb64-35"><a href="#cb64-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [div_sub_div_same (2 * n : ℝ) (2 * n + 2) (n + 1)]</span>
+<span id="cb64-36"><a href="#cb64-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [sub_add_cancel']</span>
+<span id="cb64-37"><a href="#cb64-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [abs_div]</span>
+<span id="cb64-38"><a href="#cb64-38" aria-hidden="true" tabindex="-1"></a>  <span class="kw">simp</span></span>
+<span id="cb64-39"><a href="#cb64-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h8 : |(↑n + 1 : ℝ)| = ↑n + 1 := <span class="kw">by</span></span>
+<span id="cb64-40"><a href="#cb64-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">simp</span></span>
+<span id="cb64-41"><a href="#cb64-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> LT.lt.le (Nat.cast_add_one_pos ↑n)</span>
+<span id="cb64-42"><a href="#cb64-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb64-43"><a href="#cb64-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">rw</span> [h8]</span>
+<span id="cb64-44"><a href="#cb64-44" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h9 : (2 : ℝ) / (↑n + 1) ≤ 2 / (k + 1) := <span class="kw">by</span></span>
+<span id="cb64-45"><a href="#cb64-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> div_le_div_of_le_left</span>
+<span id="cb64-46"><a href="#cb64-46" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 1</span></span>
+<span id="cb64-47"><a href="#cb64-47" aria-hidden="true" tabindex="-1"></a>      <span class="kw">linarith</span></span>
+<span id="cb64-48"><a href="#cb64-48" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-49"><a href="#cb64-49" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 2</span></span>
+<span id="cb64-50"><a href="#cb64-50" aria-hidden="true" tabindex="-1"></a>      <span class="kw">exact</span> Nat.cast_add_one_pos k</span>
+<span id="cb64-51"><a href="#cb64-51" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-52"><a href="#cb64-52" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 3</span></span>
+<span id="cb64-53"><a href="#cb64-53" aria-hidden="true" tabindex="-1"></a>      convert add_le_add_right h2 1</span>
+<span id="cb64-54"><a href="#cb64-54" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> Iff.intro</span>
+<span id="cb64-55"><a href="#cb64-55" aria-hidden="true" tabindex="-1"></a>      · <span class="co">--subcase 1</span></span>
+<span id="cb64-56"><a href="#cb64-56" aria-hidden="true" tabindex="-1"></a>        <span class="kw">exact</span> fun a =&gt; Nat.add_le_add_right h2 1</span>
+<span id="cb64-57"><a href="#cb64-57" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
+<span id="cb64-58"><a href="#cb64-58" aria-hidden="true" tabindex="-1"></a>      · <span class="co">--subcase 2</span></span>
+<span id="cb64-59"><a href="#cb64-59" aria-hidden="true" tabindex="-1"></a>        intro h14</span>
+<span id="cb64-60"><a href="#cb64-60" aria-hidden="true" tabindex="-1"></a>        <span class="kw">apply</span> add_le_add_right</span>
+<span id="cb64-61"><a href="#cb64-61" aria-hidden="true" tabindex="-1"></a>        <span class="kw">exact</span> Iff.mpr Nat.cast_le h2</span>
+<span id="cb64-62"><a href="#cb64-62" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
+<span id="cb64-63"><a href="#cb64-63" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-64"><a href="#cb64-64" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb64-65"><a href="#cb64-65" aria-hidden="true" tabindex="-1"></a>  <span class="kw">have</span> h10 : 2 / (k + 1) &lt; 2 / (2 / ε - 1 + 1) := <span class="kw">by</span></span>
+<span id="cb64-66"><a href="#cb64-66" aria-hidden="true" tabindex="-1"></a>    <span class="kw">apply</span> div_lt_div_of_lt_left</span>
+<span id="cb64-67"><a href="#cb64-67" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 1</span></span>
+<span id="cb64-68"><a href="#cb64-68" aria-hidden="true" tabindex="-1"></a>      <span class="kw">linarith</span></span>
+<span id="cb64-69"><a href="#cb64-69" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-70"><a href="#cb64-70" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 2</span></span>
+<span id="cb64-71"><a href="#cb64-71" aria-hidden="true" tabindex="-1"></a>      <span class="kw">simp</span></span>
+<span id="cb64-72"><a href="#cb64-72" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> div_pos</span>
+<span id="cb64-73"><a href="#cb64-73" aria-hidden="true" tabindex="-1"></a>      <span class="kw">linarith</span></span>
+<span id="cb64-74"><a href="#cb64-74" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> h1</span>
+<span id="cb64-75"><a href="#cb64-75" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-76"><a href="#cb64-76" aria-hidden="true" tabindex="-1"></a>    · <span class="co">--case 3</span></span>
+<span id="cb64-77"><a href="#cb64-77" aria-hidden="true" tabindex="-1"></a>      convert add_le_add_right h2 1</span>
+<span id="cb64-78"><a href="#cb64-78" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> Iff.intro</span>
+<span id="cb64-79"><a href="#cb64-79" aria-hidden="true" tabindex="-1"></a>      · <span class="co">--subcase 1</span></span>
+<span id="cb64-80"><a href="#cb64-80" aria-hidden="true" tabindex="-1"></a>        intro h11</span>
+<span id="cb64-81"><a href="#cb64-81" aria-hidden="true" tabindex="-1"></a>        <span class="kw">exact</span> Nat.add_le_add_right h2 1</span>
+<span id="cb64-82"><a href="#cb64-82" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
+<span id="cb64-83"><a href="#cb64-83" aria-hidden="true" tabindex="-1"></a>      · <span class="co">--subcase 2</span></span>
+<span id="cb64-84"><a href="#cb64-84" aria-hidden="true" tabindex="-1"></a>        intro h11</span>
+<span id="cb64-85"><a href="#cb64-85" aria-hidden="true" tabindex="-1"></a>        <span class="kw">have</span> h12 : 2 / ε - 1 &lt; (k : ℝ) := <span class="kw">by</span></span>
+<span id="cb64-86"><a href="#cb64-86" aria-hidden="true" tabindex="-1"></a>          <span class="kw">simp</span> only []</span>
+<span id="cb64-87"><a href="#cb64-87" aria-hidden="true" tabindex="-1"></a>          <span class="kw">apply</span> h13</span>
+<span id="cb64-88"><a href="#cb64-88" aria-hidden="true" tabindex="-1"></a>          <span class="kw">done</span></span>
+<span id="cb64-89"><a href="#cb64-89" aria-hidden="true" tabindex="-1"></a>        <span class="kw">exact</span> add_lt_add_right h12 1</span>
+<span id="cb64-90"><a href="#cb64-90" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
+<span id="cb64-91"><a href="#cb64-91" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-92"><a href="#cb64-92" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span>
+<span id="cb64-93"><a href="#cb64-93" aria-hidden="true" tabindex="-1"></a>  <span class="kw">calc</span></span>
+<span id="cb64-94"><a href="#cb64-94" aria-hidden="true" tabindex="-1"></a>    2 / (↑n + 1) ≤ (2 : ℝ) / (k + 1) := <span class="kw">by</span></span>
+<span id="cb64-95"><a href="#cb64-95" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> h9</span>
+<span id="cb64-96"><a href="#cb64-96" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-97"><a href="#cb64-97" aria-hidden="true" tabindex="-1"></a>    _ &lt; (2 : ℝ) / (2 / ε - 1 + 1) := <span class="kw">by</span></span>
+<span id="cb64-98"><a href="#cb64-98" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> h10</span>
+<span id="cb64-99"><a href="#cb64-99" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-100"><a href="#cb64-100" aria-hidden="true" tabindex="-1"></a>    _ = ε := <span class="kw">by</span></span>
+<span id="cb64-101"><a href="#cb64-101" aria-hidden="true" tabindex="-1"></a>      ring_nf</span>
+<span id="cb64-102"><a href="#cb64-102" aria-hidden="true" tabindex="-1"></a>      <span class="kw">apply</span> inv_inv</span>
+<span id="cb64-103"><a href="#cb64-103" aria-hidden="true" tabindex="-1"></a>      <span class="kw">done</span></span>
+<span id="cb64-104"><a href="#cb64-104" aria-hidden="true" tabindex="-1"></a>  <span class="kw">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
