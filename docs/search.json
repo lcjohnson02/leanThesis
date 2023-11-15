@@ -1,5 +1,40 @@
 [
   {
+    "objectID": "Chap4.html#the-good",
+    "href": "Chap4.html#the-good",
+    "title": "4  Conclusions",
+    "section": "The Good",
+    "text": "The Good\nIt is easy to see the potential which lean has to aid in proof verification, and it only seems to be gaining more popularity. The language is continuously being expanded and made more powerful which should only help make it accessible to more people. The language already has some features that could be very helpful to new users, such as the apply? tactic. This tactic looks at the current goal and all hypotheses and suggests tactics and theorems which could be applied to get closer to the goal. While this is certainly not perfect, it is very helpful and I used it quite a few times during my time with the language. This tactic is most useful for peopple who are new to the language and are not sure how to apply the theorems that they need or what the theorems may be called in lean. This tactic worked best for me when completing simple steps that only required one more theorem already in lean’s library to reach my current goal.\nLean clearly laying out all known hypotheses and the current goal which finishs the proof could aid some users in figuring how to prove theorems or problems they might have struggled with otherwise."
+  },
+  {
+    "objectID": "Chap4.html#the-bad",
+    "href": "Chap4.html#the-bad",
+    "title": "4  Conclusions",
+    "section": "The Bad",
+    "text": "The Bad\nThe biggest downside to using lean is getting used to the programming language itself and trying to put mathematical works into terms which lean is able to understand. If someone has not spent much time working with programming languages it would obviously be difficult and time consuming to learn something entirely new, but even for those who have had experience programming the switch into lean could still prove difficult. While there are methods within lean which could aid new users such as the aforementioned apply? tactic, it is still necessary to\nAnother downside to lean is the lack of options and potentially the inability to always immediately keep up with mathematics in the future. Development takes time, and in order to do proofs in lean more theorems and definitions need to be added and worked out. (add more on above^)\n(Mention intersection ofa collection of sets not being in lean: some things not included because they are mainly for “exercises”)"
+  },
+  {
+    "objectID": "Chap4.html#the-future",
+    "href": "Chap4.html#the-future",
+    "title": "4  Conclusions",
+    "section": "The Future",
+    "text": "The Future\nWith lean constantly expanding and growing more powerful, hopefully it can become easy enough to use that it becomes widely used. The scene of users is quite active right now, and its libraries are constantly being updated. Lean has even gained enough popularity that a few textbooks have been written about proving mathematical theorems using lean. These vary in level of difficulty and some add their own libraries of theorems and definitions which are not included in the base installation of lean. The /How To Prove It With Lean/ textbook as well as /Mathematics in Lean/ were both quite instrumental in learning the language and gaining a full grasp of lean’s capabilities. /How To Prove It With Lean makes some substantial changes to the base language which I believe makes it easier to use than the base language. Due to the added tactics and simpler syntax rules in this book, I would certainly recommend any new users start with this book. Once the basics have been understood, /Mathematics in Lean/ goes back to the base language and takes the language into higher level mathematics such as topology and calculus. These books do a great job of teaching the language and some of the math at the same time, making it possible for those starting to learn mathematical proofs could start in lean and learn to take full advantage of it. If lean continues to be supported and expanded we could certainly see a greater acceptance and implementation into mainstream mathematics.\nUltimately lean is an incredibly powerful tool which does provide the valuable proof verification benefits which make learning the language worthwhile."
+  },
+  {
+    "objectID": "Chap1.html",
+    "href": "Chap1.html",
+    "title": "1  Real Analysis",
+    "section": "",
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$"
+  },
+  {
+    "objectID": "Chap2.html",
+    "href": "Chap2.html",
+    "title": "2  Functional Programming",
+    "section": "",
+    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$"
+  },
+  {
     "objectID": "Chap3.html#differences-from-paragraph-style-proofs",
     "href": "Chap3.html#differences-from-paragraph-style-proofs",
     "title": "3  Lean as a Theorem Prover",
@@ -33,27 +68,6 @@
     "title": "3  Lean as a Theorem Prover",
     "section": "Convergence of a Specific Sequence",
     "text": "Convergence of a Specific Sequence\nThe following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplification involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.\nI mentioned earlier that lean’s ability to simplify and make connections without user input was advancing quickly, and I encountered this when working on this problem. I originally had great difficulty getting lean to accept that \\(2 = \\frac{2(n + 1)}{n + 1},\\) which is something which can easily be explained in a typical proof, but lean has recently strengthened a tactic that renders much of my work here unnecessary. The field_simp tactic tries to simplify the current goal using what is known about all fields, and since we are working with the real numbers we are able to take advantage of this. I was not able to use this tactic since it was changed while I was working on the project, but seeing how quickly lean is progressing is very promising.\nLean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this high level definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs.\n\nParagraph Style Proof\n\nProve that \\(\\lim(\\frac{2n}{n + 1}) = 2.\\)\n\n\nProof. Let \\(\\varepsilon &gt; 0\\) and choose \\(k &gt; \\frac{1}{\\varepsilon} - 1\\) where \\(k \\in \\mathbb{N}\\) by the Archimedean Property. Then for \\(n &gt; k:\\) \\[\\begin{align*}\n\\left|\\frac{2n}{n + 1} - 2\\right| & = \\left|\\frac{2n}{n + 1} - \\frac{2(n + 1)}{n + 1}\\right|\\\\\n& = \\left|\\frac{-1}{n + 1}\\right|\\\\\n& = \\frac{1}{n + 1}\\\\\n& &lt; \\frac{1}{k + 1}\\\\\n& &lt; \\frac{1}{\\frac{1}{\\varepsilon} - 1 + 1} = \\varepsilon.\n\\end{align*}\\] Thus we have that \\(\\lim(\\frac{2n}{n + 1}) = 2.\\)  □\n\n\n\nLean Proof\nexample : ConvergesTo (fun (n : ℕ) ↦ \n    ((2 * n) / (n + 1))) 2 := by\n  intro ε\n  intro h1\n  obtain ⟨k, h13⟩ := \n    exists_nat_gt (2 / ε - 1) --Archimedean Property\n  use k\n  intro n\n  intro h2\n  dsimp\n  have h3 : (2 : ℝ) = 2 * ((n + 1) / (n + 1)) := by\n    have h4 : ((n + 1) / (n + 1)) = \n        (n + 1) * ((n + 1) : ℝ)⁻¹ := by\n      rfl\n      done\n    rw [h4]\n    have h5 : (n + 1) * ((n + 1) : ℝ)⁻¹ = 1 := by\n      rw [mul_inv_cancel]\n      exact Nat.cast_add_one_ne_zero n\n      done\n    rw [h5]\n    exact Eq.symm (mul_one 2)\n    done\n  nth_rewrite 2 [h3]\n  have h6 : 2 * ((↑n + 1) : ℝ) / (↑n + 1) = \n      ((2 * n) + 2) / (n + 1) := by\n    rw [Distribute n]\n    done\n  have h7 : 2 * (((↑n + 1) : ℝ) / (↑n + 1)) = \n      2 * (↑n + 1) / (↑n + 1) := by\n    rw [← mul_div_assoc 2 ((n + 1) : ℝ) ((n + 1) : ℝ)]\n    done\n  rw [h7]\n  rw [h6]\n  rw [div_sub_div_same (2 * n : ℝ) (2 * n + 2) (n + 1)]\n  rw [sub_add_cancel']\n  rw [abs_div]\n  simp\n  have h8 : |(↑n + 1 : ℝ)| = ↑n + 1 := by\n    simp\n    apply LT.lt.le (Nat.cast_add_one_pos ↑n)\n    done\n  rw [h8]\n  have h9 : (2 : ℝ) / (↑n + 1) ≤ 2 / (k + 1) := by\n    apply div_le_div_of_le_left\n    · --case 1\n      linarith\n      done\n    · --case 2\n      exact Nat.cast_add_one_pos k\n      done\n    · --case 3\n      convert add_le_add_right h2 1\n      apply Iff.intro\n      · --subcase 1\n        exact fun a =&gt; Nat.add_le_add_right h2 1\n        done\n      · --subcase 2\n        intro h14\n        apply add_le_add_right\n        exact Iff.mpr Nat.cast_le h2\n        done\n      done\n    done\n  have h10 : 2 / (k + 1) &lt; 2 / (2 / ε - 1 + 1) := by\n    apply div_lt_div_of_lt_left\n    · --case 1\n      linarith\n      done\n    · --case 2\n      simp\n      apply div_pos\n      linarith\n      apply h1\n      done\n    · --case 3\n      convert add_le_add_right h2 1\n      apply Iff.intro\n      · --subcase 1\n        intro h11\n        exact Nat.add_le_add_right h2 1\n        done\n      · --subcase 2\n        intro h11\n        have h12 : 2 / ε - 1 &lt; (k : ℝ) := by\n          simp only []\n          apply h13\n          done\n        exact add_lt_add_right h12 1\n        done\n      done\n    done\n  calc\n    2 / (↑n + 1) ≤ (2 : ℝ) / (k + 1) := by\n      apply h9\n      done\n    _ &lt; (2 : ℝ) / (2 / ε - 1 + 1) := by\n      apply h10\n      done\n    _ = ε := by\n      ring_nf\n      apply inv_inv\n      done\n  done"
-  },
-  {
-    "objectID": "Chap1.html",
-    "href": "Chap1.html",
-    "title": "1  Real Analysis",
-    "section": "",
-    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$"
-  },
-  {
-    "objectID": "Chap2.html",
-    "href": "Chap2.html",
-    "title": "2  Functional Programming",
-    "section": "",
-    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$"
-  },
-  {
-    "objectID": "Chap4.html",
-    "href": "Chap4.html",
-    "title": "4  Conclusions",
-    "section": "",
-    "text": "$$\n\\newcommand{\\setmin}{\\mathbin{\\backslash}}\n\\newcommand{\\symmdiff}{\\bigtriangleup}\n$$\n\n\n\n\nUltimately lean is an incredibly powerful tool which does provide the valuable proof verification benefits which make learning the language worthwhile."
   },
   {
     "objectID": "Chap5.html",

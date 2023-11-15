@@ -1,3 +1,24 @@
 # Conclusions
 
+
+## The Good
+
+It is easy to see the potential which lean has to aid in proof verification, and it only seems to be gaining more popularity. The language is continuously being expanded and made more powerful which should only help make it accessible to more people. The language already has some features that could be very helpful to new users, such as the `apply?` tactic. This tactic looks at the current goal and all hypotheses and suggests tactics and theorems which could be applied to get closer to the goal. While this is certainly not perfect, it is very helpful and I used it quite a few times during my time with the language. This tactic is most useful for peopple who are new to the language and are not sure how to apply the theorems that they need or what the theorems may be called in lean. This tactic worked best for me when completing simple steps that only required one more theorem already in lean's library to reach my current goal. 
+
+Lean clearly laying out all known hypotheses and the current goal which finishs the proof could aid some users in figuring how to prove theorems or problems they might have struggled with otherwise. 
+
+## The Bad
+
+The biggest downside to using lean is getting used to the programming language itself and trying to put mathematical works into terms which lean is able to understand. If someone has not spent much time working with programming languages it would obviously be difficult and time consuming to learn something entirely new, but even for those who have had experience programming the switch into lean could still prove difficult. While there are methods within lean which could aid new users such as the aforementioned `apply?` tactic, it is still necessary to 
+
+Another downside to lean is the lack of options and potentially the inability to always immediately keep up with mathematics in the future. Development takes time, and in order to do proofs in lean more theorems and definitions need to be added and worked out. 
+(add more on above^)
+
+(Mention intersection ofa collection of sets not being in lean: some things not included because they are mainly for "exercises")
+
+## The Future
+
+With lean constantly expanding and growing more powerful, hopefully it can become easy enough to use that it becomes widely used. The scene of users is quite active right now, and its libraries are constantly being updated. Lean has even gained enough popularity that a few textbooks have been written about proving mathematical theorems using lean. These vary in level of difficulty and some add their own libraries of theorems and definitions which are not included in the base installation of lean. The /How To Prove It With Lean/ textbook as well as /Mathematics in Lean/ were both quite instrumental in learning the language and gaining a full grasp of lean's capabilities. /How To Prove It With Lean makes some substantial changes to the base language which I believe makes it easier to use than the base language. Due to the added tactics and simpler syntax rules in this book, I would certainly recommend any new users start with this book. Once the basics have been understood, /Mathematics in Lean/ goes back to the base language and takes the language into higher level mathematics such as topology and calculus. These books do a great job of teaching the language and some of the math at the same time, making it possible for those starting to learn mathematical proofs could start in lean and learn to take full advantage of it. If lean continues to be supported and expanded we could certainly see a greater acceptance and implementation into mainstream mathematics.
+
+
 Ultimately lean is an incredibly powerful tool which does provide the valuable proof verification benefits which make learning the language worthwhile. 
