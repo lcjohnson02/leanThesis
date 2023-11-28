@@ -13,7 +13,7 @@ book:
     - Chap2.qmd
     - Chap3.qmd
     - Chap4.qmd
-    - Chap5.qmd
+    - references.qmd
 
 format:
   html:
@@ -24,6 +24,9 @@ format:
     toc-title: In This Chapter
     number-depth: 0
     include-before-body: mathjaxdefs.tex
+    bibliography: references.bibtex
+    nocite : |
+      @*
   pdf:
     documentclass: scrreprt
     toc-depth: 2
@@ -36,6 +39,9 @@ format:
     date: \small Georgetown College
     template-partials:
       - before-body.tex
+    bibliography: references.bibtex
+    nocite : |
+      @*
 
 filters:
   - latex-environment

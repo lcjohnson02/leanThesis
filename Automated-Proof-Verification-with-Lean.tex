@@ -117,6 +117,29 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \usepackage{mathrsfs}
 \usepackage{twemojis}
@@ -414,7 +437,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, breakable, enhanced, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, frame hidden, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, sharp corners, boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}, enhanced, frame hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -2500,13 +2523,42 @@ into mainstream mathematics.
 \bookmarksetup{startatroot}
 
 \hypertarget{works-cited}{%
-\chapter{Works Cited}\label{works-cited}}
+\chapter*{Works Cited}\label{works-cited}}
+\addcontentsline{toc}{chapter}{Works Cited}
+
+\markboth{Works Cited}{Works Cited}
 
 This work had been formatted and styled from the book \emph{How To Prove
 It With Lean}, written by Daniel J. Velleman. \emph{How To Prove It With
 Lean} contains short excerpts from \emph{How To Prove It: A Structured
 Approach, 3rd Edition}, by Daniel J. Velleman and published by Cambridge
 University Press.
+
+\hfill\break
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-Avigad_Massot}{}}%
+Avigad, Jeremy, and Patrick Massot. 2020. {``Mathematics in Lean.''}
+\emph{Mathematics in Lean - Mathematics in Lean 0.1 Documentation}.
+\url{https://leanprover-community.github.io/mathematics_in_lean/index.html\#}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Avigad_de_Moura_Kong_Ullrich}{}}%
+Avigad, Jeremy, Leonardo de Moura, Soonho Kong, and Sebastian Ullrich.
+2021. {``Theorem Proving in Lean 4.''} \emph{Theorem Proving in Lean 4 -
+Theorem Proving in Lean 4}.
+\url{https://lean-lang.org/theorem_proving_in_lean4/title_page.html}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Christiansen}{}}%
+Christiansen, David Thrane. 2023. {``Functional Programming in Lean.''}
+\emph{Functional Programming in Lean - Functional Programming in Lean}.
+\url{https://lean-lang.org/functional_programming_in_lean/title.html}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Velleman}{}}%
+Velleman, Daniel J. 2023. \emph{How To Prove It With Lean}.
+\url{https://djvelleman.github.io/HTPIwL/}.
+
+\end{CSLReferences}
 
 
 

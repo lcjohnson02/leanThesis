@@ -21,7 +21,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -129,8 +148,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Chap5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Works Cited</span></span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Works Cited</span></a>
   </div>
 </li>
     </ul>
@@ -185,6 +204,20 @@ $$
 <p>If you find this language interesting and would like to learn more, the textbook <a href="https://djvelleman.github.io/HTPIwL/">How To Prove It With Lean</a> is a great starting point, and the textbook <a href="https://leanprover-community.github.io/mathematics_in_lean/index.html">Mathematics in Lean</a> goes into further detail on some higher level topics such as calculus and topology. Lean also has a dedicated forum on <a href="https://leanprover.zulipchat.com">Zulip</a> where other users can help address any questions regarding the language. I used the forum a few times while working on this project, and the feedback I recieved was quite helpful.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Avigad_Massot" class="csl-entry" role="listitem">
+Avigad, Jeremy, and Patrick Massot. 2020. <span>“Mathematics in Lean.”</span> <em>Mathematics in Lean - Mathematics in Lean 0.1 Documentation</em>. <a href="https://leanprover-community.github.io/mathematics_in_lean/index.html#">https://leanprover-community.github.io/mathematics_in_lean/index.html#</a>.
+</div>
+<div id="ref-Avigad_de_Moura_Kong_Ullrich" class="csl-entry" role="listitem">
+Avigad, Jeremy, Leonardo de Moura, Soonho Kong, and Sebastian Ullrich. 2021. <span>“Theorem Proving in Lean 4.”</span> <em>Theorem Proving in Lean 4 - Theorem Proving in Lean 4</em>. <a href="https://lean-lang.org/theorem_proving_in_lean4/title_page.html">https://lean-lang.org/theorem_proving_in_lean4/title_page.html</a>.
+</div>
+<div id="ref-Christiansen" class="csl-entry" role="listitem">
+Christiansen, David Thrane. 2023. <span>“Functional Programming in Lean.”</span> <em>Functional Programming in Lean - Functional Programming in Lean</em>. <a href="https://lean-lang.org/functional_programming_in_lean/title.html">https://lean-lang.org/functional_programming_in_lean/title.html</a>.
+</div>
+<div id="ref-Velleman" class="csl-entry" role="listitem">
+Velleman, Daniel J. 2023. <em>How To Prove It With Lean</em>. <a href="https://djvelleman.github.io/HTPIwL/">https://djvelleman.github.io/HTPIwL/</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

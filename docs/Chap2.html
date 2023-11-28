@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -163,8 +182,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Chap5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Works Cited</span></span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Works Cited</span></a>
   </div>
 </li>
     </ul>
@@ -233,6 +252,20 @@ $$
 <p>The function itself is even split into two parts, with everything left of the colon being inputs, and everything to the right being the type of the output of the function itself. When we set up a theorem or example in lean, lean will not let us end the theorem until we have something of the type set out when defining the theorem. This is where we are able to use tactics and apply previous theorems to either convert the types of hypotheses we are assuming, or convert the type of the goal we are trying to prove. In my example theorem above, I applied our first hypothesis which acted as a function and changed the current type in the function. After applying the second hypothesis, I had essentially applied functions to convert our assumptions from their initial types into the goal we wanted to prove. Now that we have a proved theorem, we can apply this in proving other theorems just like any other built-in theorem. Since everything is a function, lean is easily able to use newly proved theorems to convert the types of hypotheses in a different theorem. Having some basic understanding of how the language works, we can begin to apply these concepts to more complex theorems and see the potential benefits of using lean.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Avigad_Massot" class="csl-entry" role="listitem">
+Avigad, Jeremy, and Patrick Massot. 2020. <span>“Mathematics in Lean.”</span> <em>Mathematics in Lean - Mathematics in Lean 0.1 Documentation</em>. <a href="https://leanprover-community.github.io/mathematics_in_lean/index.html#">https://leanprover-community.github.io/mathematics_in_lean/index.html#</a>.
+</div>
+<div id="ref-Avigad_de_Moura_Kong_Ullrich" class="csl-entry" role="listitem">
+Avigad, Jeremy, Leonardo de Moura, Soonho Kong, and Sebastian Ullrich. 2021. <span>“Theorem Proving in Lean 4.”</span> <em>Theorem Proving in Lean 4 - Theorem Proving in Lean 4</em>. <a href="https://lean-lang.org/theorem_proving_in_lean4/title_page.html">https://lean-lang.org/theorem_proving_in_lean4/title_page.html</a>.
+</div>
+<div id="ref-Christiansen" class="csl-entry" role="listitem">
+Christiansen, David Thrane. 2023. <span>“Functional Programming in Lean.”</span> <em>Functional Programming in Lean - Functional Programming in Lean</em>. <a href="https://lean-lang.org/functional_programming_in_lean/title.html">https://lean-lang.org/functional_programming_in_lean/title.html</a>.
+</div>
+<div id="ref-Velleman" class="csl-entry" role="listitem">
+Velleman, Daniel J. 2023. <em>How To Prove It With Lean</em>. <a href="https://djvelleman.github.io/HTPIwL/">https://djvelleman.github.io/HTPIwL/</a>.
+</div>
+</div>
 </section>
 </section>
 
