@@ -8,7 +8,7 @@
 
 <meta name="author" content="Logan Johnson">
 
-<title>Untitled Lean Thesis</title>
+<title>Automated Proof Verification with Lean</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Chap1.html" rel="next">
+<link href="./Chap2.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -90,9 +90,9 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Untitled Lean Thesis</a> 
+      <a href="./">Automated Proof Verification with Lean</a> 
         <div class="sidebar-tools-main">
-    <a href="./Untitled-Lean-Thesis.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="./Automated-Proof-Verification-with-Lean.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -111,38 +111,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Chap1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Real Analysis</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./Chap2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Functional Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Functional Programming</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Chap3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lean as a Theorem Prover</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Lean as a Theorem Prover</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Chap4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conclusions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conclusions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Chap5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Works Cited</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Chap6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Additional space</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Works Cited</span></span></a>
   </div>
 </li>
     </ul>
@@ -170,7 +158,7 @@ $$
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Untitled Lean Thesis</h1>
+<h1 class="title">Automated Proof Verification with Lean</h1>
 </div>
 
 
@@ -193,6 +181,8 @@ $$
 
 <section id="preface" class="level1 unnumbered">
 <h1 class="unnumbered">Preface</h1>
+<p>This thesis is intended to address the potential that the lean programming language has in aiding with the verification of mathematical proofs. Lean was developed as a functional programming language with the intent that it could be used for theorem proving. Development on the language started in 2013 and has now seen four different fully released versions. I would recommend that while reading this thesis, you download lean and put my code onto your own machine to see how it works. I have included a file on my github repository which contains code for each of the examples I put into the “Lean as a Theorem Prover” section of the thesis. The <code>Mathlib</code> package is not contained within this repository, so in order to see my examples for yourself, you will need to copy the examples into your own lean project. While I have done my best to show the language in a way that displays both its positive and negative aspects, the best way to get a grasp for that will be to try it out for yourself. Instructions on how to install a copy of lean can be found <a href="https://lean-lang.org/lean4/doc/quickstart.html">here</a>.</p>
+<p>If you find this language interesting and would like to learn more, the textbook <a href="https://djvelleman.github.io/HTPIwL/">How To Prove It With Lean</a> is a great starting point, and the textbook <a href="https://leanprover-community.github.io/mathematics_in_lean/index.html">Mathematics in Lean</a> goes into further detail on some higher level topics such as calculus and topology. Lean also has a dedicated forum on <a href="https://leanprover.zulipchat.com">Zulip</a> where other users can help address any questions regarding the language. I used the forum a few times while working on this project, and the feedback I recieved was quite helpful.</p>
 
 
 </section>
@@ -435,8 +425,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Chap1.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Real Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Chap2.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Functional Programming</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

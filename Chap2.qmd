@@ -1,3 +1,32 @@
 # Functional Programming
 
+## Basic Functional Programming
 
+A programming paradigm is a way of categorizing any given programming language based on its features and how it computes its code. Programming languages will typically fall into one main programming paradigm even if they are capable of using multiple, sometimes chosen because of the intended use of the language. Lean happens to be a functional programming language, meaning that every single thing in lean is a function. A deep understanding of functional programming is not necessary to utilise lean, but in order to take full advantage of the theorem proving capabilities it is able to provide, it helps to have some idea of how the language works. 
+
+When we write out mathematical proofs on paper, it is easy to think of each step we take or theorem we apply as part of a bridge between the hypotheses we are assuming to be true and the result we are trying to prove. Another way of thinking about each step in the proof process is as that of a function. In some proofs this is easier to picture than others, but when we take a step in a proof, we are essentially converting some fact that we know to be true into a different fact that we now know to be true. This process repeats over and over again until eventually we have converted something into our end goal. When the process of proving is thought of in this way it becomes more clear how lean is able to verify proofs. 
+
+One more important thing to mention before diving into an example is that lean also takes advantages of types. This means that every single thing in lean has a given type, which can lead to some issues if typing is not taken care of correctly. Just as some given number in mathematics could be a natural, integer, rational, irrational, or real, that same number in lean could be assigned to one of those specific types. While we typically think of a given natural number as also being an integer, rational, and real, lean tends to be strict and say that each natural number is only a natural number. This level of While this specificty is quite useful in maintaining logical consistency, it can make some processes a bit more difficult. I ran into a few issues during my time with the language when trying to make a recursively defined function that took a natural number to represent which term was being computed and returned a real number. Because lean was so strict with its typing, it did not allow me to define that recursive function the same way it would easily be defined if I was trying to output another natural number. While the theorems in lean are functions, the actual mathematical information is stored in types. Lean is then able to logically verify each step of a proof because of this strict typing. It will not allow for one type to be changed to another type without a valid function being applied.
+
+## Theorems as Functions
+
+Let's compare a simple lean function to a simple theorem.
+
+#### Simple Function
+```lean
+def adding (n1 : Nat) (n2 : Nat) : Nat := 
+  n1 + n2
+```
+
+#### Simple Theorem
+```lean
+example (x : α) (A : Set α) (B : Set α) (h1 : A ⊆ B) 
+    (h2 : x ∈ A) : x ∈ B := by
+  apply h1
+  apply h2
+  done
+```
+
+When using lean, you set up a theorem to be proved using similar notation to the notation used when defining a function. The hypotheses you are assuming to be true are put in parentheses, just like arguments to a function. In the simple function above I defined two arguments for the function, the two natural numbers `n1` and `n2`. The function then takes these naturals and adds them together to produce another natural number. Within each set of parentheses is information separated by a colon. The information on the left side defines something, and the right side tells us what type that previously defined thing has. Whereas in the simple function we are only defining things of type natural, in the theorem we see that lean will allow us to define objects of an arbitrary type `α` so long as we continue to use that arbitrary type throughout the rest of the theorem.
+
+The function itself is even split into two parts, with everything left of the colon being inputs, and everything to the right being the type of the output of the function itself. When we set up a theorem or example in lean, lean will not let us end the theorem until we have something of the type set out when defining the theorem. This is where we are able to use tactics and apply previous theorems to either convert the types of hypotheses we are assuming, or convert the type of the goal we are trying to prove. In my example theorem above, I applied our first hypothesis which acted as a function and changed the current type in the function. After applying the second hypothesis, I had essentially applied functions to convert our assumptions from their initial types into the goal we wanted to prove. Now that we have a proved theorem, we can apply this in proving other theorems just like any other built-in theorem. Since everything is a function, lean is easily able to use newly proved theorems to convert the types of hypotheses in a different theorem. Having some basic understanding of how the language works, we can begin to apply these concepts to more complex theorems and see the potential benefits of using lean.

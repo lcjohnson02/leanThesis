@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Untitled Lean Thesis - 3&nbsp; Lean as a Theorem Prover</title>
+<title>Automated Proof Verification with Lean - 2&nbsp; Lean as a Theorem Prover</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -111,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Chap3.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lean as a Theorem Prover</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Chap3.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Lean as a Theorem Prover</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -126,9 +126,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Untitled Lean Thesis</a> 
+      <a href="./">Automated Proof Verification with Lean</a> 
         <div class="sidebar-tools-main">
-    <a href="./Untitled-Lean-Thesis.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="./Automated-Proof-Verification-with-Lean.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -147,38 +147,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Chap1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Real Analysis</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./Chap2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Functional Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Functional Programming</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Chap3.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lean as a Theorem Prover</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Lean as a Theorem Prover</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Chap4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conclusions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conclusions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Chap5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Works Cited</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Chap6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Additional space</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Works Cited</span></span></a>
   </div>
 </li>
     </ul>
@@ -210,7 +198,7 @@ $$
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lean as a Theorem Prover</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Lean as a Theorem Prover</span></h1>
 </div>
 
 
@@ -227,7 +215,7 @@ $$
 
 <section id="differences-from-paragraph-style-proofs" class="level2">
 <h2 class="anchored" data-anchor-id="differences-from-paragraph-style-proofs">Differences From Paragraph Style Proofs</h2>
-<p>Despite the incredible power that lean could provide in the verification of mathematical proofs, this does pose some difficulties, namely the ease with which the aforementioned proofs can be written up. Typically, proofs are simply written up in a paragraph style, where the steps being taken and the theorems being applied are laid out in plain terms so that it can be easily understood by fellow mathematicians. There are often times when mathematicians will take things for granted or skip over steps that they think the reader will either already know to be fact or can easily reason out for themselves when writing out typical proofs. This lax approach for conveying information simply does not work when trying to communicate with technology, and a much more specific and methodical approach must be adopted in order to take advantage of the logical verification benefits. Thankfully, lean has a community working to create libraries of previously proven theorems that can be applied to speed up the writing and verification of future proofs. This thankfully means that all proofs do not need to be taken all the way back to basic axioms: Users can save time by avoiding proving adjacent theorems and instead focus only on the immediately relevant steps of their proof.</p>
+<p>Despite the incredible power that lean could provide in the verification of mathematical proofs, this does pose some difficulties, namely the ease with which the aforementioned proofs can be written up. Typically, proofs are simply written up in a paragraph style, where the steps being taken and the theorems being applied are laid out in plain terms so that it can be easily understood by fellow mathematicians. There are often times when mathematicians writing a typical proof will take things for granted or skip over steps that they think the reader will either already know to be fact or can easily reason out for themselves. This lax approach for conveying information simply does not work when trying to communicate with technology, and a much more specific and methodical approach must be adopted in order to take advantage of the logical verification benefits. Thankfully, lean has a community working to create libraries of previously proven theorems that can be applied to speed up the writing and verification of future proofs. This thankfully means that all proofs do not need to be taken all the way back to basic axioms: Users can save time by avoiding proving adjacent theorems and instead focus only on the immediately relevant steps of their proof.</p>
 <p>For each of the following proofs, I will first provide a typical “paragraph style” version of the proof, so the differences between the two can easily be compared.</p>
 </section>
 <section id="inequality-addition" class="level2">
@@ -289,7 +277,7 @@ $$
 </section>
 <section id="step-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-2">Step 2</h4>
-<p>Here I used hypothesis 3 to rewrite he c in our final goal as a d.&nbsp;This change is reflected in the infoview for this step.</p>
+<p>Here I used hypothesis 3 to rewrite the <code>c</code> in our final goal as a <code>d</code>. This change is reflected in the infoview for this step.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb5"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b c d : ℝ) (h1: a &lt; b) </span>
@@ -387,7 +375,7 @@ $$
 </section>
 <section id="step-6" class="level4">
 <h4 class="anchored" data-anchor-id="step-6">Step 6</h4>
-<p>Here I apply another theorem already in lean which takes the information <code>h3</code> and <code>h2</code> gives us and shows our current goal. Writing out <code>h4</code> like this is technically optional, as lean allows you to evaluate tactics within arguments for other tactics. Despite this, I personally find it more convenient and clear to write out extra hypotheses like this rather than just giving the body of the argument when necessary. Now that our new hypothesis has been proven, the infoview displays that we have no goals until we get back into our main theorem.</p>
+<p>Here I apply another theorem already in lean which takes the information <code>h3</code> and <code>h2</code> gives us and shows our current goal. Writing out <code>h4</code> like this is technically optional, as lean allows you to evaluate tactics within arguments for other tactics. Despite this, I personally find it more clear and human-readable to write out extra hypotheses like this rather than just giving the body of the argument when necessary. Now that our new hypothesis has been proven, the infoview displays that we have no goals until we get back into our main theorem.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb13"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b c d : ℝ) (h1: a &lt; b) </span>
@@ -478,7 +466,7 @@ a &amp; \le b.
 </section>
 <section id="step-1-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-1-1">Step 1</h4>
-<p>The <code>by_contra</code> tactic allows me to complete this problem using proof by contradiction. This tactic automatically creates a hypothesis containing the negation of the final goal, I named it <code>h2</code>, and changes the final goal to <code>False</code> meaning that it needs a contradiction.</p>
+<p>The <code>by_contra</code> tactic allows me to complete this problem using proof by contradiction. This tactic automatically creates a hypothesis containing the negation of the final goal named <code>h2</code>, and changes the final goal to <code>False</code> meaning that it needs us to show a contradiction.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb19"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -501,7 +489,7 @@ a &amp; \le b.
 </section>
 <section id="step-2-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-2-1">Step 2</h4>
-<p>Here I use the <code>push_neg</code> tactic similarly to the previous example to het a usable version of <code>h2</code> as well as pick a specific epsilon for which we will find a contradiction. This new epsilon will now show up in the infoview in the side and can be used in our problem.</p>
+<p>Here I use the <code>push_neg</code> tactic similarly to the previous example to get a usable version of <code>h2</code> as well as pick a specific epsilon for which we will find a contradiction. This new epsilon will now show up in the infoview on the side and can be used in our problem.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb21"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -527,7 +515,7 @@ a &amp; \le b.
 </section>
 <section id="step-3-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-3-1">Step 3</h4>
-<p>Here I lay out a hypothesis that we will later be able to apply to <code>h1</code>. Saying that epsilon was positive in the paragraph style proof fairly simpler, where we only really need to justify that <span class="math inline">\(a - b\)</span> is positive. In lean however, it requires a bit more effort and as such I put in its own hypothesis.</p>
+<p>Here I lay out a hypothesis that we will later be able to apply to <code>h1</code>. Claiming that epsilon was positive in the paragraph style proof is fairly simple to back up, where we only really need to justify that <span class="math inline">\(a - b\)</span> is positive. In lean however, it requires a bit more effort and as such I put in its own hypothesis.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb23"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -556,7 +544,7 @@ a &amp; \le b.
 </section>
 <section id="step-4-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-4-1">Step 4</h4>
-<p>Anyone reading a paragraph style proof such as ours would know that dividing a number by two does not impact whether the resulting number if positive or negative, but it still needs to be justified to lean. As such, I use the <code>half_pos</code> theorem with the <code>refine</code> tactic to change the goal to what is currently shown in the infoview. The <code>refine</code> tactic is useful because it tries to apply the arguments it is given to the final goal and change the goal to whatever is needed to meet the hypotheses in the arguments. In this case, <code>half_pos</code> claims that if you have some <span class="math inline">\(a &gt; 0.\)</span> then <span class="math inline">\(\frac{a}{2} &gt; 0.\)</span> The <code>refine</code> tactic then applies the result of that theorem and leaves us to show that <span class="math inline">\(a &gt; 0,\)</span> and lean is smart enough to figure out that we actually need to show <span class="math inline">\(a - b &gt; 0.\)</span></p>
+<p>Anyone reading a paragraph style proof such as ours would know that dividing a number by two does not impact whether the resulting number will be positive or negative, but this still needs to be justified in lean. As such, I use the <code>half_pos</code> theorem with the <code>refine</code> tactic to change the goal to what is currently shown in the infoview. The <code>refine</code> tactic is useful because it tries to apply the arguments it is given to the final goal and then changes the goal to whatever is needed to meet the hypotheses in the arguments. In this case, <code>half_pos</code> claims that if you have some <span class="math inline">\(a &gt; 0,\)</span> then <span class="math inline">\(\frac{a}{2} &gt; 0.\)</span> The <code>refine</code> tactic then applies the result of that theorem and leaves us to show that <span class="math inline">\(a &gt; 0,\)</span> and lean is smart enough to figure out that we actually need to show <span class="math inline">\(a - b &gt; 0.\)</span></p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb25"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -586,7 +574,7 @@ a &amp; \le b.
 </section>
 <section id="step-5-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-5-1">Step 5</h4>
-<p>The theorem I uses our second hypothesis to show that <span class="math inline">\(a - b &gt; 0,\)</span> which finishes the proof for our third hypothesis and the goal switches back to finding a contradiction.</p>
+<p>The <code>sub_pos</code> theorem says that <span class="math inline">\(0 &lt; a - b\)</span> if and only if <span class="math inline">\(b &lt; a,\)</span> so we only need to apply this with our second hypothesis to complete our current goal. This finishes off the proof of the third hypothesis and allows us to return to the main theorem.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb27"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -651,7 +639,7 @@ a &amp; \le b.
 </section>
 <section id="step-7-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-7-1">Step 7</h4>
-<p>I first apply <code>h1</code> which works has a similar effect as using the refine tactic earler: it applies to result of an if then statement and changes our goal to the if.</p>
+<p>I first apply <code>h1</code> which has a similar effect to using the refine tactic earler: it applies the result of an if-then statement and changes our goal to proving the if.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb31"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b : ℝ) (h1 : ∀ ε : ℝ, </span>
@@ -852,7 +840,7 @@ a &amp; \le b.
 </section>
 <section id="step-2-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-2-2">Step 2</h4>
-<p>Here I set up a hypothesis which will later be used to modify both sides of the if and only if statement into something that is equal to the other.</p>
+<p>Here I set up a hypothesis which will later be used to rewrite both sides of the if and only if statement into something that is equal to the other.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb44"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
@@ -877,7 +865,7 @@ a &amp; \le b.
 </section>
 <section id="step-3-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-3-2">Step 3</h4>
-<p>In this instance lean essentially already knows that our goal is true, and only need to be told to simplify using the definition of absolute value in order to verify this. While it is impressive that lean requires little guidance, seeing some of the other things lean is capable of leaves me a bit underwhelmed that lean requires any input here. Because lean is still being developed there may come a time where simple statements like this are automatically verified without any user input.</p>
+<p>In this instance lean essentially already knows that our goal is true, and only need to be told to simplify using the definition of absolute value in order to verify this. While it is impressive that lean requires little guidance, seeing some of the other things lean is capable of leaves me a bit underwhelmed that lean requires any input here. Because lean is constantly being developed there may come a time where simple statements like this are automatically verified without any user input.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb46"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
@@ -947,7 +935,7 @@ a &amp; \le b.
 </section>
 <section id="step-5-2" class="level4">
 <h4 class="anchored" data-anchor-id="step-5-2">Step 5</h4>
-<p>The <code>intro</code> tactic applied here allows me to assume the if part of an if then statement and automatically names it with the hypothesis name I give it.</p>
+<p>The <code>intro</code> tactic applied here allows me to assume the if part of an if-then statement and automatically names it with the hypothesis name I give it.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb50"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
@@ -1101,7 +1089,7 @@ a &amp; \le b.
 </section>
 <section id="step-9-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-9-1">Step 9</h4>
-<p>The simplification done over the last few steps has modified both <code>h1</code> and our goal to be the same thing. Since we are assuming <code>h1</code> to be true, this allows us to apply that hypothesis and complete the first direction of out goal. Upon completion of the first goal, lean automatically begins displaying the second goal, which can be solved quite similarly to the first.</p>
+<p>The simplification done over the last few steps has modified both <code>h1</code> and our goal to be the same thing. Since we are assuming <code>h1</code> to be true, this allows us to apply that hypothesis and complete the first direction of our goal. Upon completion of the first goal, lean automatically begins displaying the second goal, which can be solved quite similarly to the first. This is one place where some mathematicians may leave the other direction out of their paragraph style proof because it is essentially proved the same way as the previous direction. While this is easy and convenient, it never hurts to give a full explanation like what lean will require of us.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb58"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
@@ -1142,7 +1130,7 @@ a &amp; \le b.
 </section>
 <section id="step-10-1" class="level4">
 <h4 class="anchored" data-anchor-id="step-10-1">Step 10</h4>
-<p>With this direction I try to simplify in the same ways as before, but instead of using the leftwards direction of the euality in <code>h3</code>, I use the rightwards direction. This means that arrow does not need to be included and once again he have <code>h1</code> equal to our current goal.</p>
+<p>With this direction I try to simplify in the same ways as before, but instead of using the leftwards direction of the equality in <code>h3</code>, I use the rightwards direction. This means that arrow does not need to be included and once again he have <code>h1</code> equal to our current goal.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb60"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (s1 : ℕ → ℝ) : </span>
@@ -1224,8 +1212,8 @@ a &amp; \le b.
 <section id="convergence-of-a-specific-sequence" class="level2">
 <h2 class="anchored" data-anchor-id="convergence-of-a-specific-sequence">Convergence of a Specific Sequence</h2>
 <p>The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplification involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.</p>
-<p>I mentioned earlier that lean’s ability to simplify and make connections without user input was advancing quickly, and I encountered this when working on this problem. I originally had great difficulty getting lean to accept that <span class="math inline">\(2 = \frac{2(n + 1)}{n + 1},\)</span> which is something which can easily be explained in a typical proof, but lean has recently strengthened a tactic that renders much of my work here unnecessary. The <code>field_simp</code> tactic tries to simplify the current goal using what is known about all fields, and since we are working with the real numbers we are able to take advantage of this. I was not able to use this tactic since it was changed while I was working on the project, but seeing how quickly lean is progressing is very promising.</p>
-<p>Lean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this high level definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs.</p>
+<p>I mentioned earlier that lean’s ability to simplify and make connections without user input was advancing quickly, and I encountered this when working on this problem. I originally had great difficulty getting lean to accept that <span class="math inline">\(2 = \frac{2(n + 1)}{n + 1},\)</span> which is something which can easily be explained in a typical proof, but lean had difficulty accepting. Thankfully, lean has recently strengthened a tactic that renders much of my work here unnecessary. The <code>field_simp</code> tactic tries to simplify the current goal using what is known about all fields, and since we are working with the real numbers we are able to take advantage of this. I was not able to use this tactic since it was changed while I was working on the project, but seeing how quickly lean is progressing is very promising.</p>
+<p>Lean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this topological filter definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs.</p>
 <section id="paragraph-style-proof-3" class="level3">
 <h3 class="anchored" data-anchor-id="paragraph-style-proof-3">Paragraph Style Proof</h3>
 <div class="thm">
@@ -1589,12 +1577,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./Chap2.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Functional Programming</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Functional Programming</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Chap4.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conclusions</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conclusions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

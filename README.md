@@ -1,2 +1,2 @@
-# Untitled Lean Thesis
+# Automated Proof Verification with Lean
  These are the files for my honors thesis on lean, which can be read [here](https://lcjohnson02.github.io/leanThesis/). This work had been formatted and styled from the book *How To Prove It With Lean*, written by Daniel J. Velleman. *How To Prove It With Lean* contains short excerpts from *How To Prove It: A Structured Approach, 3rd Edition*, by Daniel J. Velleman and published by Cambridge University Press.

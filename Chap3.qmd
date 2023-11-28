@@ -2,7 +2,7 @@
 
 ## Differences From Paragraph Style Proofs
 
-Despite the incredible power that lean could provide in the verification of mathematical proofs, this does pose some difficulties, namely the ease with which the aforementioned proofs can be written up. Typically, proofs are simply written up in a paragraph style, where the steps being taken and the theorems being applied are laid out in plain terms so that it can be easily understood by fellow mathematicians. There are often times when mathematicians will take things for granted or skip over steps that they think the reader will either already know to be fact or can easily reason out for themselves when writing out typical proofs. This lax approach for conveying information simply does not work when trying to communicate with technology, and a much more specific and methodical approach must be adopted in order to take advantage of the logical verification benefits. Thankfully, lean has a community working to create libraries of previously proven theorems that can be applied to speed up the writing and verification of future proofs. This thankfully means that all proofs do not need to be taken all the way back to basic axioms: Users can save time by avoiding proving adjacent theorems and instead focus only on the immediately relevant steps of their proof. 
+Despite the incredible power that lean could provide in the verification of mathematical proofs, this does pose some difficulties, namely the ease with which the aforementioned proofs can be written up. Typically, proofs are simply written up in a paragraph style, where the steps being taken and the theorems being applied are laid out in plain terms so that it can be easily understood by fellow mathematicians. There are often times when mathematicians writing a typical proof will take things for granted or skip over steps that they think the reader will either already know to be fact or can easily reason out for themselves. This lax approach for conveying information simply does not work when trying to communicate with technology, and a much more specific and methodical approach must be adopted in order to take advantage of the logical verification benefits. Thankfully, lean has a community working to create libraries of previously proven theorems that can be applied to speed up the writing and verification of future proofs. This thankfully means that all proofs do not need to be taken all the way back to basic axioms: Users can save time by avoiding proving adjacent theorems and instead focus only on the immediately relevant steps of their proof. 
 
 For each of the following proofs, I will first provide a typical "paragraph style" version of the proof, so the differences between the two can easily be compared.
 
@@ -82,7 +82,7 @@ h3: c = d
 
 #### Step 2
 
-Here I used hypothesis 3 to rewrite he c in our final goal as a d. This change is reflected in the infoview for this step.
+Here I used hypothesis 3 to rewrite the `c` in our final goal as a `d`. This change is reflected in the infoview for this step.
 
 ::: {.inout}
 ::: {.inpt}
@@ -204,7 +204,7 @@ h3: c ≠ d
 
 #### Step 6
 
-Here I apply another theorem already in lean which takes the information `h3` and `h2` gives us and shows our current goal. Writing out `h4` like this is technically optional, as lean allows you to evaluate tactics within arguments for other tactics. Despite this, I personally find it more convenient and clear to write out extra hypotheses like this rather than just giving the body of the argument when necessary. Now that our new hypothesis has been proven, the infoview displays that we have no goals until we get back into our main theorem.
+Here I apply another theorem already in lean which takes the information `h3` and `h2` gives us and shows our current goal. Writing out `h4` like this is technically optional, as lean allows you to evaluate tactics within arguments for other tactics. Despite this, I personally find it more clear and human-readable to write out extra hypotheses like this rather than just giving the body of the argument when necessary. Now that our new hypothesis has been proven, the infoview displays that we have no goals until we get back into our main theorem.
 
 ::: {.inout}
 ::: {.inpt}
@@ -321,7 +321,7 @@ h1: ∀ (ε : ℝ), ε > 0 →
 
 #### Step 1
 
-The `by_contra` tactic allows me to complete this problem using proof by contradiction. This tactic automatically creates a hypothesis containing the negation of the final goal, I named it `h2`, and changes the final goal to `False` meaning that it needs a contradiction.
+The `by_contra` tactic allows me to complete this problem using proof by contradiction. This tactic automatically creates a hypothesis containing the negation of the final goal named `h2`, and changes the final goal to `False` meaning that it needs us to show a contradiction.
 
 ::: {.inout}
 ::: {.inpt}
@@ -350,7 +350,7 @@ h2: ¬a ≤ b
 
 #### Step 2
 
-Here I use the `push_neg` tactic similarly to the previous example to het a usable version of `h2` as well as pick a specific epsilon for which we will find a contradiction. This new epsilon will now show up in the infoview in the side and can be used in our problem.
+Here I use the `push_neg` tactic similarly to the previous example to get a usable version of `h2` as well as pick a specific epsilon for which we will find a contradiction. This new epsilon will now show up in the infoview on the side and can be used in our problem.
 
 ::: {.inout}
 ::: {.inpt}
@@ -383,7 +383,7 @@ h2: b < a
 
 #### Step 3
 
-Here I lay out a hypothesis that we will later be able to apply to `h1`. Saying that epsilon was positive in the paragraph style proof fairly simpler, where we only really need to justify that $a - b$ is positive. In lean however, it requires a bit more effort and as such I put in its own hypothesis.
+Here I lay out a hypothesis that we will later be able to apply to `h1`. Claiming that epsilon was positive in the paragraph style proof is fairly simple to back up, where we only really need to justify that $a - b$ is positive. In lean however, it requires a bit more effort and as such I put in its own hypothesis.
 
 ::: {.inout}
 ::: {.inpt}
@@ -419,7 +419,7 @@ h2: b < a
 
 #### Step 4
 
-Anyone reading a paragraph style proof such as ours would know that dividing a number by two does not impact whether the resulting number if positive or negative, but it still needs to be justified to lean. As such, I use the `half_pos` theorem with the `refine` tactic to change the goal to what is currently shown in the infoview. The `refine` tactic is useful because it tries to apply the arguments it is given to the final goal and change the goal to whatever is needed to meet the hypotheses in the arguments. In this case, `half_pos` claims that if you have some $a > 0.$ then $\frac{a}{2} > 0.$ The `refine` tactic then applies the result of that theorem and leaves us to show that $a > 0,$ and lean is smart enough to figure out that we actually need to show $a - b > 0.$
+Anyone reading a paragraph style proof such as ours would know that dividing a number by two does not impact whether the resulting number will be positive or negative, but this still needs to be justified in lean. As such, I use the `half_pos` theorem with the `refine` tactic to change the goal to what is currently shown in the infoview. The `refine` tactic is useful because it tries to apply the arguments it is given to the final goal and then changes the goal to whatever is needed to meet the hypotheses in the arguments. In this case, `half_pos` claims that if you have some $a > 0,$ then $\frac{a}{2} > 0.$ The `refine` tactic then applies the result of that theorem and leaves us to show that $a > 0,$ and lean is smart enough to figure out that we actually need to show $a - b > 0.$
 
 ::: {.inout}
 ::: {.inpt}
@@ -456,7 +456,7 @@ h2: b < a
 
 #### Step 5
 
-The theorem I uses our second hypothesis to show that $a - b > 0,$ which finishes the proof for our third hypothesis and the goal switches back to finding a contradiction.
+The `sub_pos` theorem says that $0 < a - b$ if and only if $b < a,$ so we only need to apply this with our second hypothesis to complete our current goal. This finishes off the proof of the third hypothesis and allows us to return to the main theorem.
 
 ::: {.inout}
 ::: {.inpt}
@@ -535,7 +535,7 @@ h3: ε > 0
 
 #### Step 7
 
-I first apply `h1` which works has a similar effect as using the refine tactic earler: it applies to result of an if then statement and changes our goal to the if. 
+I first apply `h1` which has a similar effect to using the refine tactic earler: it applies the result of an if-then statement and changes our goal to proving the if. 
 
 ::: {.inout}
 ::: {.inpt}
@@ -783,7 +783,7 @@ s1: ℕ → ℝ
 
 #### Step 2
 
-Here I set up a hypothesis which will later be used to modify both sides of the if and only if statement into something that is equal to the other.
+Here I set up a hypothesis which will later be used to rewrite both sides of the if and only if statement into something that is equal to the other.
 
 ::: {.inout}
 ::: {.inpt}
@@ -814,7 +814,7 @@ x: ℕ
 
 #### Step 3
 
-In this instance lean essentially already knows that our goal is true, and only need to be told to simplify using the definition of absolute value in order to verify this. While it is impressive that lean requires little guidance, seeing some of the other things lean is capable of leaves me a bit underwhelmed that lean requires any input here. Because lean is still being developed there may come a time where simple statements like this are automatically verified without any user input.
+In this instance lean essentially already knows that our goal is true, and only need to be told to simplify using the definition of absolute value in order to verify this. While it is impressive that lean requires little guidance, seeing some of the other things lean is capable of leaves me a bit underwhelmed that lean requires any input here. Because lean is constantly being developed there may come a time where simple statements like this are automatically verified without any user input.
 
 ::: {.inout}
 ::: {.inpt}
@@ -896,7 +896,7 @@ h3: ∀ (x : ℕ), |s1 x| =
 
 #### Step 5
 
-The `intro` tactic applied here allows me to assume the if part of an if then statement and automatically names it with the hypothesis name I give it.
+The `intro` tactic applied here allows me to assume the if part of an if-then statement and automatically names it with the hypothesis name I give it.
 
 ::: {.inout}
 ::: {.inpt}
@@ -1074,7 +1074,7 @@ h1: ∀ (ε : ℝ), 0 < ε →
 
 #### Step 9
 
-The simplification done over the last few steps has modified both `h1` and our goal to be the same thing. Since we are assuming `h1` to be true, this allows us to apply that hypothesis and complete the first direction of out goal. Upon completion of the first goal, lean automatically begins displaying the second goal, which can be solved quite similarly to the first.
+The simplification done over the last few steps has modified both `h1` and our goal to be the same thing. Since we are assuming `h1` to be true, this allows us to apply that hypothesis and complete the first direction of our goal. Upon completion of the first goal, lean automatically begins displaying the second goal, which can be solved quite similarly to the first. This is one place where some mathematicians may leave the other direction out of their paragraph style proof because it is essentially proved the same way as the previous direction. While this is easy and convenient, it never hurts to give a full explanation like what lean will require of us.
 
 ::: {.inout}
 ::: {.inpt}
@@ -1121,7 +1121,7 @@ h3: ∀ (x : ℕ), |s1 x| =
 
 #### Step 10
 
-With this direction I try to simplify in the same ways as before, but instead of using the leftwards direction of the euality in `h3`, I use the rightwards direction. This means that arrow does not need to be included and once again he have `h1` equal to our current goal.
+With this direction I try to simplify in the same ways as before, but instead of using the leftwards direction of the equality in `h3`, I use the rightwards direction. This means that arrow does not need to be included and once again he have `h1` equal to our current goal.
 
 ::: {.inout}
 ::: {.inpt}
@@ -1217,9 +1217,9 @@ No goals
 
 The following is an example of one situation where lean is somewhat lacking in comparison to a paragraph style proof. The paragraph style proof is able to quickly and easily prove the desired end goal, but lean has to work around a lot of the simple rewriting we would do in a normal proof. In this attempt to prove the convergence of a specific sequence, there were many issues with simplification involving arbitrary variables and the change from natural numbers to real numbers. These sorts of things can be easily explained in a paragraph style proof, but required significant work to prove in lean.
 
-I mentioned earlier that lean's ability to simplify and make connections without user input was advancing quickly, and I encountered this when working on this problem. I originally had great difficulty getting lean to accept that $2 = \frac{2(n + 1)}{n + 1},$ which is something which can easily be explained in a typical proof, but lean has recently strengthened a tactic that renders much of my work here unnecessary. The `field_simp` tactic tries to simplify the current goal using what is known about all fields, and since we are working with the real numbers we are able to take advantage of this. I was not able to use this tactic since it was changed while I was working on the project, but seeing how quickly lean is progressing is very promising.
+I mentioned earlier that lean's ability to simplify and make connections without user input was advancing quickly, and I encountered this when working on this problem. I originally had great difficulty getting lean to accept that $2 = \frac{2(n + 1)}{n + 1},$ which is something which can easily be explained in a typical proof, but lean had difficulty accepting. Thankfully, lean has recently strengthened a tactic that renders much of my work here unnecessary. The `field_simp` tactic tries to simplify the current goal using what is known about all fields, and since we are working with the real numbers we are able to take advantage of this. I was not able to use this tactic since it was changed while I was working on the project, but seeing how quickly lean is progressing is very promising.
 
-Lean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this high level definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs. 
+Lean internally defines limits using filters and topology rather than the real analysis approach of epsilons, so the approach I was taking here is not the optimal approach for theorems involving limits in lean. While this topological filter definition of a limit is very useful for the people who know how to use it, it makes lean more difficult to use for those who have not yet studied topology. Definitions such as this start to portray that lean is not really something meant to be used for lower level mathematics, but rather complex and high level proofs. 
 
 ### Paragraph Style Proof
 

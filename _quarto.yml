@@ -3,19 +3,17 @@ project:
   output-dir: docs
 
 book:
-  title: "Untitled Lean Thesis"
+  title: "Automated Proof Verification with Lean"
   author:
     - name: Logan Johnson
   page-footer: "Logan Johnson 2023"
   downloads: pdf
   chapters:
     - index.qmd
-    - Chap1.qmd
     - Chap2.qmd
     - Chap3.qmd
     - Chap4.qmd
     - Chap5.qmd
-    - Chap6.qmd
 
 format:
   html:
