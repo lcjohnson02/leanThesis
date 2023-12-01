@@ -5,7 +5,7 @@ def adding (n1 : Nat) (n2 : Nat) : Nat :=
   n1 + n2
 
 -- Simple Theorem
-example (x : α) (A : Set α) (B : Set α) (h1 : A ⊆ B)
+example (x : Real) (A B : Set Real) (h1 : A ⊆ B)
     (h2 : x ∈ A) : x ∈ B := by
   apply h1
   apply h2

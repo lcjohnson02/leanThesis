@@ -371,19 +371,16 @@ Director: Dr. Homer White, Ph.D.
 \end{textblock*}
 \begin{textblock*}{\textwidth}(\fromleft{1.5in},\fromtop{300pt})
 \raggedright
-Here is the text of your abstract. It goes on and on and on. It goes on like this for about
-150 words, so it should all fit on this page. Note that the Abstract comes before the title page and
-has no page number. The rest of this paragraph is a filler. It goes on like this for about 150
-words, so it should all fit on this page. Note that the Abstract comes before the title page and has
-no page number. It goes on like this for about 150 words, so it should all fit on this page. Note
-that the Abstract comes before the title page and has no page number. It goes on like this for
-about 150 words, so it should all fit on this page. Note that the Abstract comes before the title
-page and has no page number. It goes on like this for about 150 words, so it should all fit on this
-page. Note that the Abstract comes before the title page and has no page number. It goes on like
-this for about 150 words, so it should all fit on this page. Note that the Abstract comes before the
-title page and has no page number. It goes on like this for about 150 words, so it should all fit on
-this page. Note that the Abstract comes before the title page and has no page number. If your
-abstract is more than 250 words, consider shortening it.
+This thesis is meant to explore Lean Theorem Prover and address its potential in automating the 
+verification of mathematical proofs. I explore how lean functions as a functional programming 
+language and how this changes the proof process. This leads to Lean treating theorems as functions 
+that essentially convert known hypotheses into a new conclusion. Lean does this by taking advantage 
+of typed objects rather than following a traditional set theory approach. I then directly compare 
+the ways in which Lean proofs differ from traditional paragraph-style proofs and try to explain 
+the upsides and downsides of these differences. Lean does end up being useful for automated proof 
+verification, so long as one is able to learn the language and get used to the different style of 
+proof. It is still being developed and is only becoming more powerful with time, so its userbase will 
+likely only continue to grow.
 \end{textblock*}
 \pagebreak
 \thispagestyle{empty}
@@ -437,7 +434,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, sharp corners, boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}, enhanced, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt, sharp corners, frame hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -447,29 +444,49 @@ DATE:\underline{\hspace{2in}}
 }
 \bookmarksetup{startatroot}
 
+\hypertarget{acknowledgements}{%
+\chapter*{Acknowledgements}\label{acknowledgements}}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+
+\markboth{Acknowledgements}{Acknowledgements}
+
+\pagenumbering{arabic}
+
+Firstly, I need to mention that this entire thesis has been formatted
+using the book \emph{How To Prove It With Lean,} written by Daniel J.
+Velleman. His book was instrumental in learning to program in Lean and
+without this book all of my work would have been much more difficult. I
+would also like to give thanks to my thesis director Dr.~White for the
+time and effort that he has put into this project. He chose to work with
+me on this project over the summer and without his guidance I could not
+have completed something of this scale. Another round of thanks should
+be given to my second reader, \textbf{\emph{Name Here.}} Elaborate
+further. Finally, I would like to thank my parents for supporting me
+throughout all of my schooling and always taking care of me.
+
+\bookmarksetup{startatroot}
+
 \hypertarget{preface}{%
 \chapter*{Preface}\label{preface}}
 \addcontentsline{toc}{chapter}{Preface}
 
 \markboth{Preface}{Preface}
 
-\pagenumbering{arabic}
-
-This thesis is intended to address the potential that the lean
+This thesis is intended to address the potential that the Lean
 programming language has in aiding with the verification of mathematical
 proofs. Lean was developed as a functional programming language with the
 intent that it could be used for theorem proving. Development on the
 language started in 2013 and has now seen four different fully released
 versions. I would recommend that while reading this thesis, you download
-lean and put my code onto your own machine to see how it works. I have
+Lean and put my code onto your own machine to see how it works. I have
 included a file on my github repository which contains code for each of
 the examples I put into the ``Lean as a Theorem Prover'' section of the
 thesis. The \texttt{Mathlib} package is not contained within this
 repository, so in order to see my examples for yourself, you will need
-to copy the examples into your own lean project. While I have done my
+to copy the examples into your own Lean project. While I have done my
 best to show the language in a way that displays both its positive and
 negative aspects, the best way to get a grasp for that will be to try it
-out for yourself. Instructions on how to install a copy of lean can be
+out for yourself. Instructions on how to install a copy of Lean can be
 found \href{https://lean-lang.org/lean4/doc/quickstart.html}{here}.
 
 If you find this language interesting and would like to learn more, the
@@ -497,9 +514,9 @@ language based on its features and how it computes its code. Programming
 languages will typically fall into one main programming paradigm even if
 they are capable of using multiple, sometimes chosen because of the
 intended use of the language. Lean happens to be a functional
-programming language, meaning that every single thing in lean is a
+programming language, meaning that every single thing in Lean is a
 function. A deep understanding of functional programming is not
-necessary to utilise lean, but in order to take full advantage of the
+necessary to utilise Lean, but in order to take full advantage of the
 theorem proving capabilities it is able to provide, it helps to have
 some idea of how the language works.
 
@@ -513,25 +530,41 @@ converting some fact that we know to be true into a different fact that
 we now know to be true. This process repeats over and over again until
 eventually we have converted something into our end goal. When the
 process of proving is thought of in this way it becomes more clear how
-lean is able to verify proofs.
+Lean is able to verify proofs.
+
+We could think of Lean as a sort of kitchen in which we are cooking
+proofs out of raw hypotheses. When making a cake, we have to start with
+eggs, flour, milk, sugar, and a few other ingredients and take specific
+steps towards finishing the cake. We may first crack the eggs open
+before mixing them in alongside the flour and sugar. Later on we need to
+pour the batter into a pan and then bake that in the oven. Completing a
+proof is done in a somewhat similar way, as we mix hypotheses together
+to get closer to our goal and use different methods of proof such as
+contradiction or induction like an oven that cooks our hypotheses into a
+finished proof. Lean effectively provides a space where we can do that
+cooking while it verifies that we didn't skip any steps in the process
+along the way. Lean makes sure that we actually cracked the eggs before
+mixing them in just as is makes sure we are applying a theorem in
+exactly the way in which it needs to be applied.
 
 One more important thing to mention before diving into an example is
-that lean also takes advantages of types. This means that every single
-thing in lean has a given type, which can lead to some issues if typing
-is not taken care of correctly. Just as some given number in mathematics
-could be a natural, integer, rational, irrational, or real, that same
-number in lean could be assigned to one of those specific types. While
-we typically think of a given natural number as also being an integer,
-rational, and real, lean tends to be strict and say that each natural
-number is only a natural number. This level of While this specificty is
-quite useful in maintaining logical consistency, it can make some
-processes a bit more difficult. I ran into a few issues during my time
-with the language when trying to make a recursively defined function
-that took a natural number to represent which term was being computed
-and returned a real number. Because lean was so strict with its typing,
-it did not allow me to define that recursive function the same way it
-would easily be defined if I was trying to output another natural
-number. While the theorems in lean are functions, the actual
+that Lean also takes advantages of \emph{types.} We could say for
+example that \(5\) has type Nat, or natural. This means that every
+single thing in Lean has a given type, which can lead to some issues if
+typing is not taken care of correctly. Just as some given number in
+mathematics could be a natural, integer, rational, irrational, or real,
+that same number in Lean could be assigned to one of those specific
+types. While we typically think of a given natural number as also being
+an integer, rational, and real, Lean tends to be strict and say that
+each natural number is only a natural number. While this level of
+specificty is quite useful in maintaining logical consistency, it can
+make some processes a bit more difficult. I ran into a few issues during
+my time with the language when trying to make a recursively defined
+function that took a natural number to represent which term was being
+computed and returned a real number. Because Lean was so strict with its
+typing, it did not allow me to define that recursive function the same
+way it would easily be defined if I was trying to output another natural
+number. While the theorems in Lean are functions, the actual
 mathematical information is stored in types. Lean is then able to
 logically verify each step of a proof because of this strict typing. It
 will not allow for one type to be changed to another type without a
@@ -540,7 +573,7 @@ valid function being applied.
 \hypertarget{theorems-as-functions}{%
 \section{Theorems as Functions}\label{theorems-as-functions}}
 
-Let's compare a simple lean function to a simple theorem.
+Let's compare a simple Lean function to a simple theorem.
 
 \hypertarget{simple-function}{%
 \subsubsection{Simple Function}\label{simple-function}}
@@ -557,7 +590,7 @@ Let's compare a simple lean function to a simple theorem.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{example}\NormalTok{ (x : α) (A : Set α) (B : Set α) (h1 : A ⊆ B) }
+\KeywordTok{example}\NormalTok{ (x : α) (A B : Set α) (h1 : A ⊆ B) }
 \NormalTok{    (h2 : x ∈ A) : x ∈ B := }\KeywordTok{by}
   \KeywordTok{apply}\NormalTok{ h1}
   \KeywordTok{apply}\NormalTok{ h2}
@@ -565,7 +598,7 @@ Let's compare a simple lean function to a simple theorem.
 \end{Highlighting}
 \end{Shaded}
 
-When using lean, you set up a theorem to be proved using similar
+When using Lean, you set up a theorem to be proved using similar
 notation to the notation used when defining a function. The hypotheses
 you are assuming to be true are put in parentheses, just like arguments
 to a function. In the simple function above I defined two arguments for
@@ -575,14 +608,14 @@ another natural number. Within each set of parentheses is information
 separated by a colon. The information on the left side defines
 something, and the right side tells us what type that previously defined
 thing has. Whereas in the simple function we are only defining things of
-type natural, in the theorem we see that lean will allow us to define
+type natural, in the theorem we see that Lean will allow us to define
 objects of an arbitrary type \texttt{α} so long as we continue to use
 that arbitrary type throughout the rest of the theorem.
 
 The function itself is even split into two parts, with everything left
 of the colon being inputs, and everything to the right being the type of
 the output of the function itself. When we set up a theorem or example
-in lean, lean will not let us end the theorem until we have something of
+in Lean, Lean will not let us end the theorem until we have something of
 the type set out when defining the theorem. This is where we are able to
 use tactics and apply previous theorems to either convert the types of
 hypotheses we are assuming, or convert the type of the goal we are
@@ -592,11 +625,26 @@ function. After applying the second hypothesis, I had essentially
 applied functions to convert our assumptions from their initial types
 into the goal we wanted to prove. Now that we have a proved theorem, we
 can apply this in proving other theorems just like any other built-in
-theorem. Since everything is a function, lean is easily able to use
+theorem. Since everything is a function, Lean is easily able to use
 newly proved theorems to convert the types of hypotheses in a different
 theorem. Having some basic understanding of how the language works, we
 can begin to apply these concepts to more complex theorems and see the
-potential benefits of using lean.
+potential benefits of using Lean.
+
+\textbf{Note:} \texttt{h1} is not actually a proposition claiming that
+\(A \subseteq B,\) but rather an object of \emph{type} \(A \subseteq B\)
+that we call \texttt{h1}. It is also interesting to note that within
+Lean even the various types have their own types. The type
+\(A \subseteq B,\) for example, would have type proposition. Each of
+what we traditionally think of as hypotheses would be types in Lean with
+a type of proposition. Because Lean takes this approach with types, it
+means that Lean is not concerned with truth or falsehood. Lean does not
+necessarily prove that anything is true or false, but instead is focused
+on converting objects of one type into another. Because of the way in
+which Lean was set up, if some hypotheses can be converted from one
+given type to another we then have a true theorem. Despite this, the
+language itself is not actually claiming any given object or proposition
+is true or false.
 
 \bookmarksetup{startatroot}
 
@@ -607,7 +655,7 @@ potential benefits of using lean.
 \section{Differences From Paragraph Style
 Proofs}\label{differences-from-paragraph-style-proofs}}
 
-Despite the incredible power that lean could provide in the verification
+Despite the incredible power that Lean could provide in the verification
 of mathematical proofs, this does pose some difficulties, namely the
 ease with which the aforementioned proofs can be written up. Typically,
 proofs are simply written up in a paragraph style, where the steps being
@@ -619,12 +667,95 @@ already know to be fact or can easily reason out for themselves. This
 lax approach for conveying information simply does not work when trying
 to communicate with technology, and a much more specific and methodical
 approach must be adopted in order to take advantage of the logical
-verification benefits. Thankfully, lean has a community working to
+verification benefits. Thankfully, Lean has a community working to
 create libraries of previously proven theorems that can be applied to
 speed up the writing and verification of future proofs. This thankfully
 means that all proofs do not need to be taken all the way back to basic
 axioms: Users can save time by avoiding proving adjacent theorems and
 instead focus only on the immediately relevant steps of their proof.
+
+\hypertarget{term-mode-vs.-tactic-mode}{%
+\subsection{Term Mode vs.~Tactic Mode}\label{term-mode-vs.-tactic-mode}}
+
+Lean features two different ways to write out proofs: term mode and
+tactic mode. Writing out a proof in term mode is typically done with
+simpler proofs where you can simply chain together a couple theorems or
+hypotheses to acquire the desired goal, whereas in tactic mode Lean will
+break everything down into steps. All of the examples later in this
+thesis will be completed in tactic mode because this is where lean is
+really at its strongest. To go back to the earlier example of Lean being
+a sort of kitchen, we could think of writing a proof in term mode like
+making a salad. You have a few different ingredients that you lay on top
+of each other to make something new, but there isn't anything changing
+in the process of making the salad. There are also no tools being used
+when making the salad. You lay all of the individual pieces in a bowl
+and you may mix them around a bit, but there is nothing you cannot do by
+hand. The lettuce contributes to making the salad, but it still remains
+lettuce within the context of the final product. Lean being put into
+tactic mode however is something more akin to making a lasagna.
+Different tactics in Lean are like tools in a kitchen, where they can in
+one step convert something that you currently have into something
+different. When making our lasagna of a proof, we could employ tactic
+stove to our assumed raw beef hypothesis to produce cooked ground beef.
+We could also apply tactic oven to essentially cook the lasagna ahead of
+time and reduce our final goal to getting all of the ingredients in a
+pan. This ability to break each proof down step by step is much more
+similar to a paragraph style proof than writing in term mode is, and the
+tactics it gives us are where the power of lean really comes from.
+
+Here is a simple example of the difference between a term style proof
+and a tactic style proof. I won't go into too much detail since we will
+see the benefits of tactic mode later, but it will be useful to see
+other options that lean offers.
+
+\hypertarget{term-mode-proof}{%
+\subsubsection{Term Mode Proof}\label{term-mode-proof}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (x : α) (A B : Set α) (h1 : A ⊆ B) }
+\NormalTok{    (h2 : x ∈ A) : x ∈ B := h1 h2}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tactic-mode-proof}{%
+\subsubsection{Tactic Mode Proof}\label{tactic-mode-proof}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (x : α) (A B : Set α) (h1 : A ⊆ B) }
+\NormalTok{    (h2 : x ∈ A) : x ∈ B := }\KeywordTok{by}
+  \KeywordTok{apply}\NormalTok{ h1}
+  \KeywordTok{apply}\NormalTok{ h2}
+  \KeywordTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+Both examples are proving the same thing, but we can tell one is in
+tactic mode because of the \texttt{by} right after the \texttt{:=} which
+indicates the beginning of the justification for the proof.
+
+\hypertarget{by_cases}{%
+\subsection{\texorpdfstring{\texttt{by\_cases}}{by\_cases}}\label{by_cases}}
+
+One specific example of a tactic we can use when doing a proof in tactic
+mode is that of \texttt{by\_cases.} When completing a proof where some
+object could have multiple possible states, if we show that each
+individual state would lead to the desired conclusion, then we have
+completed the proof. If, for example, some variable \(x\) that we are
+working with is an integer, then we could say that there are two
+possible cases: either \(x\) is even or \(x\) is odd. We could then
+assume first that \(x\) is even and use that to complete our proof
+followed by assuming that \(x\) is odd and finishing the proof. If we
+say that \(x\) being even is a proposition \(P,\) and we call our end
+goal \(R,\) then when using proof by cases it is true that if
+\(P \Rightarrow R\) and \(~P \Rightarrow R,\) then \(R\) is true.
+
+This is one example of a rule of inference used in mathematical proofs.
+Different tactics in Lean correspond to different rules of inference and
+will modify our current goal or one of our hypotheses. We could again
+think of each of theses rules as tools in our mathematical kitchen which
+allow us to work our current knowledge into a fully formed proof.
 
 For each of the following proofs, I will first provide a typical
 ``paragraph style'' version of the proof, so the differences between the
@@ -643,7 +774,7 @@ If \(a < b\) and \(c \le d\), prove that \(a + c < b + d\)
 
 There are multiple ways to approach this in a paragraph style proof, so
 I will attempt to have this proof follow along the same lines as the
-lean proof.
+Lean proof.
 
 \begin{proof}
 
@@ -663,15 +794,15 @@ Thus by transitivity of inequalities, we could say \(a + c < b + d\)
 \hypertarget{seting-up-the-problem}{%
 \subsubsection{Seting up the problem}\label{seting-up-the-problem}}
 
-Here I put the theorem we want to prove into lean and we can see the
+Here I put the theorem we want to prove into Lean and we can see the
 resulting infoview panel. I name our two assumptions \texttt{h1} and
 \texttt{h2}, for hypotheses one and two. After a colon I then write out
 the thing I am trying to prove with those hypotheses and use \texttt{by}
-to put lean into tactic mode.
+to put Lean into tactic mode.
 
 It can now be seen that the infoview panel lists out both of our
 hypotheses as well as the goal we are working towards at the bottom.
-This panel will continue to change as more code is added to the lean
+This panel will continue to change as more code is added to the Lean
 file.
 
 \begin{inpt}
@@ -744,6 +875,8 @@ strengthened hypothesis reflected in \texttt{h3} in the infoview.
 
 Here I used hypothesis 3 to rewrite the \texttt{c} in our final goal as
 a \texttt{d}. This change is reflected in the infoview for this step.
+This is where we can see tactics changing our goal into something that
+will be easier for us to reach.
 
 \begin{inpt}
 
@@ -780,7 +913,7 @@ a \texttt{d}. This change is reflected in the infoview for this step.
 \subsubsection{Step 3}\label{step-3}}
 
 In this step I applied a theorem already in the Mathlib library for
-lean. The \texttt{add\_lt\_add\_right} theorem simply states that if you
+Lean. The \texttt{add\_lt\_add\_right} theorem simply states that if you
 have a \texttt{b\ \textless{}\ c}, then
 \texttt{b\ +\ a\ \textless{}\ c\ +\ a} which is exactly what we need to
 prove the goal for the first case. As the first case has been completed,
@@ -824,7 +957,9 @@ new \texttt{h3} and reset goal.
 
 In order to better work with our new hypothesis, I use a tactic which
 pushes the negation symbol further into the thing it is negating. This
-results in a hypothesis which can actually be applied later on.
+results in a hypothesis which can actually be applied later on. This is
+a perfect example of a tactic in lean modifying one of our hypotheses,
+rather than just the end goal.
 
 \begin{inpt}
 
@@ -864,7 +999,7 @@ results in a hypothesis which can actually be applied later on.
 
 Here I am laying out a new hypothesis which will be useful later in the
 proof. This hypothesis seems like an obvious conclusion based on
-hypotheses two and three, but we must still lay it out simply for lean
+hypotheses two and three, but we must still lay it out simply for Lean
 if we want to actually use it. The infoview panel always displays the
 most current goal, which is why it is displaying the goal for
 \texttt{h4} rather than the main goal.
@@ -906,9 +1041,9 @@ most current goal, which is why it is displaying the goal for
 \hypertarget{step-6}{%
 \subsubsection{Step 6}\label{step-6}}
 
-Here I apply another theorem already in lean which takes the information
+Here I apply another theorem already in Lean which takes the information
 \texttt{h3} and \texttt{h2} gives us and shows our current goal. Writing
-out \texttt{h4} like this is technically optional, as lean allows you to
+out \texttt{h4} like this is technically optional, as Lean allows you to
 evaluate tactics within arguments for other tactics. Despite this, I
 personally find it more clear and human-readable to write out extra
 hypotheses like this rather than just giving the body of the argument
@@ -1152,7 +1287,7 @@ our problem.
 Here I lay out a hypothesis that we will later be able to apply to
 \texttt{h1}. Claiming that epsilon was positive in the paragraph style
 proof is fairly simple to back up, where we only really need to justify
-that \(a - b\) is positive. In lean however, it requires a bit more
+that \(a - b\) is positive. In Lean however, it requires a bit more
 effort and as such I put in its own hypothesis.
 
 \begin{inpt}
@@ -1198,14 +1333,14 @@ effort and as such I put in its own hypothesis.
 Anyone reading a paragraph style proof such as ours would know that
 dividing a number by two does not impact whether the resulting number
 will be positive or negative, but this still needs to be justified in
-lean. As such, I use the \texttt{half\_pos} theorem with the
+Lean. As such, I use the \texttt{half\_pos} theorem with the
 \texttt{refine} tactic to change the goal to what is currently shown in
 the infoview. The \texttt{refine} tactic is useful because it tries to
 apply the arguments it is given to the final goal and then changes the
 goal to whatever is needed to meet the hypotheses in the arguments. In
 this case, \texttt{half\_pos} claims that if you have some \(a > 0,\)
 then \(\frac{a}{2} > 0.\) The \texttt{refine} tactic then applies the
-result of that theorem and leaves us to show that \(a > 0,\) and lean is
+result of that theorem and leaves us to show that \(a > 0,\) and Lean is
 smart enough to figure out that we actually need to show \(a - b > 0.\)
 
 \begin{inpt}
@@ -1299,7 +1434,7 @@ hypothesis and allows us to return to the main theorem.
 I now try to lay out the fourth and final hypothesis which will be used
 to find a contradiction with \texttt{h2}. This is another example of
 something being quickly explained in the paragraph style proof, but
-being more cumbersome to justify within lean.
+being more cumbersome to justify within Lean.
 
 \begin{inpt}
 
@@ -1502,10 +1637,10 @@ value in for the arbitrary epsilon. This will now allow us to use
 The \texttt{linarith} tactic is quite powerful as it will attempt to
 simplify the goal as well as hypotheses and then look for a
 contradiction amongst the known hypotheses. This is one example where
-lean actually requires quite a bit less explanation than a typical
+Lean actually requires quite a bit less explanation than a typical
 proof. The majority of my paragraph style proof above was spent
 simplifying and manipulating \texttt{h4} and \texttt{h2}, whereas in
-lean I need to specify none of that! It is quite impressive that lean is
+Lean I need to specify none of that! It is quite impressive that Lean is
 already able to do so much simplification and even find contradictions
 with no user input. This ability will likely only increase in power in
 the future, and some developments have even occured during the planning
@@ -1588,7 +1723,7 @@ So \(\left|x_{n} - 0\right| < \varepsilon\) and \(\lim(x_{n}) = 0.\)
 \subsubsection{Setting up the problem}\label{setting-up-the-problem-1}}
 
 Lean does not include a built in epsilon definition of a limit for
-sequences, so it is first necessary to define a limit in lean. I use the
+sequences, so it is first necessary to define a limit in Lean. I use the
 following definition:
 
 \begin{Shaded}
@@ -1630,7 +1765,7 @@ From this point we can set up our problem as normal.
 \hypertarget{step-1-2}{%
 \subsubsection{Step 1}\label{step-1-2}}
 
-The first thing I ask lean to do is rewrite the definition of
+The first thing I ask Lean to do is rewrite the definition of
 convergence that I defined earler when it is used in our goal. This will
 allow us to actually use and work towards the information in both
 instances of \texttt{ConvergesTo} in the problem. The fully expanded
@@ -1714,12 +1849,12 @@ the other.
 \hypertarget{step-3-2}{%
 \subsubsection{Step 3}\label{step-3-2}}
 
-In this instance lean essentially already knows that our goal is true,
+In this instance Lean essentially already knows that our goal is true,
 and only need to be told to simplify using the definition of absolute
-value in order to verify this. While it is impressive that lean requires
-little guidance, seeing some of the other things lean is capable of
-leaves me a bit underwhelmed that lean requires any input here. Because
-lean is constantly being developed there may come a time where simple
+value in order to verify this. While it is impressive that Lean requires
+little guidance, seeing some of the other things Lean is capable of
+leaves me a bit underwhelmed that Lean requires any input here. Because
+Lean is constantly being developed there may come a time where simple
 statements like this are automatically verified without any user input.
 
 \begin{inpt}
@@ -1870,7 +2005,7 @@ name I give it.
 \hypertarget{step-6-2}{%
 \subsubsection{Step 6}\label{step-6-2}}
 
-With the \texttt{simp} tactic, lean attempts to simplify the current
+With the \texttt{simp} tactic, Lean attempts to simplify the current
 goal. In this case, the \(\left|\left|s1_{n}\right| - 0\right|\) is
 simplified to \(\left|\left|s1_{n}\right|\right|.\) This is now where
 our \texttt{h3} hypothesis can be applied, but I will first attempt to
@@ -1981,10 +2116,10 @@ it will attempt to simplify hypotheses as well.
 \subsubsection{Step 8}\label{step-8-1}}
 
 We can now use the reverse direction of \texttt{h3} to simplify our goal
-further. Notice that the leftwards facing arrow is necessary, as lean
+further. Notice that the leftwards facing arrow is necessary, as Lean
 typically tries to apply equalities from left to right. This means if
-the left side of the equality does not match what lean is attempting to
-replace, lean will not be able to rewrite in other terms.
+the left side of the equality does not match what Lean is attempting to
+replace, Lean will not be able to rewrite in other terms.
 
 \begin{inpt}
 
@@ -2041,12 +2176,12 @@ The simplification done over the last few steps has modified both
 \texttt{h1} and our goal to be the same thing. Since we are assuming
 \texttt{h1} to be true, this allows us to apply that hypothesis and
 complete the first direction of our goal. Upon completion of the first
-goal, lean automatically begins displaying the second goal, which can be
+goal, Lean automatically begins displaying the second goal, which can be
 solved quite similarly to the first. This is one place where some
 mathematicians may leave the other direction out of their paragraph
 style proof because it is essentially proved the same way as the
 previous direction. While this is easy and convenient, it never hurts to
-give a full explanation like what lean will require of us.
+give a full explanation like what Lean will require of us.
 
 \begin{inpt}
 
@@ -2212,36 +2347,36 @@ completing the proof.
 \section{Convergence of a Specific
 Sequence}\label{convergence-of-a-specific-sequence}}
 
-The following is an example of one situation where lean is somewhat
+The following is an example of one situation where Lean is somewhat
 lacking in comparison to a paragraph style proof. The paragraph style
-proof is able to quickly and easily prove the desired end goal, but lean
+proof is able to quickly and easily prove the desired end goal, but Lean
 has to work around a lot of the simple rewriting we would do in a normal
 proof. In this attempt to prove the convergence of a specific sequence,
 there were many issues with simplification involving arbitrary variables
 and the change from natural numbers to real numbers. These sorts of
 things can be easily explained in a paragraph style proof, but required
-significant work to prove in lean.
+significant work to prove in Lean.
 
-I mentioned earlier that lean's ability to simplify and make connections
+I mentioned earlier that Lean's ability to simplify and make connections
 without user input was advancing quickly, and I encountered this when
-working on this problem. I originally had great difficulty getting lean
+working on this problem. I originally had great difficulty getting Lean
 to accept that \(2 = \frac{2(n + 1)}{n + 1},\) which is something which
-can easily be explained in a typical proof, but lean had difficulty
-accepting. Thankfully, lean has recently strengthened a tactic that
+can easily be explained in a typical proof, but Lean had difficulty
+accepting. Thankfully, Lean has recently strengthened a tactic that
 renders much of my work here unnecessary. The \texttt{field\_simp}
 tactic tries to simplify the current goal using what is known about all
 fields, and since we are working with the real numbers we are able to
 take advantage of this. I was not able to use this tactic since it was
-changed while I was working on the project, but seeing how quickly lean
+changed while I was working on the project, but seeing how quickly Lean
 is progressing is very promising.
 
 Lean internally defines limits using filters and topology rather than
 the real analysis approach of epsilons, so the approach I was taking
-here is not the optimal approach for theorems involving limits in lean.
+here is not the optimal approach for theorems involving limits in Lean.
 While this topological filter definition of a limit is very useful for
-the people who know how to use it, it makes lean more difficult to use
+the people who know how to use it, it makes Lean more difficult to use
 for those who have not yet studied topology. Definitions such as this
-start to portray that lean is not really something meant to be used for
+start to portray that Lean is not really something meant to be used for
 lower level mathematics, but rather complex and high level proofs.
 
 \hypertarget{paragraph-style-proof-3}{%
@@ -2269,6 +2404,10 @@ where \(k \in \mathbb{N}\) by the Archimedean Property. Then for
 
 \hypertarget{lean-proof-3}{%
 \subsection{Lean Proof}\label{lean-proof-3}}
+
+I will not attempt to walk through every step of this proof, but it
+suffices to show that Lean somewhat struggles when being used for
+lower-level proofs that it is not optimized for.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2387,7 +2526,7 @@ where \(k \in \mathbb{N}\) by the Archimedean Property. Then for
 \hypertarget{the-good}{%
 \section{The Good}\label{the-good}}
 
-It is easy to see the potential which lean has to aid in proof
+It is easy to see the potential which Lean has to aid in proof
 verification, and it only seems to be gaining more popularity. The
 language is continuously being expanded and made more powerful which
 should only help make it accessible to more people. The language already
@@ -2398,21 +2537,72 @@ get closer to the goal. While this is certainly not perfect, it is very
 helpful and I used it quite a few times during my time with the
 language. This tactic is most useful for peopple who are new to the
 language and are not sure how to apply the theorems that they need or
-what the theorems may be called in lean. This tactic worked best for me
+what the theorems may be called in Lean. This tactic worked best for me
 when completing simple steps that only required one more theorem already
-in lean's library to reach my current goal.
+in Lean's library to reach my current goal.
+
+Lean is like the kitchen we are cooking our proofs in and its libraries
+full of theorems are like cupboards and pantries containing all of the
+tools with which we are cooking. It would be impossible for us to have
+read through the entire library and as such we can occasionally rely on
+the \texttt{apply?} tactic for some assistance when necessary. Picture a
+situation in which we already have boiled potatoes and we are attempting
+to make mashed potatoes, but we are unsure of which tool we could use to
+do this or in which cupboard it would be located. In this scenario, we
+could consult the \texttt{apply?} tactic as if we were asking, ``What
+can I use to mash these potatoes up?'' to which Lean may reply, ``I
+would use the masher, found on the top shelf of that pantry over
+there.'' This tactic is not perfect and cannot make every connection,
+but if we are already quite close to a connection, \texttt{apply?} can
+typically get us the rest of the way there.
 
 Another helpful tactic is the \texttt{sorry} tactic. This is mainly
-helpful for those trying to initially prove theorems in lean rather than
-just convert previous proofs into lean. Applying \texttt{sorry} to a
+helpful for those trying to initially prove theorems in Lean rather than
+just convert previous proofs into Lean. Applying \texttt{sorry} to a
 goal automatically proves that goal within the context of the problem,
 allowing the user to continue on with the proof and return to that
 sub-proof later. Since using this tactic does not actually prove a
-theorem, lean will underline the main theorem and not allow it to be
+theorem, Lean will underline the main theorem and not allow it to be
 used in any other proofs. While this line of thinking could also be done
 with pen and paper, the ability to see if one approach would even be
 fruitful before taking the time to justify everything is convenient and
 could help with the process of creating proofs.
+
+\hypertarget{sorry-example}{%
+\subsubsection{\texorpdfstring{\texttt{sorry}
+Example}{sorry Example}}\label{sorry-example}}
+
+This is an example of sorry being used in a \texttt{by\_cases} proof.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  \KeywordTok{by\_cases}\NormalTok{ h3 : c = d}
+\NormalTok{  · }\CommentTok{{-}{-}Case 1 }
+    \ConstantTok{sorry}
+\NormalTok{  · }\CommentTok{{-}{-}Case 2}
+    \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h3}
+    \KeywordTok{have}\NormalTok{ h4 : c \textless{} d := }\KeywordTok{by}
+      \KeywordTok{apply}\NormalTok{ Ne.lt\_of\_le h3 h2}
+    \KeywordTok{exact} \KeywordTok{calc}
+\NormalTok{      a + c \textless{} b + c := add\_lt\_add\_right h1 c}
+\NormalTok{      \_ \textless{} b + d := add\_lt\_add\_left h4 b}
+  \KeywordTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+In this example, I may think that the first case where \(c = d\) is
+simple and decide that I would rather focus my efforts on the second
+case first. Using \texttt{sorry} here allows me to only focus on the
+second case of the proof and still see if my justification for it would
+be valid. This tactic is not really about modifying the proof to make it
+easier to solve, but rather about a way of organizing our proof. This
+tactic also does not fit well into our cooking metaphor, because there
+is no way to skip over some steps and still get a finished product. This
+tactic may be more akin to a magical elf which would automatically make
+the sauce for our pasta with the stipulation that we can't actually eat
+any of it and we have to leave a note saying that the elf helped us.
 
 Lean clearly laying out all known hypotheses and the current goal which
 would finish the proof could aid some users in figuring out how to prove
@@ -2424,15 +2614,15 @@ back to their definitions can greatly help figure out how each
 hypothesis could be applied.
 
 Even without these tactics which make the language more user friendly,
-lean still absolutely accomplishes its goal of automated proof
+Lean still absolutely accomplishes its goal of automated proof
 verification. The language is somewhat difficult to get the hang of even
 with newly empowered tactics and theorems, but the users who have a deep
 understanding of the language are truly able to harness its full
 potential and easily work with difficult concepts in a way that is at
 times more concise than writing it out on paper. If a proof is being
 verified by another human, it may be necessary to go into great detail
-so that they are able to understand each step being taken. With lean,
-however, once one knows how to work within lean's realm of understanding
+so that they are able to understand each step being taken. With Lean,
+however, once one knows how to work within Lean's realm of understanding
 they should be able to prove anything and not need to go into great
 detail. This difference in explanation would only grow larger when
 venturing into higher level mathematics and newly developing topics.
@@ -2446,49 +2636,49 @@ understand and use. Automation in mathematics is nice, but ultimately
 the human mathematicians are the ones making new developments and as
 such should be prioritized when writing proofs. Lean could, however,
 help with the writing of human readable proofs so long as the writer
-fully understands what the lean code is doing. Lean can ensure that no
+fully understands what the Lean code is doing. Lean can ensure that no
 logical jumps are being taken and if something is broken down into steps
-that lean can understand, someone could translate them into human
+that Lean can understand, someone could translate them into human
 readable steps that would be totally coherent and logical.
 
 \hypertarget{the-bad}{%
 \section{The Bad}\label{the-bad}}
 
-The biggest downside to using lean is getting used to the programming
+The biggest downside to using Lean is getting used to the programming
 language itself and trying to put mathematical steps into terms which
-lean is able to understand. If someone has not spent much time working
+Lean is able to understand. If someone has not spent much time working
 with programming languages it would certainly be difficult and time
 consuming to learn something entirely new, but even for those who have
-had experience programming the switch into lean could still prove
-difficult. While there are methods within lean which could aid new users
+had experience programming the switch into Lean could still prove
+difficult. While there are methods within Lean which could aid new users
 such as the aforementioned \texttt{apply?} tactic, it is still necessary
-to know how to manipulate hypotheses into a form that lean is able to
+to know how to manipulate hypotheses into a form that Lean is able to
 work with, which may not always be as easy as it would be on paper.
 
-Another downside to lean is the lack of options and potentially the
+Another downside to Lean is the lack of options and potentially the
 inability to immediately keep up with mathematics in the future.
-Development takes time, and in order to do proofs in lean more theorems
+Development takes time, and in order to do proofs in Lean more theorems
 and definitions need to be added and worked out. As new areas of
 mathematics are expanded, it will be necessary to do upkeep on the
 language and add in new features or even make large overhauls to the
 language depending on the significance of the work being done. As I
-mentioned earlier, lean completely abandons some methods of proof in
+mentioned earlier, Lean completely abandons some methods of proof in
 favor of more currently concise methods. This works fine for now, but if
 there was a newly developing area of mathematics which functioned better
-under a previously abandoned method, lean may need to be reworked and
+under a previously abandoned method, Lean may need to be reworked and
 theorems may need to be rewritten to fit better into the new system.
 
 Lean also abandons some parts of mathematics that are not neccesarily
-applicable outside of exercises. While working on a problem in lean I
+applicable outside of exercises. While working on a problem in Lean I
 reached out on the Zulip forum for help and one person who contributes
-to the programming of lean responded that what I was looking for wasn't
-included in lean's library because it was really only useful for
+to the programming of Lean responded that what I was looking for wasn't
+included in Lean's library because it was really only useful for
 exercises. Cutting things like this may be necessary to save time
 programming the language, but it is a shame that everything cannot be
 included. Some simpler aspects of mathematics are important steps in
 developing ones understanding of higher level topics and to expect
-anyone coming into lean to already know high level mathematics seems
-nearsighted. If lean is to become more widely accepted, those learning
+anyone coming into Lean to already know high level mathematics seems
+nearsighted. If Lean is to become more widely accepted, those learning
 mathematics need to be able to learn and use it as they grow in
 mathematical ability. This could help lead to mathematicians who are
 able to take full advantage of the language and even potentially
@@ -2497,16 +2687,16 @@ contribute to development of the language.
 \hypertarget{the-future}{%
 \section{The Future}\label{the-future}}
 
-With lean constantly expanding and growing more powerful, it could
+With Lean constantly expanding and growing more powerful, it could
 become easy enough to use that it becomes widely used. The scene of
 users is quite active right now, and its libraries are constantly being
 updated. Lean has even gained enough popularity that a few textbooks
-have been written about proving mathematical theorems using lean. These
+have been written about proving mathematical theorems using Lean. These
 vary in level of difficulty and some add their own libraries of theorems
-and definitions which are not included in the base installation of lean.
+and definitions which are not included in the base installation of Lean.
 The \emph{How To Prove It With Lean} textbook as well as
 \emph{Mathematics in Lean} were both quite instrumental in learning the
-language and gaining a full grasp of lean's capabilities. \emph{How To
+language and gaining a full grasp of Lean's capabilities. \emph{How To
 Prove It With Lean} makes some substantial changes to the base language
 which I believe makes it easier to use than the base language. Due to
 the added tactics and simpler syntax rules in this book, I would
@@ -2515,8 +2705,8 @@ have been understood, \emph{Mathematics in Lean} goes back to the base
 language and takes the language into higher level mathematics such as
 topology and calculus. These books do a great job of teaching the
 language and some of the math at the same time, making it possible for
-those starting to learn mathematical proofs to start in lean and learn
-to take full advantage of it. If lean continues to be supported and
+those starting to learn mathematical proofs to start in Lean and learn
+to take full advantage of it. If Lean continues to be supported and
 expanded we could certainly see a greater acceptance and implementation
 into mainstream mathematics.
 
