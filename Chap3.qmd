@@ -29,7 +29,7 @@ Both examples are proving the same thing, but we can tell one is in tactic mode 
 
 ### `by_cases`
 
-One specific example of a tactic we can use when doing a proof in tactic mode is that of `by_cases.` When completing a proof where some object could have multiple possible states, if we show that each individual state would lead to the desired conclusion, then we have completed the proof. If, for example, some variable $x$ that we are working with is an integer, then we could say that there are two possible cases: either $x$ is even or $x$ is odd. We could then assume first that $x$ is even and use that to complete our proof followed by assuming that $x$ is odd and finishing the proof. If we say that $x$ being even is a proposition $P,$ and we call our end goal $R,$ then when using proof by cases it is true that if $P \Rightarrow R$ and $~P \Rightarrow R,$ then $R$ is true.
+One specific example of a tactic we can use when doing a proof in tactic mode is that of `by_cases.` When completing a proof where some object could have multiple possible states, if we show that each individual state would lead to the desired conclusion, then we have completed the proof. If, for example, some variable $x$ that we are working with is an integer, then we could say that there are two possible cases: either $x$ is even or $x$ is odd. We could then assume first that $x$ is even and use that to complete our proof followed by assuming that $x$ is odd and finishing the proof. If we say that $x$ being even is a proposition $P,$ and we call our end goal $R,$ then when using proof by cases it is true that if $P \Rightarrow R$ and $\neg P \Rightarrow R,$ then $R$ is true.
 
 This is one example of a rule of inference used in mathematical proofs. Different tactics in Lean correspond to different rules of inference and will modify our current goal or one of our hypotheses. We could again think of each of theses rules as tools in our mathematical kitchen which allow us to work our current knowledge into a fully formed proof. 
 
@@ -412,7 +412,7 @@ h2: b < a
 
 #### Step 3
 
-Here I lay out a hypothesis that we will later be able to apply to `h1`. Claiming that epsilon was positive in the paragraph style proof is fairly simple to back up, where we only really need to justify that $a - b$ is positive. In Lean however, it requires a bit more effort and as such I put in its own hypothesis.
+Here I lay out a hypothesis that we will later be able to apply to `h1`. Claiming that epsilon was positive in the paragraph style proof is fairly simple to back up, where we only really need to justify that $a - b$ is positive. In Lean however, it requires a bit more effort and as such I put it in its own hypothesis.
 
 ::: {.inout}
 ::: {.inpt}

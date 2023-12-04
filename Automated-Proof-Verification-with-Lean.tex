@@ -434,7 +434,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, frame hidden, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, breakable, interior hidden, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, breakable, enhanced, sharp corners, boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -749,7 +749,7 @@ assume first that \(x\) is even and use that to complete our proof
 followed by assuming that \(x\) is odd and finishing the proof. If we
 say that \(x\) being even is a proposition \(P,\) and we call our end
 goal \(R,\) then when using proof by cases it is true that if
-\(P \Rightarrow R\) and \(~P \Rightarrow R,\) then \(R\) is true.
+\(P \Rightarrow R\) and \(\neg P \Rightarrow R,\) then \(R\) is true.
 
 This is one example of a rule of inference used in mathematical proofs.
 Different tactics in Lean correspond to different rules of inference and
@@ -1288,7 +1288,7 @@ Here I lay out a hypothesis that we will later be able to apply to
 \texttt{h1}. Claiming that epsilon was positive in the paragraph style
 proof is fairly simple to back up, where we only really need to justify
 that \(a - b\) is positive. In Lean however, it requires a bit more
-effort and as such I put in its own hypothesis.
+effort and as such I put it in its own hypothesis.
 
 \begin{inpt}
 
@@ -2535,7 +2535,7 @@ has some features that could be very helpful to new users, such as the
 hypotheses and suggests tactics and theorems which could be applied to
 get closer to the goal. While this is certainly not perfect, it is very
 helpful and I used it quite a few times during my time with the
-language. This tactic is most useful for peopple who are new to the
+language. This tactic is most useful for people who are new to the
 language and are not sure how to apply the theorems that they need or
 what the theorems may be called in Lean. This tactic worked best for me
 when completing simple steps that only required one more theorem already
