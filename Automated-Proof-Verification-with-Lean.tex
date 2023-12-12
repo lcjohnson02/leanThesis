@@ -434,7 +434,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, breakable, enhanced, sharp corners, boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, enhanced, sharp corners, boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -460,9 +460,15 @@ would also like to give thanks to my thesis director Dr.~White for the
 time and effort that he has put into this project. He chose to work with
 me on this project over the summer and without his guidance I could not
 have completed something of this scale. Another round of thanks should
-be given to my second reader, \textbf{\emph{Name Here.}} Elaborate
-further. Finally, I would like to thank my parents for supporting me
-throughout all of my schooling and always taking care of me.
+be given to my second reader, Zachary May. Zachary May is a senior
+software engineer with Upbound Group, specializing in web technologies
+and functional programming. He received his M.S. in computer science
+from the University of Kentucky in 2016, with a focus on software
+engineering, programming language theory, and natural language
+processing. His feedback has been quite beneficial in getting this up to
+the level of quality it is at now. Finally, I would like to thank my
+parents for supporting me throughout all of my schooling and always
+taking care of me.
 
 \bookmarksetup{startatroot}
 
@@ -733,7 +739,10 @@ other options that lean offers.
 
 Both examples are proving the same thing, but we can tell one is in
 tactic mode because of the \texttt{by} right after the \texttt{:=} which
-indicates the beginning of the justification for the proof.
+indicates the beginning of the justification for the proof. This state
+will now allow us to use tactics which modify our goals into something
+easier to reach, or modify our hypotheses into something more directly
+useful.
 
 \hypertarget{by_cases}{%
 \subsection{\texorpdfstring{\texttt{by\_cases}}{by\_cases}}\label{by_cases}}
@@ -803,7 +812,9 @@ to put Lean into tactic mode.
 It can now be seen that the infoview panel lists out both of our
 hypotheses as well as the goal we are working towards at the bottom.
 This panel will continue to change as more code is added to the Lean
-file.
+file. One other thing to note is that the \texttt{done} at the end of
+the proof is underlined in red, indicating that the proof of this
+theorem is not entirely complete.
 
 \begin{inpt}
 
@@ -918,7 +929,9 @@ have a \texttt{b\ \textless{}\ c}, then
 \texttt{b\ +\ a\ \textless{}\ c\ +\ a} which is exactly what we need to
 prove the goal for the first case. As the first case has been completed,
 the infoview then switches to the second case which is reflected in the
-new \texttt{h3} and reset goal.
+new \texttt{h3} and reset goal. Because we defined \texttt{h3} earlier
+as the hypothesis realted to the cases, Lean automatically assigns the
+new case to \texttt{h3} as well.
 
 \begin{inpt}
 
@@ -1000,9 +1013,12 @@ rather than just the end goal.
 Here I am laying out a new hypothesis which will be useful later in the
 proof. This hypothesis seems like an obvious conclusion based on
 hypotheses two and three, but we must still lay it out simply for Lean
-if we want to actually use it. The infoview panel always displays the
-most current goal, which is why it is displaying the goal for
-\texttt{h4} rather than the main goal.
+if we want to actually use it. Reaching this hypothesis is necessary in
+order to use the transitivity of inequalities like we do in the
+paragraph style proof, and proving it in this way is sort of like
+proving a lemma within a paragraph style proof. The infoview panel
+always displays the most current goal, which is why it is displaying the
+goal for \texttt{h4} rather than the main goal.
 
 \begin{inpt}
 
@@ -1047,9 +1063,55 @@ out \texttt{h4} like this is technically optional, as Lean allows you to
 evaluate tactics within arguments for other tactics. Despite this, I
 personally find it more clear and human-readable to write out extra
 hypotheses like this rather than just giving the body of the argument
-when necessary. Now that our new hypothesis has been proven, the
-infoview displays that we have no goals until we get back into our main
-theorem.
+when necessary. Below, I display two different infoviews that are able
+to be seen when at this step. What information Lean gives in the
+infoview depends on where the cursor is placed in the proof, with Lean
+only taking into account tactics used up until wherever the cursor is
+placed. Note that I will be using \texttt{\textbar{}} to represent on
+which line the cursor is located to get the infoview state shown.
+
+When the cursor is placed within the lemma, it will display information
+about the lemma. Since we have completed the proof of this lemma, the
+infoview will say we have no more goals. Even though the infoview says
+here that we have no more goals, we can know that the larger proof is
+not yet completed because of the underlined \texttt{done} at the end. If
+we move our cursor down a line and back into the main proof the infoview
+will again display information on the main proof.
+
+\hypertarget{lemma-state}{%
+\paragraph{Lemma State}\label{lemma-state}}
+
+\begin{inpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{example}\NormalTok{ (a b c d : ℝ) (h1: a \textless{} b) }
+\NormalTok{    (h2 : c ≤ d) : a + c \textless{} b + d := }\KeywordTok{by}
+  \KeywordTok{by\_cases}\NormalTok{ h3 : c = d}
+  \KeywordTok{rw}\NormalTok{ [h3]}
+  \KeywordTok{apply}\NormalTok{ add\_lt\_add\_right h1}
+  \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h3}
+  \KeywordTok{have}\NormalTok{ h4 : c \textless{} d := }\KeywordTok{by}
+    \KeywordTok{apply}\NormalTok{ Ne.lt\_of\_le h3 h2 |}
+
+  \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
+\end{Highlighting}
+\end{Shaded}
+
+\end{inpt}
+
+\begin{outpt}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\SpecialStringTok{No}\InformationTok{ }\SpecialStringTok{goals}
+\end{Highlighting}
+\end{Shaded}
+
+\end{outpt}
+
+\hypertarget{main-proof-state}{%
+\paragraph{Main Proof State}\label{main-proof-state}}
 
 \begin{inpt}
 
@@ -1063,7 +1125,7 @@ theorem.
   \KeywordTok{push\_neg} \KeywordTok{at}\NormalTok{ h3}
   \KeywordTok{have}\NormalTok{ h4 : c \textless{} d := }\KeywordTok{by}
     \KeywordTok{apply}\NormalTok{ Ne.lt\_of\_le h3 h2}
-
+\NormalTok{  |}
   \SpecialCharTok{**}\WarningTok{done}\SpecialCharTok{::}
 \end{Highlighting}
 \end{Shaded}
@@ -1074,7 +1136,12 @@ theorem.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\SpecialStringTok{No}\InformationTok{ }\SpecialStringTok{goals}
+\InformationTok{abcd}\NormalTok{: ℝ}
+\InformationTok{h1}\NormalTok{: a \textless{} b}
+\InformationTok{h2}\NormalTok{: c ≤ d}
+\InformationTok{h3}\NormalTok{: c ≠ d}
+\InformationTok{h4}\NormalTok{: c \textless{} d}
+\NormalTok{⊢ a + c \textless{} b + d}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1698,18 +1765,18 @@ Prove that \(\lim(x_{n}) = 0\) if and only if
 \begin{proof}
 
 \((\Longrightarrow)\) First assume that \(\lim(x_{n}) = 0.\) Then for
-all \(\varepsilon > 0\) we know there exists a \(k_{n} \in \mathbb{N}\)
-such that for all nautral numbers \(n > k_{n},\)
-\(\left|x_{n} - 0\right| < \varepsilon.\) Thus
+all \(\varepsilon > 0\) we know there exists a
+\(k_{\varepsilon} \in \mathbb{N}\) such that for all natural numbers
+\(n > k_{\varepsilon},\) \(\left|x_{n} - 0\right| < \varepsilon.\) Thus
 \(\left|x_{n}\right| < \varepsilon\) and also
 \(\left|\left|x_{n}\right| - 0 \right| < \varepsilon,\) so
 \(\lim(\left|x_{n}\right|) = 0.\)
 
 \((\Longleftarrow)\) Now assume that \(\lim(\left|x_{n}\right|) = 0.\)
 Then for all \(\varepsilon > 0\) we know there exists a
-\(k_{n} \in \mathbb{N}\) such that for all nautral numbers
-\(n > k_{n},\) \(\left|\left|x_{n}\right| - 0\right| < \varepsilon.\)
-But
+\(k_{\varepsilon} \in \mathbb{N}\) such that for all nautral numbers
+\(n > k_{\varepsilon},\)
+\(\left|\left|x_{n}\right| - 0\right| < \varepsilon.\) But
 \(\left|\left|x_{n}\right| - 0\right| = \left|\left|x_{n}\right|\right| = \left|x_{n}\right| = \left|x_{n} - 0\right|.\)
 So \(\left|x_{n} - 0\right| < \varepsilon\) and \(\lim(x_{n}) = 0.\)
 \excl{~□}\qedhere
