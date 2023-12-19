@@ -140,7 +140,7 @@ h3: c = d
 
 #### Step 3
 
-In this step I applied a theorem already in the Mathlib library for Lean. The `add_lt_add_right` theorem simply states that if you have a `b < c`, then `b + a < c + a` which is exactly what we need to prove the goal for the first case. As the first case has been completed, the infoview then switches to the second case which is reflected in the new `h3` and reset goal. Because we defined `h3` earlier as the hypothesis realted to the cases, Lean automatically assigns the new case to `h3` as well.
+In this step I applied a theorem already in the Mathlib library for Lean. The `add_lt_add_right` theorem simply states that if you have a `b < c`, then `b + a < c + a` which is exactly what we need to prove the goal for the first case. As the first case has been completed, the infoview then switches to the second case which is reflected in the new `h3` and reset goal. Because we defined `h3` earlier as the hypothesis related to the cases, Lean automatically assigns the new case to `h3` as well.
 
 ::: {.inout}
 ::: {.inpt}

@@ -343,7 +343,7 @@ $$
 </section>
 <section id="step-3" class="level4">
 <h4 class="anchored" data-anchor-id="step-3">Step 3</h4>
-<p>In this step I applied a theorem already in the Mathlib library for Lean. The <code>add_lt_add_right</code> theorem simply states that if you have a <code>b &lt; c</code>, then <code>b + a &lt; c + a</code> which is exactly what we need to prove the goal for the first case. As the first case has been completed, the infoview then switches to the second case which is reflected in the new <code>h3</code> and reset goal. Because we defined <code>h3</code> earlier as the hypothesis realted to the cases, Lean automatically assigns the new case to <code>h3</code> as well.</p>
+<p>In this step I applied a theorem already in the Mathlib library for Lean. The <code>add_lt_add_right</code> theorem simply states that if you have a <code>b &lt; c</code>, then <code>b + a &lt; c + a</code> which is exactly what we need to prove the goal for the first case. As the first case has been completed, the infoview then switches to the second case which is reflected in the new <code>h3</code> and reset goal. Because we defined <code>h3</code> earlier as the hypothesis related to the cases, Lean automatically assigns the new case to <code>h3</code> as well.</p>
 <div class="inout">
 <div class="inpt">
 <div class="sourceCode" id="cb9"><pre class="sourceCode lean code-with-copy"><code class="sourceCode lean"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">example</span> (a b c d : ℝ) (h1: a &lt; b) </span>
