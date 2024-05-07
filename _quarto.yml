@@ -28,6 +28,10 @@ format:
     nocite : |
       @*
   pdf:
+    fontsize: 12pt
+    linestretch: "2"
+    geometry: 
+      margin=1in
     documentclass: scrreprt
     toc-depth: 2
     number-depth: 0

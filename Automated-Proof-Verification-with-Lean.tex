@@ -4,10 +4,12 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
+  12pt,
   letterpaper,
 ]{scrreprt}
 
 \usepackage{amsmath,amssymb}
+\usepackage{setspace}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -40,6 +42,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{0}
 % Make \paragraph and \subparagraph free-standing
@@ -241,6 +244,22 @@
 
 \pagenumbering{roman}  %So front matter uses roman numerals.  Switch back to arabic at beginning of preface.
 \publishers{\longcopyrightnotice}
+
+\raggedright
+
+\usepackage{scrlayer-scrpage}
+\lefoot[]{}
+\cefoot[\pagemark]{}
+\refoot[]{}
+\lofoot[]{}
+\cofoot[\pagemark]{\pagemark}
+\rofoot[]{}
+\lehead[]{}
+\cehead[]{}
+\rehead[]{}
+\lohead[]{}
+\cohead[]{\leftmark}
+\rohead[]{}
 \makeatletter
 \makeatother
 \makeatletter
@@ -385,13 +404,22 @@ likely only continue to grow.
 \pagebreak
 \thispagestyle{empty}
 \begin{textblock*}{\paperwidth}(\fromleft{2in},\fromtop{144pt})
-APPROVED BY THE DIRECTOR OF HONORS THESES:
+APPROVED BY THE DIRECTOR OF HONORS THESIS:
 \end{textblock*}
 \begin{textblock*}{\paperwidth}(\fromleft{3in},\fromtop{192pt})
 \underline{\hspace{4.5in}}
 \end{textblock*}
 \begin{textblock*}{\paperwidth}(\fromleft{3in},\fromtop{216pt})
 Dr. Homer White, Department of Mathematics
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{2in},\fromtop{280pt})
+APPROVED BY SECOND READER OF HONORS THESIS:
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{3in},\fromtop{328pt})
+\underline{\hspace{4.5in}}
+\end{textblock*}
+\begin{textblock*}{\paperwidth}(\fromleft{3in},\fromtop{352pt})
+Zachary May
 \end{textblock*}
 \begin{textblock*}{\paperwidth}(\fromleft{2in},\fromtop{396pt})
 APPROVED BY THE HONORS PROGRAM:
@@ -434,7 +462,7 @@ DATE:\underline{\hspace{2in}}
 \let\oldgreater\textgreater
 \renewcommand{\textgreater}{\null\oldgreater}   % To prevent => changing to double arrow
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, frame hidden, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, sharp corners, breakable, interior hidden, frame hidden, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -442,6 +470,7 @@ DATE:\underline{\hspace{2in}}
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
+\setstretch{2}
 \bookmarksetup{startatroot}
 
 \hypertarget{acknowledgements}{%

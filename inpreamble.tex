@@ -98,3 +98,19 @@
 
 \pagenumbering{roman}  %So front matter uses roman numerals.  Switch back to arabic at beginning of preface.
 \publishers{\longcopyrightnotice}
+
+\raggedright
+
+\usepackage{scrlayer-scrpage}
+\lefoot[]{}
+\cefoot[\pagemark]{}
+\refoot[]{}
+\lofoot[]{}
+\cofoot[\pagemark]{\pagemark}
+\rofoot[]{}
+\lehead[]{}
+\cehead[]{}
+\rehead[]{}
+\lohead[]{}
+\cohead[]{\leftmark}
+\rohead[]{}
